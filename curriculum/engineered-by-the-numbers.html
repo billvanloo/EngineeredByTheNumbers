@@ -131,6 +131,10 @@ ol.refs li{margin:.45rem 0; overflow-wrap:anywhere}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-size:.95rem}
 @media print{body{background:none} nav.rail,.sim .controls,.btns{display:none}}
+/* concept animations: the dashed outline and tag mark them for review. To accept one, remove "review" from its class list and delete its tag. */
+.sim.review{outline:3px dashed var(--blue); outline-offset:5px}
+.rtag{display:inline-block; margin-left:.5rem; padding:.05rem .45rem; font-family:var(--sans); font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--paper); background:var(--blue); vertical-align:middle}
+@media print{.sim.review{outline:none} .rtag{display:none}}
 </style>
 </head>
 <body>
@@ -141,6 +145,7 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <li><a href="#order">Why the order changed</a></li>
 <li><a href="#glance">Unit at a glance</a></li>
 <li><a href="#tools">Tools and simulations</a></li>
+<li><a href="#anims">Concept animations</a></li>
 <li><a href="#m0"><span class="num">0</span>Toolkit</a></li>
 <li><a href="#m1"><span class="num">1</span>Speed reducer</a></li>
 <li><a href="#m2"><span class="num">2</span>Screw jack</a></li>
@@ -305,6 +310,25 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </table>
 </div>
 
+<h3 id="anims">Concept animations <span class="rtag">New · for review</span></h3>
+<p>Nine short animations sit where each idea is first taught. Most are zoomed in on a few parts of a mechanism, and they are there to show an idea, not to calculate, so they have no predict-first box. Each one starts paused when the device asks for reduced motion. They are outlined with a blue dashed line until they are reviewed.</p>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Animation</th><th>Module</th><th>What it shows</th></tr></thead>
+<tbody>
+<tr><td><a href="#animTorque">Torque on a wrench</a></td><td>0</td><td>Only the perpendicular lever arm counts: τ = r⊥F</td></tr>
+<tr><td><a href="#animMesh">Zoom on two teeth</a></td><td>1</td><td>Pitch circles, the line of action at the pressure angle, and F<sub>t</sub> and F<sub>r</sub></td></tr>
+<tr><td><a href="#animTrain">Simple, idler and compound trains</a></td><td>1</td><td>Direction flips at each mesh, an idler leaves the ratio alone, and compound ratios multiply</td></tr>
+<tr><td><a href="#animRamp">When does the block slide?</a></td><td>2</td><td>Slip when tan θ passes μ<sub>s</sub>, and the friction angle</td></tr>
+<tr><td><a href="#animThread">A thread is a wrapped ramp</a></td><td>2</td><td>The unrolled-thread triangle becomes a helix; tan λ = l/(πd<sub>m</sub>)</td></tr>
+<tr><td><a href="#animShoe">Zoom on the brake shoe</a></td><td>3</td><td>Lever moments, and how a pivot offset makes a brake self-energizing</td></tr>
+<tr><td><a href="#animCube">The cube law</a></td><td>4</td><td>More material (d²) times farther out (d) gives strength ∝ d³</td></tr>
+<tr><td><a href="#animFatigue">Why shafts fail by fatigue</a></td><td>4</td><td>A surface point is stretched and squeezed once every turn</td></tr>
+<tr><td><a href="#animBelt">Tight and slack sides</a></td><td>5</td><td>Tension around the wrap, the capstan limit, slip and the shaft side load</td></tr>
+</tbody>
+</table>
+</div>
+
 <h3>New tools worth building</h3>
 <p>Listed by how much each would help the unit, most useful first.</p>
 <ol>
@@ -332,6 +356,12 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </ul>
 <div class="eq">τ = rF &nbsp;&nbsp; ω = 2πN/60 &nbsp;&nbsp; P = τω <span class="lbl">N in rpm, ω in rad/s, P in watts<a class="cite" href="#r24">[24]</a><a class="cite" href="#r27">[27]</a></span></div>
 <p>OpenStax works an example that is a good sanity check for students: a 9.0 × 10⁴ W boat engine at 300 rev/min turns at 31.4 rad/s, which gives a shaft torque of about 2,865 N·m<a class="cite" href="#r27">[27]</a>.</p>
+<div class="sim anim review" id="animTorque" data-sim="torque">
+<div class="simhead"><h4>Concept animation: torque is force times the perpendicular lever arm <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A wrench turns about a bolt. A force pushes on the handle at a changing angle, and the perpendicular distance from the bolt to the force line is drawn, with the torque shown on a gauge."></canvas>
+<div class="controls"><label>Force F (N) <output data-o="F"></output><input type="range" data-k="F" min="10" max="100" step="5" value="40"></label><label>Distance to the push r (m) <output data-o="r"></output><input type="range" data-k="r" min="0.1" max="0.5" step="0.05" value="0.3"></label><label>Angle between wrench and push θ (°) <output data-o="th"></output><input type="range" data-k="th" min="10" max="170" step="1" value="90"></label></div>
+<p class="simnote">Watch the blue r⊥ shrink as the push swings toward the handle. Torque is largest when the push is at right angles to the wrench, and zero when it points along it. This is the door-hinge question from period 2: pushing near the hinge makes r small.</p>
+</div>
 <h3>Activities</h3>
 <ul class="days">
 <li><b class="d">Period 1</b>Hook and diagnostic. Show the reel if you want to (see the teacher note below), then ask teams to sketch what they think is inside a car jack and a garage door opener. Give a 10-item diagnostic covering unit conversion, solving a formula for one variable, ratios, reading a right triangle, and the difference between mass and weight. Use the results to assign supplements. Introduce the design-process diagram.</li>
@@ -355,6 +385,11 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </ul>
 <div class="eq">i = z₂/z₁ &nbsp;&nbsp; τ₂ = η · i · τ₁ &nbsp;&nbsp; d = zm &nbsp;&nbsp; a = m(z₁ + z₂)/2 <span class="lbl"><a class="cite" href="#r6">[6]</a><a class="cite" href="#r7">[7]</a><a class="cite" href="#r8">[8]</a></span></div>
 <div class="eq">F<sub>t</sub> = 2T/d &nbsp;&nbsp; F<sub>r</sub> = F<sub>t</sub> tan α <span class="lbl">α = 20° for most gears<a class="cite" href="#r9">[9]</a></span></div>
+<div class="sim anim review" id="animMesh" data-sim="mesh">
+<div class="simhead"><h4>Concept animation: zoom in on two teeth at the mesh <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" class="ghost" data-act="20">20° teeth</button><button type="button" class="ghost" data-act="14.5">14.5° teeth</button><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A close-up of the point where a 12-tooth pinion meets a 36-tooth gear. Dashed pitch circles touch at the pitch point, a blue line of action crosses it at the pressure angle, and the tooth force splits into tangential and radial parts."></canvas>
+<p class="simnote">The dashed pitch circles roll on each other without slipping, which is why the speed ratio equals the tooth ratio. The teeth push along the blue line of action, tilted by the pressure angle. The tangential part F<sub>t</sub> = 2T/d turns the gear; the radial part F<sub>r</sub> = F<sub>t</sub> tan α pushes the two shafts apart, and it is part of what bends the shaft in module 4. Forces use the worked check: 0.5 N·m on a 24 mm pinion. The inset shows where the zoom sits on the whole pair.</p>
+</div>
 <p><b>Worked check.</b> A 12-tooth pinion drives a 36-tooth gear, module 2 mm, with 0.5 N·m on the pinion. Then <i>i</i> = 3, <i>d</i><sub>1</sub> = 24 mm, <i>d</i><sub>2</sub> = 72 mm and the center distance is 48 mm. The tangential force is 2(0.5)/0.024 = 41.7 N and the radial force is 41.7 × tan 20° = 15.2 N. KHK's own example uses 17 and 34 teeth at module 1 for a 25.5 mm center distance, which students can check the same way<a class="cite" href="#r36">[36]</a>.</p>
 
 <div class="sim" id="simGear" data-sim="gear">
@@ -378,6 +413,11 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <tr><td>Tangential force Fₜ / radial force Fᵣ</td><td data-r="F"></td></tr>
 </table></div>
 <p class="simnote">Rotation is slowed for viewing but the two gears keep the true speed ratio. Efficiency starts at 1.00 (ideal). Replace it with the value your team measures.</p>
+</div>
+<div class="sim anim review" id="animTrain" data-sim="train">
+<div class="simhead"><h4>Concept animation: simple, idler and compound trains <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" class="ghost" data-act="simple">Simple</button><button type="button" class="ghost" data-act="idler">With an idler</button><button type="button" class="ghost" data-act="compound">Compound</button><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="290" aria-label="Gear trains turning, with arrows showing each gear's direction and its speed as a fraction of the input."></canvas>
+<p class="simnote">Use this with the period 4 count-it lab. Each mesh reverses direction. An idler brings the direction back without changing the ratio, because its teeth appear once on top and once on the bottom of the fraction. In a compound train two gears share one shaft, so the stage ratios multiply. The red spoke on each gear makes the turning easy to count.</p>
 </div>
 
 <h3>Activities</h3>
@@ -412,6 +452,19 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <li>Handle force. <i>F</i> = <i>T</i>/<i>R</i> for a handle of radius <i>R</i>. With no friction, work in equals work out, so the ideal handle force is <i>Wl</i>/(2π<i>R</i>).</li>
 <li>Stress in the screw. The screw is pushed along its length, so the compressive stress is load over area, <i>σ</i> = <i>F</i>/<i>A</i> = 4<i>W</i>/(π<i>d</i><sub>r</sub>²)<a class="cite" href="#r23">[23]</a>. <a href="#s10">S10</a>.</li>
 </ul>
+<div class="sim anim review" id="animRamp" data-sim="ramp">
+<div class="simhead"><h4>Concept animation: when does the block slide? <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" class="ghost" data-act="reset">Reset tilt</button><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A board tilts slowly with a block on it. Arrows show the weight, its two components, the normal force and friction. The block starts to slide when the tilt passes the friction angle."></canvas>
+<div class="controls"><label>Static friction μₛ <output data-o="mus"></output><input type="range" data-k="mus" min="0.1" max="0.8" step="0.01" value="0.36"></label><label>Kinetic friction μₖ <output data-o="muk"></output><input type="range" data-k="muk" min="0.05" max="0.7" step="0.01" value="0.3"></label></div>
+<p class="simnote">This is the period 10 friction lab. The board tilts until tan θ passes μ<sub>s</sub>, which is the same as θ passing the friction angle φ = tan⁻¹ μ<sub>s</sub> (dashed red). Until then friction grows to match the pull down the slope. Once sliding starts, kinetic friction μ<sub>k</sub>N takes over. The screw jack holds its load by the same rule, with the thread's lead angle in place of the tilt.</p>
+</div>
+
+<div class="sim anim review" id="animThread" data-sim="thread">
+<div class="simhead"><h4>Concept animation: a thread is a ramp wrapped around a cylinder <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="310" aria-label="A paper right triangle with base pi times the mean diameter and height equal to the lead wraps around a dowel. Its slanted edge becomes one turn of a helical thread."></canvas>
+<div class="controls"><label>Lead l (mm) <output data-o="l"></output><input type="range" data-k="l" min="2" max="40" step="1" value="12"></label><label>Mean diameter dₘ (mm) <output data-o="dm"></output><input type="range" data-k="dm" min="10" max="30" step="1" value="18"></label></div>
+<p class="simnote">This is the period 11 paper activity, animated. The triangle's base is one trip around the dowel, π d<sub>m</sub>. Its height is the lead. Wrapped up, the slanted edge becomes one turn of thread, so the lead angle comes straight from the triangle: tan λ = l/(π d<sub>m</sub>). The default lead is larger than the class screw's 4 mm so the slope is easy to see; set l = 4 to see how flat a real single-start thread is.</p>
+</div>
 <p><b>Worked check.</b> Load 2000 N on a single-start square thread with <i>d</i> = 20 mm, pitch 4 mm and <i>μ</i> = 0.15. Lead is 4 mm, <i>d</i><sub>m</sub> = 18 mm, <i>λ</i> = 4.05° and <i>φ</i> = 8.53°. Torque is 4.02 N·m, so a 300 mm handle needs 13.4 N. Efficiency is 31.7%, inside the published range above. Since <i>φ</i> &gt; <i>λ</i>, the screw is self-locking. Compressive stress on the 16 mm root is 9.9 MPa.</p>
 
 <div class="sim" id="simScrew" data-sim="screw">
@@ -464,6 +517,11 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </ul>
 <div class="eq">N = Pl/x &nbsp;&nbsp; T<sub>b</sub> = μNr &nbsp;&nbsp; KE = ½Iω² &nbsp;&nbsp; t = Iω₀/T<sub>b</sub> &nbsp;&nbsp; ΔT ≤ KE/(mc) <span class="lbl"><a class="cite" href="#r16">[16]</a><a class="cite" href="#r25">[25]</a><a class="cite" href="#r26">[26]</a><a class="cite" href="#r27">[27]</a></span></div>
 <p>The temperature line is written as an upper limit on purpose. It assumes all of the energy stays in the drum. Some goes into the pad and the air, so a measured rise will be lower.</p>
+<div class="sim anim review" id="animShoe" data-sim="shoe">
+<div class="simhead"><h4>Concept animation: zoom in on the brake shoe and its pivot <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" class="ghost" data-act="on">Pivot on the friction line</button><button type="button" class="ghost" data-act="cw">Pivot offset, drum ↻</button><button type="button" class="ghost" data-act="ccw">Pivot offset, drum ↺</button><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A close-up of the lever brake. A hand force pushes the lever, the shoe presses the drum, and the normal force and the friction force act at the contact. Moment arms to the pivot are dimensioned."></canvas>
+<p class="simnote">Start with the pivot on the friction line: friction has no moment arm, so N = Pl/x = 60 N, as in the worked check. Then raise the pivot 20 mm (the extension box below). Now friction has an arm a. One way round it lifts the shoe (56.1 N). The other way it drags the shoe on and helps the hand (64.5 N), which is called self-energizing. P = 20 N, l = 300 mm, x = 100 mm and μ = 0.35 throughout.</p>
+</div>
 <p><b>Worked check.</b> A solid steel disk of 8 kg and radius 150 mm spins at 300 rpm, so <i>I</i> = 0.09 kg·m², <i>ω</i> = 31.4 rad/s and <i>KE</i> = 44.4 J. A 20 N hand force on a lever with <i>l</i>/<i>x</i> = 3 gives <i>N</i> = 60 N. With <i>μ</i> = 0.35 the friction force is 21 N and <i>T</i><sub>b</sub> = 3.15 N·m. The disk stops in 0.90 s after about 2.2 turns. Steel's specific heat is 452 J/(kg·°C)<a class="cite" href="#r26">[26]</a>, so the whole disk warms by at most 0.012 °C. That tiny number surprises students and leads to the next question: why do brakes get hot anyway? The heat is concentrated in a thin surface layer and in the much smaller pad, and a real vehicle absorbs far more energy in each stop.</p>
 
 <div class="sim" id="simBrake" data-sim="brake">
@@ -517,6 +575,12 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </ul>
 <div class="eq">M = WL/4 &nbsp;&nbsp; σ = 32M/(πd³) &nbsp;&nbsp; τ = 16T/(πd³) <span class="lbl"><a class="cite" href="#r12">[12]</a><a class="cite" href="#r13">[13]</a></span></div>
 <div class="eq">d = ∛[ 16√(M² + T²) / (π τ<sub>allow</sub>) ] &nbsp;&nbsp; τ<sub>allow</sub> = S<sub>y</sub>/(2n) <span class="lbl">maximum shear stress theory<a class="cite" href="#r13">[13]</a><a class="cite" href="#r14">[14]</a></span></div>
+<div class="sim anim review" id="animCube" data-sim="cube">
+<div class="simhead"><h4>Concept animation: why the cube law: more material, farther out <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A shaft cross-section grows from 20 to 40 millimeters. Shading shows bending stress, strongest at the top and bottom edges. Bars compare how much material there is, how far out it sits, the strength and the stress."></canvas>
+<div class="controls"><label>Diameter multiplier <output data-o="k"></output><input type="range" data-k="k" min="1" max="2" step="0.01" value="1"></label></div>
+<p class="simnote">The driving question for module 4. When d grows, there is more material to carry the load (area goes as d²), and that material sits farther from the middle, where bending loads it most (lever arm goes as d). Multiply the two and strength goes as d³, so doubling d cuts the stress to one eighth. The shading shows bending stress in the section: zero on the dashed middle line, largest at the edges.</p>
+</div>
 <p><b>Worked check.</b> Reuven's published example uses <i>M</i> = <i>T</i> = 1.0 × 10⁶ N·mm, <i>S</i><sub>y</sub> = 400 MPa and <i>n</i> = 2. The allowable shear stress is 100 MPa and the required diameter is 41.6 mm<a class="cite" href="#r14">[14]</a>. Students should reproduce that number by hand before trusting their own calc sheet. The same source notes that the distortion-energy (von Mises) theory gives a slightly smaller shaft, while Tresca is more conservative<a class="cite" href="#r14">[14]</a>.</p>
 
 <div class="sim" id="simShaft" data-sim="shaft">
@@ -538,6 +602,12 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <tr><td>Diameter needed for n = 2</td><td data-r="dreq"></td></tr>
 </table></div>
 <p class="simnote">Bend shape is exaggerated and not to scale. Use a yield strength from the datasheet for your material. The default of 400 MPa matches the published example above.</p>
+</div>
+<div class="sim anim review" id="animFatigue" data-sim="fatigue">
+<div class="simhead"><h4>Concept animation: why a turning shaft fails by fatigue <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A shaft between two bearings bends under a side load and turns. One marked point on its surface travels from the squeezed top to the stretched bottom on every turn, and a trace records its stress over time."></canvas>
+<div class="controls"><label>Shaft speed (rpm) <output data-o="rpm"></output><input type="range" data-k="rpm" min="30" max="600" step="10" value="300"></label></div>
+<p class="simnote">The side load always bends the shaft the same way, so the top is squeezed and the bottom is stretched. The shaft turns, so every point on its surface takes turns being on top and on the bottom. The trace is that point's stress: one full tension and compression cycle per turn. At 300 rpm that is 18,000 cycles an hour, which is why fatigue, not a single overload, is the usual way shafts fail. Keyways make it worse by concentrating the stress.</p>
 </div>
 
 <h3>Activities</h3>
@@ -571,6 +641,12 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <li>Tight and slack sides. The belt is tighter coming onto the drive pulley than leaving it, and <i>T</i><sub>1</sub> = <i>T</i><sub>e</sub> + <i>T</i><sub>2</sub><a class="cite" href="#r18">[18]</a>. With 180° of wrap both spans pull the pulley the same way, so the pulley shaft carries <i>T</i><sub>1</sub> + <i>T</i><sub>2</sub> as a side load. That load goes into the module 4 shaft check.</li>
 </ul>
 <div class="ext"><p><strong>Extension: will the belt slip?</strong> The capstan (Euler-Eytelwein) equation limits the tension ratio a pulley can hold before slipping, <i>T</i><sub>1</sub>/<i>T</i><sub>2</sub> ≤ <i>e</i><sup><i>μθ</i></sup>, with the wrap angle <i>θ</i> in radians<a class="cite" href="#r21">[21]</a>. The most pull a drive pulley can transmit is <i>T</i><sub>2</sub>(<i>e</i><sup><i>μθ</i></sup> − 1)<a class="cite" href="#r20">[20]</a>, so the minimum slack-side tension is <i>T</i><sub>e</sub>/(<i>e</i><sup><i>μθ</i></sup> − 1). That tension comes from how tightly the team adjusts the belt. Rubber lagging on the pulley raises <i>μ</i> for this reason<a class="cite" href="#r20">[20]</a>.</p></div>
+<div class="sim anim review" id="animBelt" data-sim="belt">
+<div class="simhead"><h4>Concept animation: tight side, slack side and slip at the drive pulley <span class="rtag">New · for review</span></h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="A belt wraps halfway around a drive pulley. The belt is drawn thicker where its tension is higher. Arrows show the tight and slack sides and the side load on the shaft. If the belt is too loose it slips."></canvas>
+<div class="controls"><label>Belt pull Tₑ (N) <output data-o="Te"></output><input type="range" data-k="Te" min="5" max="60" step="0.1" value="22.6"></label><label>Belt tension setting, slack side T₂ (N) <output data-o="T2"></output><input type="range" data-k="T2" min="2" max="60" step="0.1" value="18"></label><label>Pulley friction μ <output data-o="mu"></output><input type="range" data-k="mu" min="0.1" max="0.8" step="0.01" value="0.3"></label></div>
+<p class="simnote">The pulley can only pull the belt by friction. Tension falls from T<sub>1</sub> on the incoming (tight) side to T<sub>2</sub> on the outgoing (slack) side, and the capstan equation caps the ratio at T<sub>1</sub>/T<sub>2</sub> ≤ e<sup>μθ</sup>. Lower the slack tension below about 14.4 N with the worked-check numbers and the belt slips: the pulley keeps turning but the belt lags. Both spans pull the shaft the same way, so the shaft carries T<sub>1</sub> + T<sub>2</sub>: about 51 N at the minimum tension, more when the belt is set tighter.</p>
+</div>
 <p><b>Worked check.</b> One-kilogram boxes at 0.3 m spacing on a 2 m level bed, belt 0.5 kg/m, <i>μ</i> = 0.3 and <i>v</i> = 0.3 m/s. Then <i>m′</i><sub>p</sub> = 3.33 kg/m and <i>T</i><sub>e</sub> = 0.3 × 9.81 × 3.83 × 2 = 22.6 N. Belt power is 6.8 W, or 10.2 W with the 1.5 service factor. A 60 mm pulley needs 0.68 N·m and turns at 95.5 rpm, so a 300 rpm motor needs a 3.14 : 1 reduction. With <i>μ</i> = 0.3 at the pulley and 180° of wrap, <i>e</i><sup>0.3π</sup> = 2.57, so the slack side needs at least 14.4 N and the pulley shaft carries about 51 N.</p>
 <p>The reel shows mass flow for loose bulk material as <i>ṁ</i> = <i>ρAv</i>, which is correct for a belt carrying sand or gravel. Its on-screen units are wrong, though. <i>A</i> is the cross-section area in m² and <i>v</i> is in m/s. This unit uses boxes because they are easier to count and weigh in a classroom.</p>
 
@@ -966,6 +1042,268 @@ function addPredict(s,cfg){var root=s.root,ro=root.querySelector(".readout");if(
   root.querySelectorAll("input[data-k]").forEach(function(el){el.addEventListener("input",function(){if(cb.checked){hide();inp.value="";}});});}
 
 var map={gear:setupGear,screw:setupScrew,brake:setupBrake,shaft:setupShaft,conv:setupConv,motor:setupMotor};
+/* =====================================================================
+   CONCEPT ANIMATIONS (new, for review)
+   Short, mostly zoomed-in animations that show one idea at the moment the
+   unit introduces it. They reuse the Sim loop, palette and helpers above,
+   pause with the reduced-motion setting, and have no predict-first box.
+   ===================================================================== */
+function fitLabel(ctx,t,x,y,col,align,size,weight,maxW){size=size||14;ctx.font=(weight||"600")+" "+size+'px "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif';var wd=ctx.measureText(t).width;if(wd>maxW)size=Math.max(9,Math.floor(size*maxW/wd));label(ctx,t,x,y,col,align,size,weight);}
+function btnGroup(root,s,key,init,after){var bs=root.querySelectorAll("[data-act]");s[key]=init;function sync(){bs.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.act===s[key]?"true":"false");b.classList.toggle("ghost",b.dataset.act!==s[key]);});}
+  bs.forEach(function(b){b.addEventListener("click",function(){s[key]=b.dataset.act;sync();if(after)after();s.compute();s.paint(0);});});sync();}
+function dimLine(ctx,x1,y1,x2,y2,txt,col,off){ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.2;ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();var a=Math.atan2(y2-y1,x2-x1);[[x1,y1,a+PI],[x2,y2,a]].forEach(function(q){ctx.beginPath();ctx.moveTo(q[0],q[1]);ctx.lineTo(q[0]-7*Math.cos(q[2]-0.35),q[1]-7*Math.sin(q[2]-0.35));ctx.lineTo(q[0]-7*Math.cos(q[2]+0.35),q[1]-7*Math.sin(q[2]+0.35));ctx.closePath();ctx.fill();});if(txt)label(ctx,txt,(x1+x2)/2+(off?off[0]:0),(y1+y2)/2+(off?off[1]:0),col,"center",13,"600");}
+function curvedArrow(ctx,cx,cy,r,a0,a1,col,lw){ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=lw||2;ctx.beginPath();ctx.arc(cx,cy,r,Math.min(a0,a1),Math.max(a0,a1));ctx.stroke();var e=a1,d=a1>a0?1:-1,tx=cx+r*Math.cos(e),ty=cy+r*Math.sin(e),ta=e+d*PI/2;ctx.beginPath();ctx.moveTo(tx+8*Math.cos(ta),ty+8*Math.sin(ta));ctx.lineTo(tx+8*Math.cos(ta+2.6),ty+8*Math.sin(ta+2.6));ctx.lineTo(tx+8*Math.cos(ta-2.6),ty+8*Math.sin(ta-2.6));ctx.closePath();ctx.fill();}
+
+/* ---------- A. torque: force times perpendicular lever arm (module 0) ---------- */
+function setupTorque(root){var s=new Sim(root);s.th=90;s.clock=0;
+  var pb=root.querySelector("[data-play]"),thIn=root.querySelector('input[data-k="th"]');
+  thIn.addEventListener("input",function(){s.running=false;if(pb)pb.textContent="Play";s.th=+thIn.value;});
+  s.compute=function(){s.v=vals(root);if(!s.running)s.th=s.v.th;};
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h;
+    if(s.running){s.clock+=dt;s.th=90+70*Math.sin(s.clock*0.7);thIn.value=Math.round(s.th);var o=root.querySelector('output[data-o="th"]');if(o)o.textContent=Math.round(s.th);}
+    var th=s.th*PI/180,tau=v.r*v.F*Math.sin(th),rp=v.r*Math.sin(th);
+    var px=Math.max(70,w*0.16),py=h*0.62,Lmax=Math.min(w*0.52,w-px-150),L=Lmax*v.r/0.5,tx=px+L,ty=py;
+    // wrench
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(px,py-9);ctx.lineTo(tx,py-7);ctx.lineTo(tx,py+7);ctx.lineTo(px,py+9);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();for(var k=0;k<6;k++){var a=k*PI/3+PI/6;ctx.lineTo(px+22*Math.cos(a),py+22*Math.sin(a));}ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(px,py,4,0,2*PI);ctx.fill();
+    label(ctx,"pivot (bolt)",px,py+38,C.graphite,"center",13,"500");
+    // force and its line of action
+    var ux=Math.cos(th),uy=-Math.sin(th),flen=30+v.F*0.8;
+    ctx.setLineDash([5,5]);ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(tx-ux*400,ty-uy*400);ctx.lineTo(tx+ux*400,ty+uy*400);ctx.stroke();ctx.setLineDash([]);
+    arrow(ctx,tx,ty,tx+ux*flen,ty+uy*flen,C.red,3);label(ctx,"F = "+f(v.F,0)+" N",tx+ux*flen+(ux>=0?8:-8),ty+uy*flen-10,C.red,ux>=0?"left":"right",14);
+    // perpendicular from the pivot to the line of action
+    var t=(px-tx)*ux+(py-ty)*uy,fx=tx+t*ux,fy=ty+t*uy;
+    ctx.strokeStyle=C.blue;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(fx,fy);ctx.stroke();
+    var nx=px-fx,ny=py-fy,nl=Math.hypot(nx,ny)||1;nx/=nl;ny/=nl;var q=9;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(fx+nx*q,fy+ny*q);ctx.lineTo(fx+nx*q+ux*q*(t<0?-1:1),fy+ny*q+uy*q*(t<0?-1:1));ctx.lineTo(fx+ux*q*(t<0?-1:1),fy+uy*q*(t<0?-1:1));ctx.stroke();
+    label(ctx,"r⊥ = "+f(rp,2)+" m",(px+fx)/2-8,(py+fy)/2-12,C.blue,"right",14);
+    // angle arc
+    ctx.strokeStyle=C.ink;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(tx,ty,26,-th,0);ctx.stroke();label(ctx,"θ = "+f(s.th,0)+"°",tx+30,ty-16,C.ink,"left",13,"600");
+    dimLine(ctx,px,py+56,tx,py+56,"r = "+f(v.r,2)+" m",C.graphite,[0,13]);
+    // torque gauge
+    var gx=w-40,gy=26,gh=h-70,fr=Math.abs(tau)/(v.r*v.F||1);ctx.strokeStyle=C.ink;ctx.lineWidth=1.4;ctx.strokeRect(gx-12,gy,24,gh);ctx.fillStyle=C.blue;ctx.fillRect(gx-12,gy+gh*(1-fr),24,gh*fr);
+    label(ctx,"τ",gx,gy+gh+14,C.ink,"center",14,"700");
+    fitLabel(ctx,"τ = r⊥ F = "+f(rp,2)+" m × "+f(v.F,0)+" N = "+sig(tau)+" N·m",px-10,24,C.ink,"left",16,"700",w-24);
+    fitLabel(ctx,"Only the part of the lever arm perpendicular to the force counts. Push along the wrench and nothing turns.",px-10,46,C.graphite,"left",13,"500",w-24);
+  };return s;}
+
+/* ---------- B. zoom on the mesh: pitch point, pressure angle, tooth forces (module 1) ---------- */
+function involuteGear(ctx,cx,cy,z,m,al,rot,sc){var r=z*m/2,rb=r*Math.cos(al),ra=r+m,rf=r-1.25*m,inv=function(a){return Math.tan(a)-a;},ia=inv(al),st=2*PI/z;
+  function psi(R){R=Math.max(R,rb);return PI/(2*z)+ia-inv(Math.acos(rb/R));}
+  var r0=Math.max(rb,rf),n=10,first=true;ctx.beginPath();
+  for(var k=0;k<z;k++){var c=rot+k*st;
+    var p0=c-psi(r0);if(first){ctx.moveTo(cx+rf*sc*Math.cos(p0),cy+rf*sc*Math.sin(p0));first=false;}
+    ctx.lineTo(cx+rf*sc*Math.cos(p0),cy+rf*sc*Math.sin(p0));
+    for(var j=0;j<=n;j++){var R=r0+(ra-r0)*j/n,a=c-psi(R);ctx.lineTo(cx+R*sc*Math.cos(a),cy+R*sc*Math.sin(a));}
+    for(j=n;j>=0;j--){R=r0+(ra-r0)*j/n;a=c+psi(R);ctx.lineTo(cx+R*sc*Math.cos(a),cy+R*sc*Math.sin(a));}
+    var p1=c+psi(r0);ctx.lineTo(cx+rf*sc*Math.cos(p1),cy+rf*sc*Math.sin(p1));
+    ctx.arc(cx,cy,rf*sc,p1,c+st-psi(r0));}
+  ctx.closePath();}
+function setupMesh(root){var s=new Sim(root);s.th=0;
+  btnGroup(root,s,"alpha","20");
+  s.compute=function(){s.v={al:(s.alpha==="14.5"?14.5:20)*PI/180};};
+  s.draw=function(dt){var ctx=s.ctx,w=s.w,h=s.h,al=s.v.al,m=2,z1=12,z2=36,r1=12,r2=36;
+    if(s.running)s.th+=dt*0.22;
+    var sc=Math.min(h/17,w/38),Px=w*0.36,Py=h/2;
+    var c1x=Px-r1*sc,c2x=Px+r2*sc;var a1=s.th,a2=PI+PI/z2-(z1/z2)*s.th;
+    ctx.save();ctx.beginPath();ctx.rect(0,0,w,h);ctx.clip();
+    ctx.lineWidth=2;ctx.strokeStyle=C.ink;involuteGear(ctx,c2x,Py,z2,m,al,a2,sc);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();
+    involuteGear(ctx,c1x,Py,z1,m,al,a1,sc);ctx.globalAlpha=0.28;ctx.fillStyle=C.blue;ctx.fill();ctx.globalAlpha=1;ctx.stroke();
+    // pitch and base circles
+    ctx.setLineDash([6,5]);ctx.strokeStyle=C.graphite;ctx.lineWidth=1;[[c1x,r1],[c2x,r2]].forEach(function(q){ctx.beginPath();ctx.arc(q[0],Py,q[1]*sc,0,2*PI);ctx.stroke();});ctx.setLineDash([2,4]);[[c1x,r1],[c2x,r2]].forEach(function(q){ctx.beginPath();ctx.arc(q[0],Py,q[1]*Math.cos(al)*sc,0,2*PI);ctx.stroke();});ctx.setLineDash([]);
+    // line of centers, common tangent, line of action
+    ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,Py);ctx.lineTo(w,Py);ctx.moveTo(Px,0);ctx.lineTo(Px,h);ctx.stroke();
+    var lx=Math.sin(al),ly=Math.cos(al);ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(Px-lx*h,Py-ly*h);ctx.lineTo(Px+lx*h,Py+ly*h);ctx.stroke();
+    // forces on the driven gear at the pitch point
+    var T=0.5,d1=0.024,Ft=2*T/d1,Fr=Ft*Math.tan(al),F=Ft/Math.cos(al),fs=1.6;
+    arrow(ctx,Px,Py,Px,Py+Ft*fs,C.red,3);arrow(ctx,Px,Py,Px+Fr*fs,Py,C.red,3);arrow(ctx,Px,Py,Px+F*fs*lx,Py+F*fs*ly,C.ink,2);
+    ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(Px,Py,4.5,0,2*PI);ctx.fill();
+    ctx.restore();
+    label(ctx,"Fₜ = "+f(Ft,1)+" N",Px-8,Py+Ft*fs-6,C.red,"right",14);label(ctx,"Fᵣ = "+f(Fr,1)+" N",Px+Fr*fs+8,Py-12,C.red,"left",14);label(ctx,"F = "+f(F,1)+" N",Px+F*fs*lx+8,Py+F*fs*ly+4,C.ink,"left",13);
+    label(ctx,"pitch point",Px+8,Py-10-20,C.ink,"left",13);label(ctx,"line of action ("+f(al*180/PI,1)+"° from the tangent)",Px-lx*(Py-14)+6,14,C.blue,"left",13);
+    label(ctx,"driver z₁ = 12",Math.max(8,c1x+r1*sc*0.2),h-12,C.ink,"left",13);label(ctx,"driven z₂ = 36",Math.min(w-8,Px+60),h-12,C.ink,"left",13);
+    // inset: the whole pair, with the zoom box
+    var iw=Math.min(150,w*0.24),isc=iw/(2*(r1+r2+2*m)),ix=w-iw-8,iy=8,ih=(2*(r2+m))*isc+4,icy=iy+ih/2,ic1=ix+(r1+m)*isc+2,ic2=ic1+(r1+r2)*isc;
+    ctx.fillStyle=C.paper;ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.fillRect(ix-4,iy-4,iw+8,ih+8);ctx.strokeRect(ix-4,iy-4,iw+8,ih+8);
+    ctx.strokeStyle=C.ink;ctx.lineWidth=1;gearPath(ctx,ic1,icy,r1*isc,z1,m*isc,a1);ctx.stroke();gearPath(ctx,ic2,icy,r2*isc,z2,m*isc,a2);ctx.stroke();
+    var zx=ic1+r1*isc,zw=(w/sc)*isc,zh=(h/sc)*isc;ctx.strokeStyle=C.red;ctx.lineWidth=1.5;ctx.strokeRect(zx-(Px/sc)*isc,icy-zh/2,zw,zh);label(ctx,"zoomed area",ix+iw/2,iy+ih+10,C.graphite,"center",12,"500");
+  };return s;}
+
+/* ---------- C. simple, idler and compound trains (module 1) ---------- */
+function setupTrain(root){var s=new Sim(root);s.th=0;
+  btnGroup(root,s,"mode","simple");
+  s.compute=function(){};
+  s.draw=function(dt){var ctx=s.ctx,w=s.w,h=s.h;if(s.running)s.th+=dt*0.9;
+    var mode=s.mode,z=mode==="simple"?[12,36]:mode==="idler"?[12,20,36]:[12,36,12,36];
+    // layout in module units: first radius + center distances + last radius
+    var units=z[0]/2+1+z[z.length-1]/2+1;if(mode==="simple")units+=24;else if(mode==="idler")units+=16+28;else units+=24+24;
+    var m=Math.min((w-40)/units,(h-110)/(36+2)),cy=h/2+4,x0=(w-units*m)/2+(z[0]/2+1)*m;
+    var G=[];function add(zz,x,ang,plane){G.push({z:zz,x:x,r:zz*m/2,ang:ang,plane:plane||0});}
+    function meshAng(A,zB){var st=2*PI/zB;return PI+st/2-(A.z/zB)*A.ang;}
+    add(12,x0,s.th);
+    if(mode==="simple"){add(36,x0+(12+36)/2*m,meshAng(G[0],36));}
+    else if(mode==="idler"){add(20,x0+(12+20)/2*m,meshAng(G[0],20));add(36,G[1].x+(20+36)/2*m,meshAng(G[1],36));}
+    else{add(36,x0+(12+36)/2*m,meshAng(G[0],36));add(12,G[1].x,G[1].ang,1);add(36,G[1].x+(12+36)/2*m,meshAng(G[2],36),0.5);}   // gear 3 rides on gear 2's shaft
+    var dirs=[];G.forEach(function(g,i){var sp;if(i===0)sp=1;else if(mode==="compound"&&i===2)sp=dirs[1];else sp=-dirs[i-1]*G[i-1].z/g.z;dirs.push(sp);});
+    G.slice().sort(function(a,b){return (b.plane===0.5?1:0)-(a.plane===0.5?1:0);}).forEach(function(g){ctx.globalAlpha=g.plane===0.5?0.45:1;gearPath(ctx,g.x,cy,g.r,g.z,m,g.ang);ctx.fillStyle=g.plane===1?C.paper:C.panel;ctx.fill();ctx.strokeStyle=C.ink;ctx.lineWidth=1.5;ctx.stroke();ctx.globalAlpha=1;
+      ctx.strokeStyle=C.red;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(g.x,cy);ctx.lineTo(g.x+g.r*0.75*Math.cos(g.ang),cy+g.r*0.75*Math.sin(g.ang));ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(g.x,cy,3.5,0,2*PI);ctx.fill();});
+    G.forEach(function(g,i){if(mode==="compound"&&i===2)return;var d=dirs[i];var rr=g.r+m+6;curvedArrow(ctx,g.x,cy,rr,-PI/2-0.6*d,-PI/2+0.6*d,C.blue,2);
+      var sp=Math.abs(dirs[i]),inv=1/sp,frac=sp===1?"1":Math.abs(inv-Math.round(inv))<1e-9?"1/"+Math.round(inv):f(sp,2);label(ctx,(i===0?"input":i===G.length-1?"output":mode==="compound"?"middle shaft":"idler")+", "+frac+"× speed",g.x,cy+g.r+m+22+(i%2?14:0),C.ink,"center",13,"600");});
+    var msg=mode==="simple"?"Meshed gears turn opposite ways. Ratio 36/12 = 3 : 1.":mode==="idler"?"The idler reverses the direction back, but the ratio is still 36/12 = 3 : 1. Its own teeth cancel out.":"Two stages on a shared shaft multiply: (36/12) × (36/12) = 9 : 1. The small gear rides on the big one's shaft.";
+    fitLabel(ctx,msg,12,20,C.ink,"left",14,"600",w-24);
+    if(mode==="compound")label(ctx,"faded gear is on the back plane",12,h-10,C.graphite,"left",12,"500");
+  };return s;}
+
+/* ---------- D. ramp: when does the block slide? (module 2) ---------- */
+function setupRamp(root){var s=new Sim(root);s.th=5;s.pos=0;s.vel=0;s.slide=false;s.wait=0;
+  var pb=root.querySelector("[data-play]");
+  s.compute=function(){s.v=vals(root);if(s.v.muk>s.v.mus)s.v.muk=s.v.mus;};
+  root.querySelector('[data-act="reset"]').addEventListener("click",function(){s.th=5;s.pos=0;s.vel=0;s.slide=false;s.wait=0;s.paint(0);});
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h,phi=Math.atan(v.mus)*180/PI;
+    if(s.running){if(!s.slide){s.th=Math.min(50,s.th+dt*4);if(Math.tan(s.th*PI/180)>v.mus){s.slide=true;}}
+      else{var t=s.th*PI/180,a=g*(Math.sin(t)-v.muk*Math.cos(t));s.vel=Math.max(0,s.vel+a*dt);s.pos+=s.vel*dt*0.5;if(s.pos>0.62){s.wait+=dt;if(s.wait>1.2){s.th=5;s.pos=0;s.vel=0;s.slide=false;s.wait=0;}}}}
+    var t=s.th*PI/180,bx=60,by=h-30,L=Math.min(w-140,(h-70)/Math.sin(50*PI/180)*0.95);
+    var ex=bx+L*Math.cos(t),ey=by-L*Math.sin(t);
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(ex,by);ctx.lineTo(ex,ey);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.arc(bx,by,48,-t,0);ctx.stroke();label(ctx,"θ = "+f(s.th,1)+"°",bx+54,by-10,C.ink,"left",14);
+    var ft=phi*PI/180;ctx.strokeStyle=C.red;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+70*Math.cos(ft),by-70*Math.sin(ft));ctx.stroke();ctx.setLineDash([]);label(ctx,"φ = "+f(phi,1)+"°",bx+74*Math.cos(ft)+4,by-74*Math.sin(ft)-6,C.red,"left",13);
+    // block
+    var u=0.78-s.pos,cxp=bx+L*u*Math.cos(t),cyp=by-L*u*Math.sin(t),bw=46,bh=30;ctx.save();ctx.translate(cxp,cyp);ctx.rotate(-t);ctx.fillStyle=C.graphite;ctx.fillRect(-bw/2,-bh,bw,bh);ctx.restore();
+    var mx=cxp-Math.sin(t)*bh/2,my=cyp-Math.cos(t)*bh/2,W=80,ax=-Math.cos(t),ay=Math.sin(t),nx=-Math.sin(t),ny=-Math.cos(t);
+    var Wpar=W*Math.sin(t),Wper=W*Math.cos(t),fr=s.slide?v.muk*Wper:Math.min(Wpar,v.mus*Wper);
+    arrow(ctx,mx,my,mx,my+W,C.ink,2.2);label(ctx,"weight mg",mx+6,my+W+10,C.ink,"left",13);
+    ctx.globalAlpha=0.7;arrow(ctx,mx,my,mx+ax*Wpar,my+ay*Wpar,C.graphite,1.6);arrow(ctx,mx,my,mx-nx*Wper,my-ny*Wper,C.graphite,1.6);ctx.globalAlpha=1;
+    arrow(ctx,mx,my,mx+nx*Wper,my+ny*Wper,C.blue,2.2);label(ctx,"N",mx+nx*Wper+6,my+ny*Wper,C.blue,"left",14);
+    arrow(ctx,mx,my,mx-ax*fr,my-ay*fr,C.red,2.6);label(ctx,"friction",mx-ax*fr+6,my-ay*fr-10,C.red,"left",13);
+    label(ctx,"mg sin θ (down the slope)",mx+ax*Wpar-8,my+ay*Wpar+14,C.graphite,"right",12,"500");
+    var tn=Math.tan(t),msg=s.slide?"Slides: tan θ = "+f(tn,3)+" is more than μₛ = "+f(v.mus,2)+", so θ passed the friction angle φ.":"Holds: tan θ = "+f(tn,3)+" is less than μₛ = "+f(v.mus,2)+". Friction can still match mg sin θ.";
+    fitLabel(ctx,msg,14,20,s.slide?C.red:C.good,"left",14,"700",w-28);
+    fitLabel(ctx,"The screw jack uses the same test: it holds when the friction angle φ is bigger than the thread's lead angle λ.",14,40,C.graphite,"left",13,"500",w-24);
+  };return s;}
+
+/* ---------- E. a thread is a ramp wrapped around a cylinder (module 2) ---------- */
+function setupThread(root){var s=new Sim(root);s.clock=0;s.u=0;
+  s.compute=function(){s.v=vals(root);};
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h;
+    if(s.running){s.clock=(s.clock+dt)%9;var c=s.clock;s.u=c<3?c/3:c<4.5?1:c<7.5?1-(c-4.5)/3:0;}
+    var u=0.5-0.5*Math.cos(PI*s.u);
+    var dm=v.dm,l=v.l,C0=PI*dm,sc=Math.min((w-150)/(dm*(0.5+PI)),(h-80)/l,(h-80)/(dm*1.2)),R=dm/2*sc;
+    var cx=26+R,base=h-36,top=base-l*sc,sw=u*C0;
+    // cylinder
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.5;ctx.fillRect(cx-R,top-16,2*R,base-top+28);ctx.strokeRect(cx-R,top-16,2*R,base-top+28);
+    label(ctx,"dowel, dₘ = "+f(dm,0)+" mm",cx,base+26,C.graphite,"center",12,"500");
+    function P(sv){var y=base-l*sc*sv/C0;if(sv>=sw)return{x:cx+(sv-sw)*sc,y:y,front:true};var psi=(sw-sv)/(dm/2);return{x:cx-R*Math.sin(psi),y:y,front:Math.cos(psi)>=0};}
+    // flat part of the paper triangle
+    var e=P(C0);ctx.globalAlpha=0.35;ctx.fillStyle=C.blue;ctx.beginPath();ctx.moveTo(cx,base);ctx.lineTo(cx+(C0-sw)*sc,base);ctx.lineTo(cx+(C0-sw)*sc,e.y);ctx.lineTo(cx,base-l*sc*sw/C0);ctx.closePath();if(sw<C0)ctx.fill();ctx.globalAlpha=1;
+    // hypotenuse, front solid and back dashed
+    ctx.lineWidth=2.6;var prev=null;for(var i=0;i<=240;i++){var q=P(C0*i/240);if(prev){ctx.strokeStyle=C.blue;ctx.setLineDash(q.front&&prev.front?[]:[4,4]);ctx.globalAlpha=q.front&&prev.front?1:0.55;ctx.beginPath();ctx.moveTo(prev.x,prev.y);ctx.lineTo(q.x,q.y);ctx.stroke();}prev=q;}ctx.setLineDash([]);ctx.globalAlpha=1;
+    if(sw<C0){ctx.strokeStyle=C.ink;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(cx,base);ctx.lineTo(cx+(C0-sw)*sc,base);ctx.lineTo(cx+(C0-sw)*sc,e.y);ctx.stroke();}
+    var lam=Math.atan(l/C0);
+    if(u<0.02){dimLine(ctx,cx,base+14,cx+C0*sc,base+14,"π dₘ = "+f(C0,1)+" mm (one turn)",C.graphite,[0,13]);dimLine(ctx,cx+C0*sc+14,base,cx+C0*sc+14,top,"",C.graphite);label(ctx,"lead l = "+f(l,0)+" mm",cx+C0*sc+20,(base+top)/2,C.graphite,"left",13);
+      ctx.strokeStyle=C.ink;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,base,40,-lam,0);ctx.stroke();label(ctx,"λ",cx+46,base-8,C.ink,"left",14,"700");}
+    if(u>0.98){dimLine(ctx,cx+R+16,base,cx+R+16,top,"",C.graphite);label(ctx,"one turn raises the helix by the lead l",cx+R+24,(base+top)/2,C.graphite,"left",13);}
+    fitLabel(ctx,"tan λ = l / (π dₘ) = "+f(l,0)+" / "+f(C0,1)+", so λ = "+f(lam*180/PI,1)+"°",w-12,20,C.ink,"right",15,"700",w-24);
+    label(ctx,u<0.02?"Paper triangle: a ramp":u>0.98?"Wrapped: the slope becomes a thread":"Wrapping the ramp around the dowel",w-12,42,C.graphite,"right",13,"500");
+  };return s;}
+
+/* ---------- F. zoom on the brake shoe and the pivot (module 3) ---------- */
+function setupShoe(root){var s=new Sim(root);s.rot=0;
+  btnGroup(root,s,"case","on");
+  s.compute=function(){var P=20,l=300,x=100,mu=0.35,Rd=150,a=s.case==="on"?0:20,sgn=s.case==="cw"?1:s.case==="ccw"?-1:0;var N=P*l/(x+sgn*mu*a);s.c={P:P,l:l,x:x,mu:mu,a:a,sgn:sgn,N:N,F:mu*N,Tb:mu*N*Rd/1000,Rd:Rd};};
+  s.draw=function(dt){var c=s.c,ctx=s.ctx,w=s.w,h=s.h;var dir=s.case==="ccw"?-1:1;if(s.running)s.rot+=dt*0.8*dir;
+    var sc=Math.min(w/460,h/260),ox=w*0.36,oy=h*0.68; // contact point on screen
+    var Cx=ox,Cy=oy;function X(mm){return Cx+mm*sc;}function Y(mm){return Cy-mm*sc;} // mm relative to the contact point, y up
+    // drum (only its top arc shows)
+    var Rp=c.Rd*sc;ctx.save();ctx.beginPath();ctx.rect(0,0,w,h);ctx.clip();ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.beginPath();ctx.arc(Cx,Cy+Rp,Rp,0,2*PI);ctx.fill();ctx.stroke();
+    for(var k=0;k<24;k++){var a=s.rot+k*PI/12;ctx.strokeStyle=k%6===0?C.red:C.graphite;ctx.lineWidth=k%6===0?2.5:1;ctx.beginPath();ctx.moveTo(Cx+Rp*0.9*Math.cos(a),Cy+Rp+Rp*0.9*Math.sin(a));ctx.lineTo(Cx+Rp*Math.cos(a),Cy+Rp+Rp*Math.sin(a));ctx.stroke();}ctx.restore();
+    curvedArrow(ctx,Cx,Cy+Rp,Rp+14,-PI/2-0.35*dir,-PI/2+0.35*dir,C.blue,2.2);label(ctx,s.case==="ccw"?"drum turns ↺":"drum turns ↻",Cx+(Rp+14)*Math.sin(0.4)+6,Y(40),C.blue,"left",13);
+    // shoe and lever
+    var shoeH=16,px=-c.x,py=c.a,lyv=shoeH+4;   // pivot sits a above the friction line (the contact)
+    ctx.fillStyle=C.graphite;ctx.fillRect(X(-25),Y(shoeH),50*sc,shoeH*sc);
+    ctx.strokeStyle=C.ink;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(X(px),Y(py));ctx.lineTo(X(0),Y(lyv));ctx.lineTo(X(c.l-c.x),Y(lyv));ctx.stroke();
+    ctx.lineWidth=1.6;ctx.fillStyle=C.panel;ctx.beginPath();ctx.moveTo(X(px),Y(py));ctx.lineTo(X(px)-10,Y(py)+22);ctx.lineTo(X(px)+10,Y(py)+22);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(X(px),Y(py),4.5,0,2*PI);ctx.fill();label(ctx,"pivot",X(px)-10,Y(py)-14,C.graphite,"right",13,"500");
+    arrow(ctx,X(c.l-c.x),Y(lyv)-60,X(c.l-c.x),Y(lyv)-5,C.ink,2.5);label(ctx,"P = "+c.P+" N",X(c.l-c.x)-8,Y(lyv)-58,C.ink,"right",14);
+    // forces on the shoe at the contact point
+    arrow(ctx,Cx,Cy+2,Cx,Cy-52,C.blue,2.6);label(ctx,"N = "+f(c.N,1)+" N",Cx+8,Cy-44,C.blue,"left",14);
+    var fd=s.case==="ccw"?-1:1;arrow(ctx,Cx,Cy,Cx+fd*56,Cy,C.red,2.6);label(ctx,"F = μN = "+f(c.F,1)+" N",Cx+fd*60+(fd>0?4:-4),Cy+14,C.red,fd>0?"left":"right",13);
+    // moment arms
+    ctx.setLineDash([4,4]);ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(X(px),Y(py));ctx.lineTo(X(0),Y(py));ctx.moveTo(X(0),Y(py)+6);ctx.lineTo(X(0),Cy);ctx.moveTo(X(px)-40,Cy);ctx.lineTo(Cx+80,Cy);ctx.stroke();ctx.setLineDash([]);
+    label(ctx,"x = 100 mm",X(-c.x/2),Y(py)+(c.a>0?-10:14),C.graphite,"center",13);
+    if(c.a>0){dimLine(ctx,X(px)-26,Y(py),X(px)-26,Cy,"",C.graphite);label(ctx,"a = 20 mm",X(px)-32,(Y(py)+Cy)/2,C.graphite,"right",13);}
+    var eq=c.sgn===0?"N x = P l, so N = P l / x":c.sgn>0?"N x + F a = P l, so N = P l / (x + μa)":"N x − F a = P l, so N = P l / (x − μa)";
+    var why=c.sgn===0?"The friction line passes through the pivot, so friction has no moment arm.":c.sgn>0?"Friction pushes the shoe off the drum. The same hand force gives less N.":"Friction drags the shoe onto the drum: self-energizing. Too much offset and it grabs.";
+    fitLabel(ctx,"Moments about the pivot: "+eq,12,20,C.ink,"left",14,"700",w-24);fitLabel(ctx,why,12,40,c.sgn<0?C.red:C.graphite,"left",13,"600",w-24);
+    fitLabel(ctx,"Result: N = "+f(c.N,1)+" N, braking torque μNr = "+f(c.Tb,2)+" N·m",12,60,C.ink,"left",14,"600",w-24);
+  };return s;}
+
+/* ---------- G. the cube law: more material, farther out (module 4) ---------- */
+function setupCube(root){var s=new Sim(root);s.clock=0;s.k=1;
+  var pb=root.querySelector("[data-play]"),kIn=root.querySelector('input[data-k="k"]');
+  kIn.addEventListener("input",function(){s.running=false;if(pb)pb.textContent="Play";});
+  s.compute=function(){s.v=vals(root);if(!s.running)s.k=s.v.k;};
+  s.draw=function(dt){var ctx=s.ctx,w=s.w,h=s.h;
+    if(s.running){s.clock+=dt;s.k=1.5-0.5*Math.cos(s.clock*0.6);kIn.value=s.k.toFixed(2);var o=root.querySelector('output[data-o="k"]');if(o)o.textContent=s.k.toFixed(2);}
+    var k=s.k,d=20*k,M=75000,sig0=32*M/(PI*8000),sg=sig0/(k*k*k);
+    var R0=Math.min(h*0.2,w*0.1),R=R0*k,cx=R0*2+30,cy=h/2+6;
+    // section shaded by bending stress: fibres farther from the middle carry more
+    var n=Math.round(10*k),cell=2*R/n;for(var i=0;i<n;i++)for(var j=0;j<n;j++){var x=cx-R+(i+0.5)*cell,y=cy-R+(j+0.5)*cell;if(Math.hypot(x-cx,y-cy)>R)continue;var t=(y-cy)/R;ctx.fillStyle=t>0?C.red:C.blue;ctx.globalAlpha=0.12+0.75*Math.abs(t);ctx.fillRect(x-cell*0.42,y-cell*0.42,cell*0.84,cell*0.84);}ctx.globalAlpha=1;
+    ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,R,0,2*PI);ctx.stroke();ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(cx-R-10,cy);ctx.lineTo(cx+R+10,cy);ctx.stroke();ctx.setLineDash([]);
+    label(ctx,"− squeezed",cx,cy-R-12,C.blue,"center",13);label(ctx,"+ stretched",cx,cy+R+14,C.red,"center",13);label(ctx,"d = "+f(d,0)+" mm",cx,cy+R+32,C.ink,"center",14);
+    // linear stress profile beside the section
+    var sx=cx+R+26;ctx.strokeStyle=C.ink;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(sx,cy-R);ctx.lineTo(sx,cy+R);ctx.stroke();ctx.fillStyle=C.panel;ctx.beginPath();ctx.moveTo(sx,cy);ctx.lineTo(sx+34,cy+R);ctx.lineTo(sx,cy+R);ctx.closePath();ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(sx,cy);ctx.lineTo(sx-34,cy-R);ctx.lineTo(sx,cy-R);ctx.closePath();ctx.fill();ctx.stroke();
+    // bars: area, lever arm, strength
+    var bx=Math.max(sx+70,w*0.5),bw=Math.min(46,(w-bx-20)/4-12),bh=h-110,base=h-44;var items=[["more material",k*k,"× "+f(k*k,2),C.graphite],["farther out",k,"× "+f(k,2),C.graphite],["strength",k*k*k,"× "+f(k*k*k,2),C.good],["stress",1/(k*k*k),f(sg,1)+" MPa",C.red]];
+    items.forEach(function(it,i){var x=bx+i*(bw+26),hh=bh*it[1]/8;ctx.fillStyle=it[3];ctx.globalAlpha=0.8;ctx.fillRect(x,base-hh,bw,hh);ctx.globalAlpha=1;ctx.strokeStyle=C.ink;ctx.lineWidth=1;ctx.strokeRect(x,base-hh,bw,hh);label(ctx,it[2],x+bw/2,base-hh-10,C.ink,"center",13);label(ctx,it[0],x+bw/2,base+14,C.ink,"center",12,"600");});
+    ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bx-6,base);ctx.lineTo(bx+4*(bw+26),base);ctx.stroke();
+    fitLabel(ctx,"d grows × "+f(k,2)+": material × "+f(k*k,2)+" (area), and it sits × "+f(k,2)+" farther from the middle, so strength × "+f(k*k*k,2),12,20,C.ink,"left",14,"700",w-24);
+    fitLabel(ctx,"Same bending moment, 75 N·m. σ = 32M/(πd³) = "+f(sg,1)+" MPa. Doubling d cuts the stress to one eighth.",12,40,C.graphite,"left",13,"500",w-24);
+  };return s;}
+
+/* ---------- H. why shafts fail by fatigue (module 4) ---------- */
+function setupFatigue(root){var s=new Sim(root);s.rot=0;s.hist=[];s.cyc=0;
+  s.compute=function(){s.v=vals(root);};
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h,slow=10;
+    if(s.running){var dA=2*PI*(v.rpm/60)/slow*dt;var before=Math.floor((s.rot+PI)/(2*PI));s.rot+=dA;if(Math.floor((s.rot+PI)/(2*PI))>before)s.cyc++;s.hist.push(-Math.cos(s.rot));if(s.hist.length>220)s.hist.shift();}
+    // side view
+    var x0=40,x1=Math.min(w*0.55,w-260),sy=h*0.42,sh=22,L=x1-x0,amp=12;function yd(x){var uu=(x-x0)/L;if(uu>0.5)uu=1-uu;return amp*(3*uu-4*uu*uu*uu);}
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();for(var x=x0;x<=x1;x+=4)ctx.lineTo(x,sy-sh/2+yd(x));for(x=x1;x>=x0;x-=4)ctx.lineTo(x,sy+sh/2+yd(x));ctx.closePath();ctx.fill();ctx.stroke();
+    [x0,x1].forEach(function(bx){ctx.fillStyle=C.ink;ctx.fillRect(bx-8,sy+sh/2+4,16,12);});var mx=(x0+x1)/2;arrow(ctx,mx,sy-sh/2-40+yd(mx),mx,sy-sh/2-4+yd(mx),C.ink,2.5);label(ctx,"side load",mx+8,sy-sh/2-34,C.ink,"left",13);
+    label(ctx,"top fibres squeezed (−)",mx-14,sy+yd(mx)-sh/2-26,C.blue,"right",12,"600");label(ctx,"bottom fibres stretched (+)",mx,sy+yd(mx)+sh/2+30,C.red,"center",12,"600");
+    var dy=-Math.cos(s.rot)*(sh/2-2),vis=Math.sin(s.rot)>0;ctx.fillStyle=C.red;ctx.globalAlpha=vis?1:0.35;ctx.beginPath();ctx.arc(mx,sy+yd(mx)+dy,5,0,2*PI);ctx.fill();ctx.globalAlpha=1;
+    // cross-section at mid-span
+    var cx=x1+80,cy=sy,R=44;ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(cx,cy,R,0,2*PI);ctx.fill();ctx.stroke();ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(cx-R-6,cy);ctx.lineTo(cx+R+6,cy);ctx.stroke();ctx.setLineDash([]);
+    label(ctx,"−",cx,cy-R+12,C.blue,"center",16,"700");label(ctx,"+",cx,cy+R-12,C.red,"center",16,"700");
+    var pxp=cx+R*Math.sin(s.rot),pyp=cy-R*Math.cos(s.rot);ctx.fillStyle=C.red;ctx.beginPath();ctx.arc(pxp,pyp,6,0,2*PI);ctx.fill();curvedArrow(ctx,cx,cy,R+12,-PI/2-0.5,-PI/2+0.5,C.graphite,1.6);label(ctx,"section at mid-span",cx,cy+R+22,C.graphite,"center",12,"500");
+    // stress history of the marked point
+    var gx=40,gy=h-58,gw=w-80,ga=26;ctx.strokeStyle=C.rule;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(gx,gy);ctx.lineTo(gx+gw,gy);ctx.stroke();label(ctx,"+ tension",gx-4,gy-ga,C.red,"left",12,"600");label(ctx,"− compression",gx-4,gy+ga+2,C.blue,"left",12,"600");
+    ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.beginPath();s.hist.forEach(function(q,i){var xx=gx+90+(gw-90)*i/220,yy=gy-q*ga;if(i===0)ctx.moveTo(xx,yy);else ctx.lineTo(xx,yy);});ctx.stroke();
+    var perHour=v.rpm*60;fitLabel(ctx,"Every turn, the red point goes from squeezed to stretched and back. At "+f(v.rpm,0)+" rpm that is "+f(perHour,0)+" cycles an hour.",12,20,C.ink,"left",14,"700",w-24);
+    fitLabel(ctx,"Shown 10× slower than real. Cycles counted here: "+s.cyc+". Small cracks grow a little on each cycle, which is fatigue.",12,40,C.graphite,"left",13,"500",w-24);
+  };return s;}
+
+/* ---------- I. tight side, slack side and slip at the drive pulley (module 5) ---------- */
+function setupBelt(root){var s=new Sim(root);s.pa=0;s.bo=0;
+  s.compute=function(){var v=vals(root);s.v=v;var lim=Math.exp(v.mu*PI),T1=v.Te+v.T2,ratio=T1/v.T2,slip=ratio>lim,T2min=v.Te/(lim-1);s.c={lim:lim,T1:T1,ratio:ratio,slip:slip,T2min:T2min,side:T1+v.T2};};
+  s.draw=function(dt){var v=s.v,c=s.c,ctx=s.ctx,w=s.w,h=s.h;var spd=1.2;if(s.running){s.pa+=dt*spd;s.bo+=dt*spd*(c.slip?0.45:1);}
+    var R=Math.min(h*0.25,w*0.15),cx=w*0.6,cy=h/2+22,xL=40;
+    // belt spans with thickness by tension
+    var tw=function(T){return 2+Math.min(14,T*0.25);};
+    ctx.strokeStyle=C.ink;ctx.lineCap="butt";ctx.lineWidth=tw(c.T1);ctx.beginPath();ctx.moveTo(xL,cy-R);ctx.lineTo(cx,cy-R);ctx.stroke();ctx.lineWidth=tw(v.T2);ctx.beginPath();ctx.moveTo(cx,cy+R);ctx.lineTo(xL,cy+R);ctx.stroke();
+    // tension around the wrap: T1 over the idle arc, then falling to T2 over the active arc near the exit
+    var act=Math.min(PI,Math.log(c.T1/v.T2)/v.mu);for(var i=0;i<60;i++){var a=-PI/2+PI*i/60,a2=-PI/2+PI*(i+1)/60,phi=PI*(i+0.5)/60,T=phi<PI-act?c.T1:v.T2*Math.exp(v.mu*(PI-phi));ctx.lineWidth=tw(T);ctx.strokeStyle=phi>=PI-act?C.red:C.ink;ctx.beginPath();ctx.arc(cx,cy,R,a,a2+0.01);ctx.stroke();}
+    // belt motion marks
+    ctx.setLineDash([6,14]);ctx.lineDashOffset=-(s.bo*60)%20;ctx.strokeStyle=C.paper;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(xL,cy-R);ctx.lineTo(cx,cy-R);ctx.arc(cx,cy,R,-PI/2,PI/2);ctx.lineTo(xL,cy+R);ctx.stroke();ctx.setLineDash([]);ctx.lineDashOffset=0;
+    // pulley
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(cx,cy,R-9,0,2*PI);ctx.fill();ctx.stroke();for(var k=0;k<4;k++){var aa=s.pa+k*PI/2;ctx.strokeStyle=k===0?C.red:C.ink;ctx.lineWidth=k===0?2.5:1.2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+(R-12)*Math.cos(aa),cy+(R-12)*Math.sin(aa));ctx.stroke();}
+    ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(cx,cy,5,0,2*PI);ctx.fill();
+    arrow(ctx,xL+70,cy-R-22,xL+20,cy-R-22,C.ink,2);label(ctx,"tight side T₁ = "+f(c.T1,1)+" N",xL+76,cy-R-22,C.ink,"left",14);
+    arrow(ctx,xL+70,cy+R+22,xL+20,cy+R+22,C.ink,2);label(ctx,"slack side T₂ = "+f(v.T2,1)+" N",xL+76,cy+R+22,C.ink,"left",14);
+    arrow(ctx,cx,cy,cx-Math.min(R*1.3,c.side*1.2),cy,C.blue,3);label(ctx,"side load on the shaft",cx+R+14,cy-9,C.blue,"left",13);label(ctx,"T₁ + T₂ = "+f(c.side,1)+" N",cx+R+14,cy+9,C.blue,"left",13);
+    fitLabel(ctx,"thicker belt = more tension; red = the active arc, where tension drops",xL,h-9,C.graphite,"left",12,"500",w-60);
+    var msg=c.slip?"Slips: T₁/T₂ = "+f(c.ratio,2)+" is more than e^(μθ) = "+f(c.lim,2)+". Tighten the belt to at least T₂ = "+f(c.T2min,1)+" N.":"Grips: T₁/T₂ = "+f(c.ratio,2)+" is within e^(μθ) = "+f(c.lim,2)+". Minimum slack tension "+f(c.T2min,1)+" N.";
+    fitLabel(ctx,msg,12,20,c.slip?C.red:C.good,"left",14,"700",w-24);fitLabel(ctx,"The pulley pulls with Tₑ = T₁ − T₂ = "+f(v.Te,1)+" N. Wrap θ = 180° = π rad.",12,40,C.graphite,"left",13,"500",w-24);
+  };return s;}
+map.torque=setupTorque;map.mesh=setupMesh;map.train=setupTrain;map.ramp=setupRamp;map.thread=setupThread;map.shoe=setupShoe;map.cube=setupCube;map.fatigue=setupFatigue;map.belt=setupBelt;
+
 document.querySelectorAll(".sim[data-sim]").forEach(function(root){var fn=map[root.dataset.sim];if(fn){var s=fn(root);s.resize();s.compute();s.paint(0);if(PRED[root.dataset.sim])addPredict(s,PRED[root.dataset.sim]);}});
 if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){sims.forEach(function(s){if(s.root===e.target)s.visible=e.isIntersecting;});});});sims.forEach(function(s){io.observe(s.root);});}
 var last=performance.now();function loop(t){var dt=Math.min(0.05,(t-last)/1000);last=t;sims.forEach(function(s){if(s.visible)s.paint(dt);});requestAnimationFrame(loop);}requestAnimationFrame(loop);
