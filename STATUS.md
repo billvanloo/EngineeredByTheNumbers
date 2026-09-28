@@ -3,7 +3,7 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** Phases 0 to 3, stopping at Checkpoint B.
-**Current phase:** Phase 3, Motor and Drive Matcher.
+**Current phase:** Checkpoint B reached (end of the current goal). The next step is the user's review, then creating the GitHub repos.
 
 ## Done
 
@@ -49,8 +49,49 @@ Progress record for `PLAN.md`. A resumed session starts here.
   - [x] A keyboard-only session can add, move and delete loads and read the station readout.
 - **Definition of done:** the screenshot matches the mockup's three-column arrangement (inputs, drawing, then results with predict-first and the working).
 
+### Phase 3: MotorDriveMatcher (2026-09-27), commit 8ca1e02
+- `ecosystem/motor-core.js` has 38 unit checks in `ecosystem/test/test-motor-core.js`.
+- `~/GitHub/MotorDriveMatcher` repo:
+  - `index.html`: v1.0.0, torque-speed plot with duty bands and power curve, drag and keyboard load control, stages, three load types, ratio solver with rounding (including the nearest gear pair), compare motors, current and efficiency extension.
+  - Drive-request import and drive-result export.
+  - Teacher settings for the band edges and the motor list (JSON).
+  - `dev/core.js` and tests: 56 unit, 5 inline, 96 e2e. README, docs and screenshots.
+- **Shell and kit fixes made along the way:** Clear my data cancels a pending autosave. The e2e kit's `fresh()` goes through a blank same-origin page, because a pending autosave could write old state back between the clear and the reload, which made one check flaky.
+- **Acceptance (spec 02 §8):**
+  - [x] All test cases pass in Node and in the interface. Every MD case is in `dev/test.js`, and MD-1, 2, 3, 5, 6, 7, 8, 9, 10 and 11 are also checked through the interface.
+  - [x] The operating point moves continuously while dragging, with the readout updating live (10.5 ms per update).
+  - [x] Show the working lists T_L, T_m, percent of stall, N_m and N_out, and for the solver the quadratic with numbers substituted and both roots.
+  - [x] Predict first hides the operating point dot, N_out and the solver result (and everything else that gives them away).
+  - [x] The help panel explains in one paragraph why the no-load speed gives the wrong ratio, using MD-1 and MD-2.
+- **Definition of done:** the screenshot matches the mockup's three columns. One difference is deliberate: there's no Sandbox/Challenge switch (QUESTIONS Q7).
+
+## Checkpoint B report
+
+### Repos (local git only, no remotes, nothing pushed)
+| Repo | Path | Latest commit |
+|---|---|---|
+| EngineeredByTheNumbers (curriculum) | `~/GitHub/EngineeredByTheNumbers` | see `git log` |
+| ShaftBeamWorkbench | `~/GitHub/ShaftBeamWorkbench` | cc2bf6b |
+| MotorDriveMatcher | `~/GitHub/MotorDriveMatcher` | 8ca1e02 |
+
+### Tests
+`scripts/test-all.sh --e2e` passes everything: spec check 222/222, ecosystem 193, demo 2 + inline + 46 e2e, Shaft and Beam 75 + 6 + 101, Motor and Drive 56 + 5 + 96.
+
+### Screenshots
+- `ShaftBeamWorkbench/docs/screenshots/shaft-beam-workbench-{light,dark}.png`
+- `MotorDriveMatcher/docs/screenshots/motor-drive-matcher-{light,dark}.png`
+
+### For review
+- `ERRATA.md`: no spec value is wrong. There are interpretation notes: MD-2, SB-12, SB-3, CD-5/6, CD-7, TV-1d, PL-1, plus two display-rounding notes (MD-1 P_out shows 5.98, MD-2 N_out at 2.70 shows 95.6).
+- `QUESTIONS.md`: Q1 to Q10. Q4 (placeholder material values) and Q7 (no challenge lists in specs 01 and 02) need teacher input.
+- Blocked: nothing.
+- **Not verified:** the 50 ms target on a real Chromebook (measured 16.6 ms and 10.5 ms in headless Chromium on the build machine); Safari and Firefox; screen-reader listening (live regions and labels are in place and checked structurally only).
+
+### Proposed next step (needs approval)
+Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, MotorDriveMatcher) under billvanloo, push `main`, and turn on GitHub Pages for the two tools. After that, Phase 4 (FrictionScrewLab, FlywheelBrakeLab) as the next goal.
+
 ## Next
-- Phase 3: `ecosystem/motor-core.js` and its tests, then the `MotorDriveMatcher` repo.
+- Waiting for review at Checkpoint B.
 
 ## Blocked
 - None.
@@ -59,5 +100,6 @@ Progress record for `PLAN.md`. A resumed session starts here.
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
-| EngineeredByTheNumbers (ecosystem) | 155/155 | current | demo 46/46 |
+| EngineeredByTheNumbers (ecosystem) | 193/193 | current | demo 46/46 |
 | ShaftBeamWorkbench | 75/75 | 6/6 | 101/101 |
+| MotorDriveMatcher | 56/56 | 5/5 | 96/96 |
