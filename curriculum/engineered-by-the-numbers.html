@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engineered by the Numbers: a unit for Principles of Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF2E6; --grid:#DCE3D1; --ink:#1F2A24; --graphite:#56615A; --rule:#B6C2AB;
+  --panel:#E3EAD9; --red:#A8302A; --blue:#2A5782; --good:#2F6B3E;
+  --sans:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#131A16; --grid:#1B2520; --ink:#E0E7D9; --graphite:#9CA89F; --rule:#34443A;
+    --panel:#1A231E; --red:#E57B6D; --blue:#8DB5DE; --good:#7FC08E;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131A16; --grid:#1B2520; --ink:#E0E7D9; --graphite:#9CA89F; --rule:#34443A;
+  --panel:#1A231E; --red:#E57B6D; --blue:#8DB5DE; --good:#7FC08E;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%; scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; color:var(--ink); font-family:var(--serif); font-size:1.0625rem; line-height:1.62;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--blue); outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--sans); line-height:1.15; letter-spacing:.005em; margin:0}
+h1{font-size:clamp(2.1rem,5.5vw,3.4rem); font-weight:700; max-width:18ch}
+h2{font-size:1.9rem; font-weight:700; margin-top:3.5rem; padding-top:.6rem; border-top:2px solid var(--ink)}
+h3{font-size:1.3rem; font-weight:600; margin-top:2rem}
+h4{font-size:1.08rem; font-weight:600; margin-top:1.4rem}
+p{margin:.7rem 0}
+ul,ol{padding-left:1.3rem; margin:.6rem 0}
+li{margin:.3rem 0}
+.layout{display:grid; grid-template-columns:minmax(0,46rem); justify-content:center; gap:3rem; padding:2.5rem 1.25rem 5rem}
+@media (min-width:1120px){.layout{grid-template-columns:13rem minmax(0,46rem)}}
+nav.rail{display:none}
+@media (min-width:1120px){
+  nav.rail{display:block; position:sticky; top:calc(1.5rem + env(safe-area-inset-top,0px)); align-self:start; font-family:var(--sans); font-size:.98rem}
+  nav.rail ol{list-style:none; padding:0; margin:0; border-left:2px solid var(--rule)}
+  nav.rail li{margin:0}
+  nav.rail a{display:block; padding:.28rem .8rem; color:var(--graphite); text-decoration:none}
+  nav.rail a:hover{color:var(--ink)}
+  nav.rail .num{display:inline-block; width:1.4rem; font-weight:700; color:var(--ink)}
+}
+header.top .meta{font-family:var(--sans); font-size:1.05rem; color:var(--graphite); margin-top:.9rem}
+.lede{font-size:1.2rem; max-width:40rem}
+.mono-num{font-variant-numeric:tabular-nums}
+/* concept thread map */
+.threads{margin:2rem 0 1rem; overflow-x:auto}
+.threads table{border-collapse:collapse; min-width:36rem; width:100%; font-family:var(--sans); font-size:1rem}
+.threads th,.threads td{padding:.45rem .4rem; text-align:center; border-bottom:1px solid var(--rule)}
+.threads th[scope=row]{text-align:left; font-weight:600; white-space:nowrap}
+.threads thead th{font-weight:700; vertical-align:bottom}
+.threads thead th small{display:block; font-weight:500; color:var(--graphite); font-size:.85rem}
+.dot{display:inline-block; width:14px; height:14px; border-radius:50%}
+.dot.new{background:var(--ink)}
+.dot.use{border:2px solid var(--ink)}
+.dot.xt{border:2px dashed var(--blue)}
+.legend{font-family:var(--sans); color:var(--graphite); font-size:.95rem; display:flex; gap:1.2rem; flex-wrap:wrap}
+.legend span{display:inline-flex; align-items:center; gap:.4rem}
+/* tables */
+.tablewrap{overflow-x:auto; margin:1rem 0}
+table.plain{border-collapse:collapse; width:100%; min-width:32rem; font-size:.98rem}
+table.plain th,table.plain td{border-bottom:1px solid var(--rule); padding:.45rem .5rem; text-align:left; vertical-align:top}
+table.plain th{font-family:var(--sans); font-weight:600; font-size:1rem}
+/* equations */
+.eq{font-family:var(--serif); font-style:italic; font-size:1.12rem; margin:.8rem 0; padding:.35rem 0 .35rem 1rem; border-left:3px solid var(--ink); overflow-x:auto}
+.eq .src{font-style:normal; font-size:.9rem}
+.eq span.lbl{font-style:normal; font-family:var(--sans); font-size:.92rem; color:var(--graphite); margin-left:.6rem}
+.frac{display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; margin:0 .15em}
+.frac>span:first-child{border-bottom:1px solid currentColor; padding:0 .2em}
+.frac>span:last-child{padding:0 .2em}
+/* callouts */
+.note,.flag,.ext{margin:1.1rem 0; padding:.75rem 1rem; background:var(--panel); border-left:4px solid var(--graphite)}
+.flag{border-left-color:var(--red)}
+.flag strong:first-child{color:var(--red)}
+.ext{border-left-color:var(--blue); border-left-style:dashed}
+.ext strong:first-child{color:var(--blue)}
+.note p:first-child,.flag p:first-child,.ext p:first-child{margin-top:0}
+.note p:last-child,.flag p:last-child,.ext p:last-child{margin-bottom:0}
+.cite{font-family:var(--sans); font-size:.8em; vertical-align:super; line-height:0; text-decoration:none; margin-left:.1em}
+.days{list-style:none; padding:0}
+.days>li{padding:.55rem 0 .55rem 5.2rem; position:relative; border-bottom:1px dotted var(--rule)}
+.days>li>b.d{position:absolute; left:0; top:.55rem; font-family:var(--sans); font-weight:700; width:4.8rem}
+.driving{font-family:var(--sans); font-size:1.3rem; font-weight:600; margin:.6rem 0 1rem}
+.driving::before{content:"Driving question. "; color:var(--graphite); font-weight:500}
+/* sims */
+.sim{margin:1.5rem 0 2rem; border:2px solid var(--ink); background:var(--paper)}
+.sim .simhead{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.8rem; padding:.5rem .8rem; border-bottom:1px solid var(--rule); background:var(--panel)}
+.sim .simhead h4{margin:0; font-size:1.05rem}
+.sim canvas{display:block; width:100%; height:auto; touch-action:pan-y}
+.controls{display:grid; grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr)); gap:.4rem 1.2rem; padding:.8rem; border-top:1px solid var(--rule); font-family:var(--sans); font-size:.98rem}
+.controls label{display:grid; grid-template-columns:1fr auto; align-items:center; gap:.1rem .5rem}
+.controls label input{grid-column:1 / -1; width:100%; accent-color:var(--ink)}
+.controls output{font-variant-numeric:tabular-nums; font-weight:600}
+.readout{padding:.6rem .8rem .8rem; border-top:1px solid var(--rule); overflow-x:auto}
+.readout table{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:.98rem; font-variant-numeric:tabular-nums}
+.readout td{padding:.2rem .4rem; border-bottom:1px dotted var(--rule)}
+.readout td:last-child{text-align:right; font-weight:600; white-space:nowrap}
+.btns{display:flex; gap:.5rem; flex-wrap:wrap}
+button{font-family:var(--sans); font-size:.98rem; font-weight:600; color:var(--paper); background:var(--ink); border:0; padding:.38rem .8rem; cursor:pointer}
+button.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--ink)}
+.status{font-family:var(--sans); font-weight:700}
+.status.ok{color:var(--good)} .status.bad{color:var(--red)}
+.predict{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem 1rem; padding:.6rem .8rem; border-top:1px solid var(--rule); font-family:var(--sans); font-size:.98rem}
+.predict input[type=number]{width:7rem; font:inherit; padding:.15rem .3rem; border:1.5px solid var(--ink); background:var(--paper); color:var(--ink)}
+.predict input[type=checkbox]{accent-color:var(--ink); width:1.05rem; height:1.05rem; vertical-align:-2px}
+.pmsg{font-weight:600}
+.readout.concealed td:last-child{visibility:hidden}
+.simnote{font-family:var(--sans); font-size:.92rem; color:var(--graphite); padding:0 .8rem .7rem}
+details{margin:.8rem 0; border-top:1px solid var(--rule); padding-top:.4rem}
+summary{cursor:pointer; font-family:var(--sans); font-weight:600; font-size:1.05rem}
+ol.refs{font-size:.95rem; padding-left:2rem}
+ol.refs li{margin:.45rem 0; overflow-wrap:anywhere}
+.flow{margin:1.2rem 0; overflow-x:auto}
+.flow svg{display:block; width:100%; min-width:34rem; height:auto}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-size:.95rem}
+@media print{body{background:none} nav.rail,.sim .controls,.btns{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="rail" aria-label="Unit sections">
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#order">Why the order changed</a></li>
+<li><a href="#glance">Unit at a glance</a></li>
+<li><a href="#tools">Tools and simulations</a></li>
+<li><a href="#m0"><span class="num">0</span>Toolkit</a></li>
+<li><a href="#m1"><span class="num">1</span>Speed reducer</a></li>
+<li><a href="#m2"><span class="num">2</span>Screw jack</a></li>
+<li><a href="#m3"><span class="num">3</span>Brake</a></li>
+<li><a href="#m4"><span class="num">4</span>Shaft</a></li>
+<li><a href="#m5"><span class="num">5</span>Conveyor</a></li>
+<li><a href="#supp">Math and physics supplements</a></li>
+<li><a href="#assess">Capstone rubric</a></li>
+<li><a href="#safety">Safety summary</a></li>
+<li><a href="#video">Notes on the source video</a></li>
+<li><a href="#refs">References</a></li>
+</ol>
+</nav>
+<main>
+<header class="top" id="overview">
+<h1>Engineered by the Numbers</h1>
+<p class="meta">Unit plan for Principles of Engineering. Grades 10 to 12. About 35 class periods of 58 minutes. Teams of 2 or 3.</p>
+<p class="lede">The goal of this unit is to help students learn how to apply the fundamental math and physics of mechanical engineering through a series of example problems.</p>
+<p>Each example problem is a machine element students can build and test: a gear reducer, a screw jack, a friction brake and a loaded shaft. The last problem combines all of them into a working belt conveyor. Simulations run alongside every problem so students predict, check and explain before and after they build. Every formula on this page is checked against a published engineering or physics reference, and each one links to its source.</p>
+</header>
+
+<p>The project list comes from a short Instagram reel by aerofluid.in<a class="cite" href="#r32">[32]</a>. The reel names five projects and closes with a design-process framework. The idea is good, but the reel is labeled as AI content and several of its on-screen formulas are wrong, so this unit rebuilds each project from references and changes the order. The corrections are listed in <a href="#video">Notes on the source video</a>.</p>
+
+<h3>How the ideas build</h3>
+<p>Each row is a concept thread. A solid dot marks where the thread is taught. A ring marks where students use it again. A dashed ring marks extension work for students ready to go further.</p>
+<div class="threads">
+<table>
+<thead><tr><th scope="col"><span class="visually-hidden">Concept</span></th>
+<th scope="col">0<small>Toolkit</small></th><th scope="col">1<small>Reducer</small></th><th scope="col">2<small>Jack</small></th><th scope="col">3<small>Brake</small></th><th scope="col">4<small>Shaft</small></th><th scope="col">5<small>Conveyor</small></th></tr></thead>
+<tbody>
+<tr><th scope="row">Units and conversions</th><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Torque and power</th><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Moments and levers</th><td><span class="dot new" aria-label="taught"></span></td><td></td><td></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td></td></tr>
+<tr><th scope="row">Ratios and efficiency</th><td></td><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td></td><td></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Right-triangle trig</th><td></td><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td></td><td></td><td></td></tr>
+<tr><th scope="row">Friction</th><td></td><td></td><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Stress and safety factor</th><td></td><td><span class="dot xt" aria-label="extension"></span></td><td><span class="dot new" aria-label="taught"></span></td><td></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Energy and heat</th><td></td><td></td><td></td><td><span class="dot new" aria-label="taught"></span></td><td></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+<tr><th scope="row">Design process</th><td><span class="dot new" aria-label="taught"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td><td><span class="dot use" aria-label="reused"></span></td></tr>
+</tbody>
+</table>
+</div>
+<p class="legend"><span><span class="dot new"></span> taught here</span><span><span class="dot use"></span> used again</span><span><span class="dot xt"></span> extension only</span></p>
+
+<h3>Planning assumptions</h3>
+<p>The unit is written for Principles of Engineering, grades 10 to 12, with 58-minute periods and teams of 2 or 3. The calculations assume Algebra 1 and some geometry. Trig, cube roots and the physics ideas are taught in short supplements, so a student who has not taken physics can still do the core work.</p>
+<p>No robotics experience is assumed. Students who have built robots will recognize gears and motors and often make good lab partners, but every idea here is taught from the beginning, and the labs use ordinary classroom materials.</p>
+<p><b>Where it fits in the course.</b> PLTW describes Principles of Engineering as a survey course covering mechanisms, the strength of materials and structures, automation and kinematics<a class="cite" href="#r37">[37]</a>. Its published outline pairs a mechanisms unit, where students learn that friction losses reduce efficiency, with a materials and structures unit on beam deflection, truss forces and material testing<a class="cite" href="#r37">[37]</a>. PLTW has since released a revised course outline<a class="cite" href="#r38">[38]</a>, so check which version your school follows. This unit goes deeper into the mechanisms and statics strands. If your students have already done simple machines, gear ratios or truss statics, modules 0 and 1 and the truss warm-ups run as review and you can reclaim a few periods.</p>
+<p><b>Units.</b> The unit works in SI because the physics references and the gear module system use it. Many engineering course materials and classroom kits use US customary units, and the Truss Stress Visualizer uses a half-inch grid on a 6-inch span with loads in newtons, so supplement S1 covers conversions.</p>
+<p><b>Shorter version.</b> Run modules 0 to 3 and replace the full capstone with a simpler gear-and-pulley lift. Each module separates core work from blue extension boxes.</p>
+
+<h2 id="order">Why the order changed</h2>
+<p>The reel starts with shaft design. A shaft calculation needs torque from power and speed, bending moments from support reactions, two kinds of stress, and a rule for combining them. It also needs to know what is loading the shaft, which in a real machine is a gear or a pulley. That is four or five new ideas in the first project. Moving the shaft to fourth place means every one of those ideas has already been taught once in a simpler setting.</p>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Reel order</th><th>This unit</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td>(none)</td><td>0. Toolkit</td><td>Three days of diagnostic and shared vocabulary. Units, torque and power show up in every later module.</td></tr>
+<tr><td>3. Speed reducer</td><td>1. Speed reducer</td><td>Gear ratios need only multiplication and division, so every student can start here. This module also produces the tooth forces that load a shaft in module 4.</td></tr>
+<tr><td>2. Screw jack</td><td>2. Screw jack</td><td>Introduces friction, right-triangle trig and the simplest stress case, a straight push on a rod (σ = F/A).</td></tr>
+<tr><td>4. Brake</td><td>3. Brake</td><td>Reuses friction from the jack and levers from the toolkit, then adds kinetic energy and heat.</td></tr>
+<tr><td>1. Shaft</td><td>4. Shaft</td><td>Combines torque, moments, reactions and stress, all of which have now been taught. Loads come from the gears in module 1.</td></tr>
+<tr><td>5. Conveyor</td><td>5. Conveyor</td><td>Capstone. The conveyor has a motor, gearing, pulleys, a shaft and bearings, so it uses every earlier module.</td></tr>
+</tbody>
+</table>
+</div>
+<p>There is a nice contrast between modules 2 and 3. A screw jack should be self-locking so it holds a load when you let go. A brake should not be self-locking, or it grabs. Students see the same friction math push the design in opposite directions.</p>
+
+<h2 id="glance">Unit at a glance</h2>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Module</th><th>Periods</th><th>Driving question</th><th>Main deliverable</th><th>Main tools</th></tr></thead>
+<tbody>
+<tr><td>0. Toolkit</td><td>1 to 3</td><td>What do engineers measure when a machine moves?</td><td>Personal formula card, started</td><td>Power lab, formula card</td></tr>
+<tr><td>1. Speed reducer</td><td>4 to 9</td><td>How can a small fast motor lift something heavy?</td><td>Two-stage reducer calc sheet and test report</td><td>Gear Train Workbench, gear interactive</td></tr>
+<tr><td>2. Screw jack</td><td>10 to 15</td><td>Why doesn't a car jack slide back down?</td><td>Jack specification brief</td><td>Screw jack interactive</td></tr>
+<tr><td>3. Brake</td><td>16 to 20</td><td>Where does the motion go when a wheel stops?</td><td>Brake design memo with test data</td><td>Brake interactive, slow-motion video</td></tr>
+<tr><td>4. Shaft</td><td>21 to 26</td><td>Why does a slightly thicker shaft get so much stronger?</td><td>Shaft sizing sheet, checkpoint quiz</td><td>Truss Stress Visualizer, shaft interactive</td></tr>
+<tr><td>5. Conveyor</td><td>27 to 35</td><td>Can your team design a conveyor that meets a spec on the first build?</td><td>Design package, working conveyor, validation talk</td><td>Conveyor and motor interactives, Workbench</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The design process students follow</h3>
+<p>This is the reel's closing framework with one change. It adds a return path, because a test that disagrees with the calculation is the most useful moment in the whole process. NGSS asks students to design, evaluate and refine solutions against prioritized criteria and trade-offs, and to use models to predict how a design will perform<a class="cite" href="#r29">[29]</a>. Each module ends with a small version of this loop. The capstone runs the full loop.</p>
+<div class="flow" role="img" aria-label="Design process: requirements, calculations, component selection, CAD, drawing, build and test, validation. An arrow returns from validation to calculations when prediction and test disagree.">
+<svg viewBox="0 0 780 170" xmlns="http://www.w3.org/2000/svg" font-family="Barlow Semi Condensed, Arial Narrow, Arial, sans-serif" font-size="15">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink)"/></marker></defs>
+<g style="fill:none;stroke:var(--ink);stroke-width:1.6">
+<rect x="4" y="30" width="96" height="46"/><rect x="115" y="30" width="96" height="46"/><rect x="226" y="30" width="96" height="46"/><rect x="337" y="30" width="96" height="46"/><rect x="448" y="30" width="96" height="46"/><rect x="559" y="30" width="96" height="46"/><rect x="670" y="30" width="106" height="46" style="stroke-width:2.6"/>
+<line x1="100" y1="53" x2="113" y2="53" marker-end="url(#ah)"/><line x1="211" y1="53" x2="224" y2="53" marker-end="url(#ah)"/><line x1="322" y1="53" x2="335" y2="53" marker-end="url(#ah)"/><line x1="433" y1="53" x2="446" y2="53" marker-end="url(#ah)"/><line x1="544" y1="53" x2="557" y2="53" marker-end="url(#ah)"/><line x1="655" y1="53" x2="668" y2="53" marker-end="url(#ah)"/>
+<path d="M723 76 V122 H163 V78" style="stroke:var(--red);stroke-dasharray:6 4" marker-end="url(#ah)"/>
+</g>
+<g style="fill:var(--ink)" text-anchor="middle">
+<text x="52" y="58">Requirements</text><text x="163" y="58">Calculations</text><text x="274" y="50">Component</text><text x="274" y="67">selection</text><text x="385" y="58">CAD</text><text x="496" y="50">Engineering</text><text x="496" y="67">drawing</text><text x="607" y="50">Build</text><text x="607" y="67">and test</text><text x="723" y="58">Validation</text>
+<text x="443" y="144" style="fill:var(--red)">Prediction and test disagree: find out why, then revise</text>
+</g>
+</svg>
+</div>
+
+<h2 id="tools">Tools and simulations</h2>
+<p>Simulations carry a lot of this unit. Two of them already exist as your own classroom tools, the <a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a><a class="cite" href="#r39">[39]</a> and the <a href="https://www.billvanloo.com/util/TrussVisualizer/">Truss Stress Visualizer</a><a class="cite" href="#r40">[40]</a>. Six more are built into this page. The section below maps where each one is used, suggests extensions to your two tools that would close gaps in the unit, and proposes new tools worth building.</p>
+
+<h3>One routine for every tool: predict, run, explain</h3>
+<p>The Workbench's challenge mode already models the right habit. Students enter a predicted output before the readout appears, and each run hides the readout again, so every attempt needs a fresh prediction<a class="cite" href="#r39">[39]</a>. Every interactive on this page now has the same switch. Turn on <b>Predict first</b>, and the results column goes blank until the student types a number and presses Check. The tool then reports the model value and the percent difference. Moving any slider hides the results again.</p>
+<p>The routine for each example problem is the same across the unit. Students solve by hand with units on every line, predict in the tool, run it, and write one sentence about any gap. When there is a physical lab, a third column gets added, measured. Prediction, model and measurement disagreeing in different ways is where most of the physics conversation happens.</p>
+
+<h3>Where each tool is used</h3>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Periods</th><th>Tool</th><th>What students do</th></tr></thead>
+<tbody>
+<tr><td>4</td><td>Gear Train Workbench, challenge mode</td><td>Predict speed and direction for simple and idler trains, then use "Show the working" to find where a wrong prediction went off.</td></tr>
+<tr><td>5 to 6</td><td>Workbench and the spur gear interactive</td><td>Compare the Workbench's ideal output torque with the torque measured in the lift lab. The gap is the efficiency. Then use the gear interactive for module, pitch diameter and center distance.</td></tr>
+<tr><td>7</td><td>Spur gear interactive</td><td>Predict tooth forces before revealing them.</td></tr>
+<tr><td>8 to 9</td><td>Workbench, compound trains</td><td>Build the two-stage reducer in the Workbench first and attach the exported report to the calc sheet.</td></tr>
+<tr><td>12 to 14</td><td>Screw jack interactive</td><td>Predict handle force, then test self-locking by changing starts and friction.</td></tr>
+<tr><td>16 to 18</td><td>Brake interactive</td><td>Predict stopping time, then compare with slow-motion video of the real wheel.</td></tr>
+<tr><td>21</td><td>Truss Stress Visualizer</td><td>Warm-up on support reactions. Build a small truss on the 6-inch span, apply the Tester load at the deck center, and inspect the joints at the pin and roller. Each support carries half the load, the same split as two bearings under a shaft with a gear at its center. The Moving load case steps the load across the deck joints, so students can predict how the split changes before they step it.</td></tr>
+<tr><td>22 to 24</td><td>Shaft interactive</td><td>Predict the safety factor for a given diameter, then find the smallest diameter that meets <i>n</i> = 2.</td></tr>
+<tr><td>28 to 29</td><td>Conveyor and motor interactives, Workbench</td><td>Predict belt pull, choose a motor and ratio using the loaded speed, and build the reduction in the Workbench.</td></tr>
+<tr><td>30 (optional)</td><td>Truss Stress Visualizer</td><td>If a team braces its conveyor stand, model one side frame with belt and box loads at the joints. This needs the larger-workspace extension below.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The Workbench reports torque in N·cm, while this page uses N·m. That mismatch is worth keeping. It gives students a real reason to practice conversion (1 N·m = 100 N·cm, <a href="#s1">S1</a>).</p>
+
+<h3>Gear Train Workbench: suggested extensions</h3>
+<p>Today the Workbench builds simple, idler and compound trains on two planes, drives them with a motor at a set speed and torque, reports ratio, output speed, output torque and direction, and treats the train as ideal, with power in equal to power out<a class="cite" href="#r39">[39]</a>. These additions, listed in the order I would build them, would let it carry more of modules 1 and 5.</p>
+<ol>
+<li><b>Efficiency per mesh.</b> An optional efficiency value on each mesh, default 1.00, so output torque becomes <i>η</i> · <i>i</i> · <i>τ</i><sub>in</sub> and the readout shows power lost. Students enter the efficiency they measured in period 5 and watch it compound across stages. Keep the ideal mode as the default so the current challenges still work.</li>
+<li><b>Motor curve instead of a fixed speed.</b> Let the motor be described by stall torque and no-load speed, and let the Load tool apply a torque. The output speed then drops under load along the straight-line motor curve<a class="cite" href="#r43">[43]</a>. This is the single idea most students miss in the capstone, and the motor interactive on this page is a prototype of it.</li>
+<li><b>Gear geometry.</b> A module setting per gear, with pitch diameter and center distance shown for each mesh (<i>d</i> = <i>zm</i>, <i>a</i> = <i>m</i>(<i>z</i><sub>1</sub> + <i>z</i><sub>2</sub>)/2<a class="cite" href="#r6">[6]</a><a class="cite" href="#r7">[7]</a>). An SVG export of shaft-hole positions would feed straight into laser cutting a gear plate with your ULS Laser Ready workflow.</li>
+<li><b>Tooth forces and shaft loads.</b> For each mesh, show <i>F</i><sub>t</sub> = 2<i>T</i>/<i>d</i> and <i>F</i><sub>r</sub> = <i>F</i><sub>t</sub> tan 20°<a class="cite" href="#r9">[9]</a>. A small export of the loads on each shaft would let a shaft tool pick up where the Workbench stops.</li>
+<li><b>A lift task on the Load tool.</b> A spool radius and hanging mass, with required torque, lift speed and lifting power (<i>mgv</i>). That makes the module 0 power lab and the module 1 lift lab directly checkable.</li>
+<li><b>Belt and chain stages.</b> A non-meshing stage where two pulleys or sprockets on a belt turn the same direction, for the conveyor drive.</li>
+<li><b>A challenge pack for this unit.</b> For example: reach 95 rpm within 5% from a 300 rpm motor using listed sizes; build a 12 : 1 reducer in two stages; or a challenge with a hidden mesh efficiency that students must infer from the output torque.</li>
+</ol>
+
+<h3>Truss Stress Visualizer: suggested extensions</h3>
+<p>The Visualizer solves pin-jointed trusses by the method of joints, colors tension and compression, sizes lines by utilization, flags the predicted first member to fail, and has a free-body inspector with a ΣF = 0 check. It mirrors a Vernier tester load case, includes material presets, and warns when the prediction passes the tester's 1000 N load cell. Your notes list buckling as the planned phase 2<a class="cite" href="#r40">[40]</a>. Within this unit it supports the statics parts of modules 0 and 4. These additions would stretch it further.</p>
+<ol>
+<li><b>Buckling (your phase 2).</b> A length-dependent limit for compression members, using Euler's critical load <i>P</i><sub>cr</sub> = π²<i>EI</i>/(<i>KL</i>)² with <i>K</i> = 1 for pinned ends<a class="cite" href="#r41">[41]</a>. Euler only applies to long, slender members, and short ones fail by other means<a class="cite" href="#r41">[41]</a>, so the tool should say which applies. This also connects to the screw jack, since a long screw under load is a column and designers check it for buckling<a class="cite" href="#r5">[5]</a>.</li>
+<li><b>A stress view.</b> Given each member's cross-section, show <i>σ</i> = <i>F</i>/<i>A</i> in MPa beside the force, and compare it with the material's strength instead of a per-member force limit<a class="cite" href="#r23">[23]</a>. This ties the truss work to the stress ideas in modules 2 and 4 and to supplement S10.</li>
+<li><b>A beam mode.</b> One member on two supports carrying point loads, with reactions (<i>Wb</i>/<i>L</i> and <i>Wa</i>/<i>L</i>) plus shear and bending moment diagrams<a class="cite" href="#r12">[12]</a>. A pin-jointed truss cannot show bending, and bending is exactly what module 4 needs, so this is the natural bridge from truss statics to shafts.</li>
+<li><b>Larger workspace and unit toggle.</b> A span larger than the 6-inch tester, and a switch between inches and millimeters and between newtons and pound-force. That would let teams model a conveyor stand.</li>
+</ol>
+
+<h3>Interactives built into this page</h3>
+<p>These six are prototypes. Each runs from the same formulas and worked checks printed beside it, and each could become a standalone tool in the same style as yours.</p>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Interactive</th><th>Module</th><th>Predict-first target</th></tr></thead>
+<tbody>
+<tr><td><a href="#simGear">Spur gear pair</a></td><td>1</td><td>Output torque</td></tr>
+<tr><td><a href="#simScrew">Screw jack and unrolled thread</a></td><td>2</td><td>Handle force</td></tr>
+<tr><td><a href="#simBrake">Lever shoe brake</a></td><td>3</td><td>Stopping time</td></tr>
+<tr><td><a href="#simShaft">Shaft under bending and torsion</a></td><td>4</td><td>Safety factor</td></tr>
+<tr><td><a href="#simConv">Conveyor drive sizing</a></td><td>5</td><td>Belt pull</td></tr>
+<tr><td><a href="#simMotor">DC motor operating point</a></td><td>5</td><td>Output speed under load</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>New tools worth building</h3>
+<p>Listed by how much each would help the unit, most useful first.</p>
+<ol>
+<li><b>Shaft and Beam Workbench.</b> Place bearings and loads on a shaft, import gear forces from the Workbench or belt tensions from the conveyor tool, and see reactions, the bending moment diagram, torque, combined stress and the diameter needed for a chosen safety factor<a class="cite" href="#r13">[13]</a><a class="cite" href="#r14">[14]</a>. A switch between the Tresca and von Mises rules, and a keyway toggle that shows the local stress rise<a class="cite" href="#r15">[15]</a>, would cover the extension work. Module 4 is the hardest module and this tool would link your two existing ones.</li>
+<li><b>Motor and Drive Matcher.</b> Enter a motor's stall torque and no-load speed from its datasheet, add a gear ratio and efficiency, and set the load. The tool plots the operating point on the motor curve, flags the duty range<a class="cite" href="#r42">[42]</a>, and solves for the ratio that hits a target loaded speed. The capstone depends on this, and the prototype is on this page.</li>
+<li><b>Friction and Screw Lab.</b> A ramp to find friction coefficients (tan <i>θ</i>, with a place to enter measured angles)<a class="cite" href="#r22">[22]</a>, joined to a screw jack with square or Acme thread and optional collar friction<a class="cite" href="#r4">[4]</a><a class="cite" href="#r5">[5]</a>. Students see measured friction flow into lift torque and self-locking.</li>
+<li><b>Flywheel Brake Lab.</b> Students enter frame counts from slow-motion video, and the tool plots speed against time, fits the slowdown, and computes braking torque, friction coefficient and energy<a class="cite" href="#r25">[25]</a><a class="cite" href="#r27">[27]</a>. An energy bar that empties from kinetic into heat, with the <i>Q</i> = <i>mc</i>Δ<i>T</i> upper limit, would carry the module 3 argument<a class="cite" href="#r26">[26]</a>.</li>
+<li><b>Conveyor Designer.</b> The capstone integrator. Students enter the requirements sheet, the tool walks through belt pull, pulley, ratio, motor check and shaft side load, and each requirement shows pass or fail. A printable design record, like the one in the Truss Stress Visualizer<a class="cite" href="#r40">[40]</a>, would serve as the capstone's calculation package.</li>
+<li><b>Units and formula checker.</b> Students type a chain of calculation steps with units, and the tool flags mismatches such as N·mm mixed with N·m, or rpm used where rad/s is needed. It directly supports supplements S1 and S2, where most early errors happen.</li>
+<li><b>A shared prediction log.</b> One export format for every tool, with a row for predicted, model and measured values plus the percent differences. A single class spreadsheet could then collect results from all six modules.</li>
+</ol>
+<p><b>Build conventions worth keeping.</b> Your tools already share habits that suit this unit: one self-contained file that runs on a Chromebook, predict before reveal, a "show the working" view, keyboard control, respect for reduced-motion settings, and export to an image or report<a class="cite" href="#r39">[39]</a><a class="cite" href="#r40">[40]</a>. The Visualizer also tests its solver against hand-calculated cases before release<a class="cite" href="#r40">[40]</a>. The worked checks on this page are ready-made test cases for each new tool, and each has already been run through the code behind the interactives.</p>
+
+<h2 id="m0">0. Toolkit</h2>
+<p class="driving">What do engineers measure when a machine moves?</p>
+<p>Periods 1 to 3. The goal is shared vocabulary and a diagnostic so you know which students need which supplements before the math gets heavier.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>SI units and prefixes. Converting mm to m, and N·mm to N·m. <a href="#s1">Supplement S1</a>.</li>
+<li>Mass versus weight. Weight is the force of gravity, <i>W</i> = <i>mg</i>, with <i>g</i> = 9.81 m/s². <a href="#s6">S6</a>.</li>
+<li>Torque as force times perpendicular lever arm, <i>τ</i> = <i>rF</i>, measured in N·m<a class="cite" href="#r24">[24]</a>. <a href="#s7">S7</a>.</li>
+<li>Rotational speed in rpm and in rad/s, <i>ω</i> = 2π<i>N</i>/60.</li>
+<li>Power in straight-line motion, <i>P</i> = <i>Fv</i>, and in rotation, <i>P</i> = <i>τω</i><a class="cite" href="#r27">[27]</a>. <a href="#s9">S9</a>.</li>
+<li>Efficiency as useful power out divided by power in, <i>η</i> = <i>P</i><sub>out</sub>/<i>P</i><sub>in</sub>.</li>
+</ul>
+<div class="eq">τ = rF &nbsp;&nbsp; ω = 2πN/60 &nbsp;&nbsp; P = τω <span class="lbl">N in rpm, ω in rad/s, P in watts<a class="cite" href="#r24">[24]</a><a class="cite" href="#r27">[27]</a></span></div>
+<p>OpenStax works an example that is a good sanity check for students: a 9.0 × 10⁴ W boat engine at 300 rev/min turns at 31.4 rad/s, which gives a shaft torque of about 2,865 N·m<a class="cite" href="#r27">[27]</a>.</p>
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 1</b>Hook and diagnostic. Show the reel if you want to (see the teacher note below), then ask teams to sketch what they think is inside a car jack and a garage door opener. Give a 10-item diagnostic covering unit conversion, solving a formula for one variable, ratios, reading a right triangle, and the difference between mass and weight. Use the results to assign supplements. Introduce the design-process diagram.</li>
+<li><b class="d">Period 2</b>Torque lab. Balance a meter stick on a pivot, hang known masses, and pull with a spring scale at three distances. Teams record force and distance and notice that the product stays constant for balance. That product is torque. Finish with the door-hinge question: why is a door easy to open at the handle and hard near the hinge?</li>
+<li><b class="d">Period 3</b>Power lab. Lift a known mass with a string wound on a spool, either by hand crank or with a small motor. Measure height, time and spool rpm (count turns in slow-motion phone video). Compute <i>P</i> = <i>mgh</i>/<i>t</i>, then <i>τ</i> = <i>P</i>/<i>ω</i>, then check it against weight times spool radius. Students start their formula card, a single page they add to in every module and may use on quizzes.</li>
+</ul>
+<p><b>Materials.</b> Meter sticks and pivots, slotted masses, spring scales (a 0 to 50 N range covers most of this unit), string, spools or pulleys, a hand crank or small gearmotor, stopwatches or phone slow-motion video.</p>
+<div class="flag"><p><strong>Teacher note on the reel.</strong> If you show the reel as a hook, pause before the formulas. Several are wrong on screen. Period 26 turns this into a deliberate error-hunt activity once students know enough to catch the mistakes themselves.</p></div>
+
+<h2 id="m1">1. Speed reducer</h2>
+<p class="driving">How can a small fast motor lift something heavy?</p>
+<p>Periods 4 to 9. Students trade speed for torque with spur gears, predict the output, and measure it. Ratios need only multiplication and division, which makes gears a gentle first example problem for every student.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>Speed ratio. For a driver with <i>z</i><sub>1</sub> teeth turning <i>N</i><sub>1</sub> and a driven gear with <i>z</i><sub>2</sub> teeth turning <i>N</i><sub>2</sub>, the ratio is <i>i</i> = <i>N</i><sub>1</sub>/<i>N</i><sub>2</sub> = <i>z</i><sub>2</sub>/<i>z</i><sub>1</sub>. A ratio above 1 reduces speed<a class="cite" href="#r8">[8]</a>. <a href="#s3">S3</a>.</li>
+<li>Torque goes up by the same ratio, because power in equals power out for ideal gears. <i>τ</i><sub>1</sub><i>ω</i><sub>1</sub> = <i>τ</i><sub>2</sub><i>ω</i><sub>2</sub>, so <i>τ</i><sub>2</sub> = <i>i</i><i>τ</i><sub>1</sub>. Real gears lose some power, so <i>τ</i><sub>2</sub> = <i>η</i><i>i</i><i>τ</i><sub>1</sub><a class="cite" href="#r27">[27]</a>.</li>
+<li>Compound trains. When two stages share a shaft, the overall ratio is the product of the stage ratios, and the overall efficiency is the product of the stage efficiencies. Both follow directly from the definitions above.</li>
+<li>Gear geometry. The module <i>m</i> sets tooth size. Reference (pitch) diameter is <i>d</i> = <i>zm</i>, pitch is π<i>m</i>, and gears that mesh must share a module<a class="cite" href="#r6">[6]</a><a class="cite" href="#r34">[34]</a>. Center distance is half the sum of the two pitch diameters<a class="cite" href="#r7">[7]</a>.</li>
+<li>Pressure angle. Most modern gears use 20°, although 14.5° gears were once common<a class="cite" href="#r6">[6]</a>.</li>
+<li>Tooth forces. The tangential force that carries the torque is <i>F</i><sub>t</sub> = 2<i>T</i>/<i>d</i>. The radial force that pushes the gears apart is <i>F</i><sub>r</sub> = <i>F</i><sub>t</sub> tan <i>α</i>. Spur gears have no axial force<a class="cite" href="#r9">[9]</a>. These two forces are what bend the shaft in module 4. <a href="#s4">S4</a>.</li>
+</ul>
+<div class="eq">i = z₂/z₁ &nbsp;&nbsp; τ₂ = η · i · τ₁ &nbsp;&nbsp; d = zm &nbsp;&nbsp; a = m(z₁ + z₂)/2 <span class="lbl"><a class="cite" href="#r6">[6]</a><a class="cite" href="#r7">[7]</a><a class="cite" href="#r8">[8]</a></span></div>
+<div class="eq">F<sub>t</sub> = 2T/d &nbsp;&nbsp; F<sub>r</sub> = F<sub>t</sub> tan α <span class="lbl">α = 20° for most gears<a class="cite" href="#r9">[9]</a></span></div>
+<p><b>Worked check.</b> A 12-tooth pinion drives a 36-tooth gear, module 2 mm, with 0.5 N·m on the pinion. Then <i>i</i> = 3, <i>d</i><sub>1</sub> = 24 mm, <i>d</i><sub>2</sub> = 72 mm and the center distance is 48 mm. The tangential force is 2(0.5)/0.024 = 41.7 N and the radial force is 41.7 × tan 20° = 15.2 N. KHK's own example uses 17 and 34 teeth at module 1 for a 25.5 mm center distance, which students can check the same way<a class="cite" href="#r36">[36]</a>.</p>
+
+<div class="sim" id="simGear" data-sim="gear">
+<div class="simhead"><h4>Interactive: spur gear pair</h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="300" aria-label="Two meshing spur gears rotating at speeds set by the tooth counts"></canvas>
+<div class="controls">
+<label>Driver teeth z₁ <output data-o="z1"></output><input type="range" data-k="z1" min="8" max="40" step="1" value="12"></label>
+<label>Driven teeth z₂ <output data-o="z2"></output><input type="range" data-k="z2" min="12" max="84" step="1" value="36"></label>
+<label>Module m (mm) <output data-o="m"></output><input type="range" data-k="m" min="0.5" max="4" step="0.5" value="2"></label>
+<label>Input speed (rpm) <output data-o="nin"></output><input type="range" data-k="nin" min="30" max="600" step="10" value="300"></label>
+<label>Input torque (N·m) <output data-o="Tin"></output><input type="range" data-k="Tin" min="0.1" max="5" step="0.1" value="0.5"></label>
+<label>Efficiency η <output data-o="eta"></output><input type="range" data-k="eta" min="0.5" max="1" step="0.01" value="1"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Ratio i = z₂/z₁</td><td data-r="i"></td></tr>
+<tr><td>Output speed</td><td data-r="nout"></td></tr>
+<tr><td>Output torque</td><td data-r="Tout"></td></tr>
+<tr><td>Power in / power out</td><td data-r="P"></td></tr>
+<tr><td>Pitch diameters d₁, d₂</td><td data-r="d"></td></tr>
+<tr><td>Center distance a</td><td data-r="a"></td></tr>
+<tr><td>Tangential force Fₜ / radial force Fᵣ</td><td data-r="F"></td></tr>
+</table></div>
+<p class="simnote">Rotation is slowed for viewing but the two gears keep the true speed ratio. Efficiency starts at 1.00 (ideal). Replace it with the value your team measures.</p>
+</div>
+
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 4</b>Count it. Mount two gears, mark one tooth on each, and turn the driver 10 full turns. Count output turns and compare with <i>z</i><sub>2</sub>/<i>z</i><sub>1</sub>. Repeat with the gears swapped. Ask why the driven gear turns the opposite way, and what an idler gear would change. Then open the <a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a> in challenge mode. Teams predict output speed and direction for a simple train and an idler train before running, and use "Show the working" to find any wrong step<a class="cite" href="#r39">[39]</a>.</li>
+<li><b class="d">Period 5</b>The trade-off lab. Put a spool on the output shaft and lift a hanging mass. Turn the input with a crank of known radius and read the crank force on a spring scale. Compute input and output torque, then efficiency. Teams usually find it well below 1, which starts a good conversation about friction in bearings and teeth. Build the same train in the Workbench and compare. The Workbench gives the ideal torque (in N·cm), so the ratio of measured to ideal torque is the efficiency.</li>
+<li><b class="d">Period 6</b>Geometry. Introduce module, pitch diameter and center distance with the interactive above. Teams measure real gears with calipers, back-calculate the module, and check that their gear plate hole spacing matches <i>a</i> = <i>m</i>(<i>z</i><sub>1</sub> + <i>z</i><sub>2</sub>)/2.</li>
+<li><b class="d">Period 7</b>Tooth forces. Right-triangle trig supplement for anyone who needs it. Compute <i>F</i><sub>t</sub> and <i>F</i><sub>r</sub> for the period 5 setup. Draw the forces on a free-body sketch of the output shaft and save it for module 4.</li>
+<li><b class="d">Period 8</b>Design brief. From the gears in the bin, specify a two-stage reducer that hits a target output speed within 5% and lifts a target mass. Each team builds the design in the Workbench first and attaches the exported report to a calc sheet with units on every line and a predicted efficiency based on period 5.</li>
+<li><b class="d">Period 9</b>Build and test. Measure output speed and lifting ability. Record predicted versus measured and write two sentences on the biggest gap.</li>
+</ul>
+<div class="ext"><p><strong>Extension: will the teeth break?</strong> The Lewis equation treats one tooth as a small cantilever beam loaded at its tip, <i>σ</i> = <i>F</i><sub>t</sub>/(<i>bmY</i>), where <i>b</i> is face width and <i>Y</i> is the Lewis form factor from a table based on tooth count and pressure angle<a class="cite" href="#r10">[10]</a><a class="cite" href="#r11">[11]</a>. It ignores stress concentration at the tooth root and assumes one tooth carries the whole load<a class="cite" href="#r11">[11]</a>, so it is a first estimate. Students look up <i>Y</i> for their pinion and compare the stress with the plastic's strength from its datasheet. This is a good task for anyone 3D printing gears.</p></div>
+<p><b>Materials.</b> Any classroom gear kit (LEGO Technic, VEX or similar) or 3D-printed gears, shafts and bearings or bushings, a crank, spool and string, slotted masses, spring scales, calipers.</p>
+<div class="flag"><p><strong>Safety.</strong> Gear meshes are pinch points. Power off before adjusting, tie back hair, and no lanyards or loose sleeves near the mesh. Keep hanging masses low over the floor, with feet clear.</p></div>
+
+<h2 id="m2">2. Screw jack</h2>
+<p class="driving">Why doesn't a car jack slide back down when you let go?</p>
+<p>Periods 10 to 15. A screw thread is an inclined plane wrapped around a cylinder. Students measure friction, compute the torque to lift a load, and find out when a screw will hold its load on its own.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>Friction. Friction opposes sliding, <i>f</i> = <i>μN</i>, with a static coefficient that is usually larger than the kinetic one. A block that slides down a ramp at constant speed gives <i>μ</i><sub>k</sub> = tan <i>θ</i><a class="cite" href="#r22">[22]</a>. <a href="#s8">S8</a>.</li>
+<li>Friction angle. Define <i>φ</i> by tan <i>φ</i> = <i>μ</i>. <a href="#s4">S4</a>.</li>
+<li>Pitch, lead and starts. Lead is how far the nut moves in one turn, <i>l</i> = <i>n</i> × pitch for an <i>n</i>-start thread<a class="cite" href="#r4">[4]</a>.</li>
+<li>Mean diameter and lead angle. For an ideal square thread of depth <i>p</i>/2, the mean diameter is <i>d</i><sub>m</sub> = <i>d</i> − <i>p</i>/2 and the root diameter is <i>d</i> − <i>p</i><a class="cite" href="#r1">[1]</a><a class="cite" href="#r35">[35]</a>. The lead angle comes from unrolling one turn of thread into a triangle, tan <i>λ</i> = <i>l</i>/(π<i>d</i><sub>m</sub>)<a class="cite" href="#r2">[2]</a>.</li>
+<li>Torque to raise a load. For a square thread with collar friction ignored:</li>
+</ul>
+<div class="eq">T = <span class="frac"><span>W d<sub>m</sub></span><span>2</span></span> · <span class="frac"><span>l + πμd<sub>m</sub></span><span>πd<sub>m</sub> − μl</span></span> &nbsp;=&nbsp; <span class="frac"><span>W d<sub>m</sub></span><span>2</span></span> tan(φ + λ) <span class="lbl">Shigley eq. 8-1 form<a class="cite" href="#r1">[1]</a><a class="cite" href="#r35">[35]</a></span></div>
+<ul>
+<li>The two forms are the same formula. The second one uses the tangent addition identity with tan <i>φ</i> = <i>μ</i> and tan <i>λ</i> = <i>l</i>/(π<i>d</i><sub>m</sub>), and it is easier for students to picture.</li>
+<li>Efficiency is the work done lifting the load in one turn divided by the work put in, <i>η</i> = <i>Wl</i>/(2π<i>T</i>)<a class="cite" href="#r3">[3]</a>. Standard Acme screws with lead angles of about 2° to 5° and a friction coefficient of 0.15 run at roughly 18% to 36% efficiency<a class="cite" href="#r5">[5]</a>.</li>
+<li>Self-locking. The screw holds its load with no torque applied when π<i>μd</i><sub>m</sub> &gt; <i>l</i>, which is the same as <i>μ</i> &gt; tan <i>λ</i>, or <i>φ</i> &gt; <i>λ</i><a class="cite" href="#r3">[3]</a>. Most car screw jacks are self-locking<a class="cite" href="#r5">[5]</a>. Vibration can lower the effective friction and let a screw back-drive<a class="cite" href="#r5">[5]</a>.</li>
+<li>Handle force. <i>F</i> = <i>T</i>/<i>R</i> for a handle of radius <i>R</i>. With no friction, work in equals work out, so the ideal handle force is <i>Wl</i>/(2π<i>R</i>).</li>
+<li>Stress in the screw. The screw is pushed along its length, so the compressive stress is load over area, <i>σ</i> = <i>F</i>/<i>A</i> = 4<i>W</i>/(π<i>d</i><sub>r</sub>²)<a class="cite" href="#r23">[23]</a>. <a href="#s10">S10</a>.</li>
+</ul>
+<p><b>Worked check.</b> Load 2000 N on a single-start square thread with <i>d</i> = 20 mm, pitch 4 mm and <i>μ</i> = 0.15. Lead is 4 mm, <i>d</i><sub>m</sub> = 18 mm, <i>λ</i> = 4.05° and <i>φ</i> = 8.53°. Torque is 4.02 N·m, so a 300 mm handle needs 13.4 N. Efficiency is 31.7%, inside the published range above. Since <i>φ</i> &gt; <i>λ</i>, the screw is self-locking. Compressive stress on the 16 mm root is 9.9 MPa.</p>
+
+<div class="sim" id="simScrew" data-sim="screw">
+<div class="simhead"><h4>Interactive: screw jack and its unrolled thread</h4><div class="btns"><button type="button" data-act="raise">Turn handle</button><button type="button" class="ghost" data-act="release">Let go</button><button type="button" class="ghost" data-act="reset">Reset</button></div></div>
+<canvas data-h="320" aria-label="Screw jack lifting a load, with the unrolled thread shown as a triangle"></canvas>
+<div class="controls">
+<label>Load W (N) <output data-o="W"></output><input type="range" data-k="W" min="100" max="5000" step="50" value="2000"></label>
+<label>Major diameter d (mm) <output data-o="d"></output><input type="range" data-k="d" min="10" max="40" step="1" value="20"></label>
+<label>Pitch p (mm) <output data-o="p"></output><input type="range" data-k="p" min="1" max="8" step="0.5" value="4"></label>
+<label>Starts n <output data-o="n"></output><input type="range" data-k="n" min="1" max="4" step="1" value="1"></label>
+<label>Friction μ <output data-o="mu"></output><input type="range" data-k="mu" min="0.02" max="0.3" step="0.01" value="0.15"></label>
+<label>Handle radius R (mm) <output data-o="R"></output><input type="range" data-k="R" min="100" max="600" step="10" value="300"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Lead l / mean diameter dₘ</td><td data-r="geo"></td></tr>
+<tr><td>Lead angle λ / friction angle φ</td><td data-r="ang"></td></tr>
+<tr><td>Torque to raise</td><td data-r="T"></td></tr>
+<tr><td>Handle force (actual / frictionless)</td><td data-r="F"></td></tr>
+<tr><td>Efficiency</td><td data-r="e"></td></tr>
+<tr><td>Compressive stress at root</td><td data-r="s"></td></tr>
+<tr><td>Holds load when released?</td><td data-r="lock"></td></tr>
+</table></div>
+<p class="simnote">Try 3 or 4 starts, or drop the friction, and press "Let go". The triangle on the right is one turn of thread unrolled. When the friction angle is larger than the lead angle, the load stays put.</p>
+</div>
+
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 10</b>Friction lab. Tilt a board until a block starts to slide, then find the angle where a tapped block slides at constant speed. The tangent of each angle estimates <i>μ</i><sub>s</sub> and <i>μ</i><sub>k</sub><a class="cite" href="#r22">[22]</a>. Test steel on steel dry and with a drop of oil. Teams post results so the class builds its own friction table.</li>
+<li><b class="d">Period 11</b>Unroll the thread. Cut a paper right triangle with base π<i>d</i><sub>m</sub> and height equal to the lead, then wrap it around a dowel of diameter <i>d</i><sub>m</sub>. The slanted edge becomes one turn of a helix. Measure a threaded rod's pitch with calipers or a pitch gauge and compute its lead angle.</li>
+<li><b class="d">Period 12</b>Derive and compute. Start from pushing a block up a ramp with friction, then connect the ramp to the unrolled thread. Compute the torque for the class screw at three loads.</li>
+<li><b class="d">Period 13</b>Test. Use a threaded-rod jack (rod, nut, a base and a handle) or a small commercial screw jack. Lift sandbags or masses, measure the handle force with a spring scale at a known radius, and measure lift per turn. Compute efficiency and compare with the prediction.</li>
+<li><b class="d">Period 14</b>Self-locking. Predict whether your screw holds its load, then test by releasing the handle. Compare a single-start rod with a multi-start lead screw if you have one (3D printer lead screws are often multi-start). Add a stress check on the root diameter.</li>
+<li><b class="d">Period 15</b>Mini brief. Specify diameter, pitch, starts and handle length for a jack that lifts a set load with no more than a set hand force and stays self-locking. Short quiz on modules 1 and 2.</li>
+</ul>
+<div class="ext"><p><strong>Extension: real threads.</strong> The formula above is for square threads. Acme and V threads have a flank angle that wedges the nut and raises the effective friction, which some texts write as <i>μ</i> sec <i>β</i> for a half-angle <i>β</i><a class="cite" href="#r5">[5]</a>. A jack with a thrust collar also loses torque to collar friction, which adds its own term<a class="cite" href="#r4">[4]</a>. Students can compare their measured efficiency with a square-thread prediction and explain the gap. A long screw under load is also a column, and designers check it for buckling<a class="cite" href="#r5">[5]</a>. Euler's critical load, <i>P</i><sub>cr</sub> = π²<i>EI</i>/(<i>KL</i>)², shows why doubling the unsupported length cuts the buckling load to a quarter<a class="cite" href="#r41">[41]</a>.</p></div>
+<p><b>Materials.</b> Threaded rod with matching nuts, a base plate, a handle bar, calipers or a thread pitch gauge, spring scales, sandbags or slotted masses, a ramp board and friction blocks, light oil.</p>
+<div class="flag"><p><strong>Safety.</strong> Nobody puts a hand or foot under a raised load, ever. Lift sandbags or masses only, keep lift heights low, and set a maximum class load before testing. Gloves for handling threaded rod.</p></div>
+
+<h2 id="m3">3. Brake</h2>
+<p class="driving">Where does the motion go when a wheel stops?</p>
+<p>Periods 16 to 20. Students build a lever-operated shoe brake, predict how fast it stops a spinning wheel, and track the energy into heat.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>Friction at the shoe. Pressing the shoe on the drum with normal force <i>N</i> produces a friction force <i>μN</i> at the drum surface<a class="cite" href="#r22">[22]</a>. The braking torque is that force times the drum radius, <i>T</i><sub>b</sub> = <i>μNr</i><a class="cite" href="#r17">[17]</a>.</li>
+<li>Lever balance. Take moments about the lever pivot. In the simplest layout the friction force lines up with the pivot, so it has no moment arm, and <i>Pl</i> = <i>Nx</i>, where <i>P</i> is the hand force at distance <i>l</i> and the shoe sits at distance <i>x</i><a class="cite" href="#r16">[16]</a>. <a href="#s7">S7</a>.</li>
+<li>Short shoe assumption. When the shoe covers a small angle of the drum, the contact pressure is treated as uniform and the friction acts at the middle of the shoe<a class="cite" href="#r17">[17]</a>.</li>
+<li>Rotational kinetic energy, <i>KE</i> = ½<i>Iω</i>²<a class="cite" href="#r25">[25]</a>. For a solid disk <i>I</i> = ½<i>mr</i>², and for a thin hoop such as a bicycle rim <i>I</i> is close to <i>mr</i>²<a class="cite" href="#r31">[31]</a>.</li>
+<li>Work and energy. The brake does work <i>T</i><sub>b</sub><i>θ</i> as the wheel turns through angle <i>θ</i>, and that work equals the kinetic energy removed<a class="cite" href="#r27">[27]</a>. With constant braking torque, the wheel slows at <i>α</i> = <i>T</i><sub>b</sub>/<i>I</i> and stops in time <i>t</i> = <i>Iω</i>₀/<i>T</i><sub>b</sub>.</li>
+<li>Heat. The energy becomes internal energy of the drum and pad. Temperature rise follows <i>Q</i> = <i>mc</i>Δ<i>T</i><a class="cite" href="#r26">[26]</a>. Truck brakes on long downhill runs overheat for exactly this reason<a class="cite" href="#r33">[33]</a>. <a href="#s11">S11</a>.</li>
+</ul>
+<div class="eq">N = Pl/x &nbsp;&nbsp; T<sub>b</sub> = μNr &nbsp;&nbsp; KE = ½Iω² &nbsp;&nbsp; t = Iω₀/T<sub>b</sub> &nbsp;&nbsp; ΔT ≤ KE/(mc) <span class="lbl"><a class="cite" href="#r16">[16]</a><a class="cite" href="#r25">[25]</a><a class="cite" href="#r26">[26]</a><a class="cite" href="#r27">[27]</a></span></div>
+<p>The temperature line is written as an upper limit on purpose. It assumes all of the energy stays in the drum. Some goes into the pad and the air, so a measured rise will be lower.</p>
+<p><b>Worked check.</b> A solid steel disk of 8 kg and radius 150 mm spins at 300 rpm, so <i>I</i> = 0.09 kg·m², <i>ω</i> = 31.4 rad/s and <i>KE</i> = 44.4 J. A 20 N hand force on a lever with <i>l</i>/<i>x</i> = 3 gives <i>N</i> = 60 N. With <i>μ</i> = 0.35 the friction force is 21 N and <i>T</i><sub>b</sub> = 3.15 N·m. The disk stops in 0.90 s after about 2.2 turns. Steel's specific heat is 452 J/(kg·°C)<a class="cite" href="#r26">[26]</a>, so the whole disk warms by at most 0.012 °C. That tiny number surprises students and leads to the next question: why do brakes get hot anyway? The heat is concentrated in a thin surface layer and in the much smaller pad, and a real vehicle absorbs far more energy in each stop.</p>
+
+<div class="sim" id="simBrake" data-sim="brake">
+<div class="simhead"><h4>Interactive: lever shoe brake</h4><div class="btns"><button type="button" data-act="spin">Spin up</button><button type="button" class="ghost" data-act="brake">Apply brake</button></div></div>
+<canvas data-h="330" aria-label="Spinning drum with a lever brake shoe on top"></canvas>
+<div class="controls">
+<label>Hand force P (N) <output data-o="P"></output><input type="range" data-k="P" min="5" max="200" step="5" value="20"></label>
+<label>Lever ratio l/x <output data-o="ratio"></output><input type="range" data-k="ratio" min="1" max="8" step="0.5" value="3"></label>
+<label>Friction μ <output data-o="mu"></output><input type="range" data-k="mu" min="0.1" max="0.7" step="0.01" value="0.35"></label>
+<label>Drum radius r (mm) <output data-o="r"></output><input type="range" data-k="r" min="50" max="250" step="10" value="150"></label>
+<label>Drum mass (kg) <output data-o="m"></output><input type="range" data-k="m" min="1" max="20" step="0.5" value="8"></label>
+<label>Starting speed (rpm) <output data-o="rpm"></output><input type="range" data-k="rpm" min="30" max="600" step="10" value="300"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Normal force N / friction force</td><td data-r="NF"></td></tr>
+<tr><td>Braking torque</td><td data-r="Tb"></td></tr>
+<tr><td>Moment of inertia (solid disk)</td><td data-r="I"></td></tr>
+<tr><td>Kinetic energy at start</td><td data-r="KE"></td></tr>
+<tr><td>Stopping time / turns to stop</td><td data-r="t"></td></tr>
+<tr><td>Temperature rise, upper limit (steel drum)</td><td data-r="dT"></td></tr>
+<tr><td>Live speed</td><td data-r="live"></td></tr>
+</table></div>
+<p class="simnote">The drum turns at real speed, so the stop time you see is the predicted time. The pivot sits on the line of the friction force, the simplest case. Drum treated as a solid disk.</p>
+</div>
+
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 16</b>Energy in a spinning wheel. Spin a flywheel or a bicycle wheel on a stand, measure rpm from slow-motion video, and compute kinetic energy. Discuss why the rim of a bicycle wheel is closer to a hoop than a disk.</li>
+<li><b class="d">Period 17</b>Build the lever. Teams make a hand lever with a pad (wood with a rubber or cork face works) and choose a pivot position. Hanging a mass on the lever end gives a repeatable hand force. Predict <i>N</i> and <i>T</i><sub>b</sub>.</li>
+<li><b class="d">Period 18</b>Stopping tests. Spin to a measured speed, apply the hanging mass, and time the stop on video. Calculate <i>T</i><sub>b</sub> = <i>Iω</i>₀/<i>t</i> from the data, then back-calculate <i>μ</i> and compare it with the ramp values from period 10.</li>
+<li><b class="d">Period 19</b>Heat. Measure pad and drum surface temperatures with an IR thermometer before and after ten stops in a row. Compare with the upper limit. Teams write where the rest of the energy went.</li>
+<li><b class="d">Period 20</b>Design memo. Size the lever so a set hand force stops the wheel within a set time, with test data attached.</li>
+</ul>
+<div class="ext"><p><strong>Extension: moving the pivot.</strong> When the pivot is not on the friction line, the friction force adds a moment of its own. The lever balance becomes <i>Nx</i> − <i>Fa</i> = <i>Pl</i>, where <i>a</i> is the offset and its sign depends on which way the drum turns<a class="cite" href="#r16">[16]</a>. For one direction the friction helps press the shoe on, which is called self-energizing. Push it too far and the required hand force drops to zero, a self-locking brake that grabs. Designers keep the geometry short of that point<a class="cite" href="#r17">[17]</a>. Students test both directions of rotation with an offset pivot and explain the difference in stopping time.</p></div>
+<p><b>Materials.</b> A flywheel on a bearing shaft or a bicycle wheel on a stand, wood and rubber for the lever and pad, a hinge or bolt for the pivot, slotted masses, phone slow-motion video, IR thermometer, kitchen scale.</p>
+<div class="flag"><p><strong>Safety.</strong> Set a class maximum speed for the wheel. Safety glasses on everyone nearby, fingers clear of spokes, and assume the pad and drum surface are hot after repeated stops.</p></div>
+
+<h2 id="m4">4. Transmission shaft</h2>
+<p class="driving">Why does a slightly thicker shaft get so much stronger?</p>
+<p>Periods 21 to 26. The shaft pulls together torque, moments, reactions and stress. Loads come straight from the gear forces in module 1 or a belt pulley.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>Torque from power and speed, <i>T</i> = <i>P</i>/<i>ω</i> = 60<i>P</i>/(2π<i>N</i>)<a class="cite" href="#r27">[27]</a>.</li>
+<li>Where the bending comes from. A gear or pulley pushes sideways on the shaft (the <i>F</i><sub>t</sub> and <i>F</i><sub>r</sub> from module 1, or belt tension in module 5)<a class="cite" href="#r9">[9]</a>, and the bearings push back.</li>
+<li>Reactions and bending moment. For a load <i>W</i> at the middle of a span <i>L</i> between two bearings, each bearing carries <i>W</i>/2 and the largest bending moment is <i>WL</i>/4 at the center. For a load at distance <i>a</i> from one support and <i>b</i> from the other, the reactions are <i>Wb</i>/<i>L</i> and <i>Wa</i>/<i>L</i><a class="cite" href="#r12">[12]</a>.</li>
+<li>Bending stress in a solid round shaft, <i>σ</i> = 32<i>M</i>/(π<i>d</i>³), and twisting (shear) stress, <i>τ</i> = 16<i>T</i>/(π<i>d</i>³)<a class="cite" href="#r13">[13]</a>.</li>
+<li>The cube law. Both stresses depend on <i>d</i>³, so doubling the diameter cuts the stress to one eighth. <a href="#s5">S5</a>.</li>
+<li>Combining the two. The maximum shear stress (Tresca) theory gives <i>τ</i><sub>max</sub> = 16√(<i>M</i>² + <i>T</i>²)/(π<i>d</i>³)<a class="cite" href="#r13">[13]</a>. The allowable value is <i>S</i><sub>y</sub>/(2<i>n</i>) for yield strength <i>S</i><sub>y</sub> and safety factor <i>n</i><a class="cite" href="#r14">[14]</a>.</li>
+<li>Fatigue, described in words only. A rotating shaft with a steady side load sees its surface go from tension to compression every revolution, and fatigue is the most common way shafts fail. Keyways raise local stress, often by a factor of 2 or more<a class="cite" href="#r15">[15]</a>.</li>
+<li>Keys, couplings and bearings, chosen by shaft size and load from a catalog.</li>
+</ul>
+<div class="eq">M = WL/4 &nbsp;&nbsp; σ = 32M/(πd³) &nbsp;&nbsp; τ = 16T/(πd³) <span class="lbl"><a class="cite" href="#r12">[12]</a><a class="cite" href="#r13">[13]</a></span></div>
+<div class="eq">d = ∛[ 16√(M² + T²) / (π τ<sub>allow</sub>) ] &nbsp;&nbsp; τ<sub>allow</sub> = S<sub>y</sub>/(2n) <span class="lbl">maximum shear stress theory<a class="cite" href="#r13">[13]</a><a class="cite" href="#r14">[14]</a></span></div>
+<p><b>Worked check.</b> Reuven's published example uses <i>M</i> = <i>T</i> = 1.0 × 10⁶ N·mm, <i>S</i><sub>y</sub> = 400 MPa and <i>n</i> = 2. The allowable shear stress is 100 MPa and the required diameter is 41.6 mm<a class="cite" href="#r14">[14]</a>. Students should reproduce that number by hand before trusting their own calc sheet. The same source notes that the distortion-energy (von Mises) theory gives a slightly smaller shaft, while Tresca is more conservative<a class="cite" href="#r14">[14]</a>.</p>
+
+<div class="sim" id="simShaft" data-sim="shaft">
+<div class="simhead"><h4>Interactive: shaft under bending and torsion</h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="330" aria-label="Shaft between two bearings with a center load, its bending moment diagram, and a stress gauge"></canvas>
+<div class="controls">
+<label>Center load W (N) <output data-o="W"></output><input type="range" data-k="W" min="0" max="5000" step="50" value="1000"></label>
+<label>Bearing span L (mm) <output data-o="L"></output><input type="range" data-k="L" min="100" max="600" step="10" value="300"></label>
+<label>Power (W) <output data-o="P"></output><input type="range" data-k="P" min="0" max="2000" step="10" value="500"></label>
+<label>Speed (rpm) <output data-o="rpm"></output><input type="range" data-k="rpm" min="30" max="3000" step="10" value="300"></label>
+<label>Diameter d (mm) <output data-o="d"></output><input type="range" data-k="d" min="5" max="50" step="0.5" value="20"></label>
+<label>Yield strength Sᵧ (MPa) <output data-o="Sy"></output><input type="range" data-k="Sy" min="20" max="800" step="10" value="400"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Bending moment at center / torque</td><td data-r="MT"></td></tr>
+<tr><td>Bending stress σ / shear stress τ</td><td data-r="st"></td></tr>
+<tr><td>Combined τₘₐₓ (Tresca)</td><td data-r="tmax"></td></tr>
+<tr><td>Safety factor n = Sᵧ/(2τₘₐₓ)</td><td data-r="n"></td></tr>
+<tr><td>Diameter needed for n = 2</td><td data-r="dreq"></td></tr>
+</table></div>
+<p class="simnote">Bend shape is exaggerated and not to scale. Use a yield strength from the datasheet for your material. The default of 400 MPa matches the published example above.</p>
+</div>
+
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 21</b>Loads on a shaft. Pull out the gear-force sketch from period 7. Start in the <a href="https://www.billvanloo.com/util/TrussVisualizer/">Truss Stress Visualizer</a>. Build a small truss with a joint at the center of the deck and choose the Tester load case, which pulls straight down at the deck center<a class="cite" href="#r40">[40]</a>. Use the Inspect tool on the joints at the pin and the roller and ask what the supports must push back with. With a centered load, each support carries half of it. Then draw the full free-body diagram of the output shaft with two bearings and find the bearing reactions by taking moments, just like the lever in module 0. A gear at the middle of the shaft splits its load the same way.</li>
+<li><b class="d">Period 22</b>Bending lab. Support wooden dowels of two or three diameters on two blocks and hang masses at the center. Record sag, then load to failure. Plot failure load against <i>d</i> and against <i>d</i>³ and ask which graph is straighter.</li>
+<li><b class="d">Period 23</b>Torsion lab. Clamp one end of a dowel, twist the other with a lever and spring scale, and record the torque at failure. Compare torque capacity with <i>d</i>³ again.</li>
+<li><b class="d">Period 24</b>Combined loading. Use the interactive to explore, then size a shaft by hand for a given gear load and power with <i>n</i> = 2, using a yield strength from a real datasheet. Check the Reuven example first.</li>
+<li><b class="d">Period 25</b>Components. Choose bearings or pillow blocks and a coupling that fit the computed diameter from a supplier catalog. Discuss why a keyway or set-screw flat is a weak spot, and why many classroom kits use hex shafts instead of round shafts with keys.</li>
+<li><b class="d">Period 26</b>Error hunt and checkpoint. Watch the source reel and find the formula errors (see <a href="#video">Notes on the source video</a>). Then a checkpoint quiz on modules 1 to 4.</li>
+</ul>
+<p><b>Materials.</b> Wooden dowels in two or three diameters, support blocks, slotted masses and a hanger, a clamp and lever for twisting, spring scales, a ruler or dial indicator for sag, bearing and coupling catalogs, and optionally 3D-printed test shafts.</p>
+<div class="flag"><p><strong>Safety.</strong> Dowels splinter when they break. Safety glasses on, drape a towel over the specimen, keep masses low over the floor, and stand to the side rather than over the test.</p></div>
+
+<h2 id="m5">5. Belt conveyor capstone</h2>
+<p class="driving">Can your team design a conveyor that meets a spec on the first build?</p>
+<p>Periods 27 to 35. Teams run the full design process on one machine that contains every earlier module. A motor drives a gear reduction (module 1) that turns a drive pulley on a shaft (module 4) carried by bearings. Friction between belt and bed sets the load (module 2). A hold or stop feature is optional for inclined designs (modules 2 and 3).</p>
+<h3>Design brief</h3>
+<p>Move boxes of a set mass at a set spacing and a target belt speed, within 10%, over a length of 1 to 2 m. Use a motor from the class inventory. Guard every pinch point where the belt meets a pulley and include an easy-to-reach power switch. You set the numbers for each class; the defaults in the interactive below are a reasonable starting point.</p>
+<h3>Required concepts</h3>
+<ul>
+<li>Load per meter. For boxes of mass <i>m</i><sub>box</sub> at spacing <i>s</i>, the average product mass on the belt is <i>m′</i><sub>p</sub> = <i>m</i><sub>box</sub>/<i>s</i>. Throughput is 60<i>v</i>/<i>s</i> boxes per minute.</li>
+<li>Belt pull. For a belt sliding on a flat bed, the effective tension is friction on the belt and product plus the force to lift the product. The PackagingConveyor formula, rewritten in SI with masses per meter, is below<a class="cite" href="#r19">[19]</a>. Their typical friction factors are 0.03 to 0.06 on a UHMW slider bed and 0.15 to 0.30 on steel without UHMW<a class="cite" href="#r19">[19]</a>, so students should measure their own with the ramp method.</li>
+</ul>
+<div class="eq">T<sub>e</sub> = μ g (m′<sub>b</sub> + m′<sub>p</sub>) L + m′<sub>p</sub> g H <span class="lbl">L = belt length on the bed, H = lift<a class="cite" href="#r19">[19]</a></span></div>
+<ul>
+<li>This is a first estimate. The friction term uses full weight, which slightly overestimates friction on an incline, so it errs on the safe side. Industrial bulk conveyors use the longer CEMA method, which adds idler, return-belt, cleaner and acceleration terms<a class="cite" href="#r18">[18]</a>.</li>
+<li>Belt pull does not depend on speed. Speed enters at the power step<a class="cite" href="#r19">[19]</a>.</li>
+<li>Power. Required power is effective tension times belt speed, <i>P</i> = <i>T</i><sub>e</sub><i>v</i><a class="cite" href="#r18">[18]</a>. PackagingConveyor recommends multiplying by a service factor of 1.5 for normal duty before choosing a motor<a class="cite" href="#r19">[19]</a>. Dividing by the drive efficiency measured in module 1 accounts for gear losses.</li>
+<li>Pulley torque and speed. Torque at the drive pulley is <i>T</i><sub>e</sub> × <i>D</i>/2. Belt speed is the pulley's surface speed, so the pulley turns at <i>N</i> = 60<i>v</i>/(π<i>D</i>) rpm. The gear ratio needed is motor speed divided by pulley speed.</li>
+<li>Tight and slack sides. The belt is tighter coming onto the drive pulley than leaving it, and <i>T</i><sub>1</sub> = <i>T</i><sub>e</sub> + <i>T</i><sub>2</sub><a class="cite" href="#r18">[18]</a>. With 180° of wrap both spans pull the pulley the same way, so the pulley shaft carries <i>T</i><sub>1</sub> + <i>T</i><sub>2</sub> as a side load. That load goes into the module 4 shaft check.</li>
+</ul>
+<div class="ext"><p><strong>Extension: will the belt slip?</strong> The capstan (Euler-Eytelwein) equation limits the tension ratio a pulley can hold before slipping, <i>T</i><sub>1</sub>/<i>T</i><sub>2</sub> ≤ <i>e</i><sup><i>μθ</i></sup>, with the wrap angle <i>θ</i> in radians<a class="cite" href="#r21">[21]</a>. The most pull a drive pulley can transmit is <i>T</i><sub>2</sub>(<i>e</i><sup><i>μθ</i></sup> − 1)<a class="cite" href="#r20">[20]</a>, so the minimum slack-side tension is <i>T</i><sub>e</sub>/(<i>e</i><sup><i>μθ</i></sup> − 1). That tension comes from how tightly the team adjusts the belt. Rubber lagging on the pulley raises <i>μ</i> for this reason<a class="cite" href="#r20">[20]</a>.</p></div>
+<p><b>Worked check.</b> One-kilogram boxes at 0.3 m spacing on a 2 m level bed, belt 0.5 kg/m, <i>μ</i> = 0.3 and <i>v</i> = 0.3 m/s. Then <i>m′</i><sub>p</sub> = 3.33 kg/m and <i>T</i><sub>e</sub> = 0.3 × 9.81 × 3.83 × 2 = 22.6 N. Belt power is 6.8 W, or 10.2 W with the 1.5 service factor. A 60 mm pulley needs 0.68 N·m and turns at 95.5 rpm, so a 300 rpm motor needs a 3.14 : 1 reduction. With <i>μ</i> = 0.3 at the pulley and 180° of wrap, <i>e</i><sup>0.3π</sup> = 2.57, so the slack side needs at least 14.4 N and the pulley shaft carries about 51 N.</p>
+<p>The reel shows mass flow for loose bulk material as <i>ṁ</i> = <i>ρAv</i>, which is correct for a belt carrying sand or gravel. Its on-screen units are wrong, though. <i>A</i> is the cross-section area in m² and <i>v</i> is in m/s. This unit uses boxes because they are easier to count and weigh in a classroom.</p>
+
+<div class="sim" id="simConv" data-sim="conv">
+<div class="simhead"><h4>Interactive: conveyor drive sizing</h4><div class="btns"><button type="button" data-play>Pause</button></div></div>
+<canvas data-h="280" aria-label="Belt conveyor carrying boxes between a drive pulley and a tail pulley"></canvas>
+<div class="controls">
+<label>Belt speed v (m/s) <output data-o="v"></output><input type="range" data-k="v" min="0.05" max="1" step="0.05" value="0.3"></label>
+<label>Box mass (kg) <output data-o="mb"></output><input type="range" data-k="mb" min="0.1" max="5" step="0.1" value="1"></label>
+<label>Box spacing s (m) <output data-o="s"></output><input type="range" data-k="s" min="0.1" max="1" step="0.05" value="0.3"></label>
+<label>Bed length L (m) <output data-o="L"></output><input type="range" data-k="L" min="1" max="4" step="0.1" value="2"></label>
+<label>Lift H (m) <output data-o="H"></output><input type="range" data-k="H" min="0" max="1" step="0.05" value="0"></label>
+<label>Belt mass (kg/m) <output data-o="mbelt"></output><input type="range" data-k="mbelt" min="0.1" max="2" step="0.1" value="0.5"></label>
+<label>Bed friction μ <output data-o="mu"></output><input type="range" data-k="mu" min="0.03" max="0.6" step="0.01" value="0.3"></label>
+<label>Pulley diameter D (mm) <output data-o="D"></output><input type="range" data-k="D" min="20" max="150" step="5" value="60"></label>
+<label>Motor speed under load (rpm) <output data-o="nmot"></output><input type="range" data-k="nmot" min="50" max="6000" step="10" value="300"></label>
+<label>Drive efficiency <output data-o="eta"></output><input type="range" data-k="eta" min="0.3" max="1" step="0.01" value="1"></label>
+<label>Pulley friction μ (slip check) <output data-o="mup"></output><input type="range" data-k="mup" min="0.1" max="0.8" step="0.01" value="0.3"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Product load per meter / throughput</td><td data-r="load"></td></tr>
+<tr><td>Belt pull Tₑ</td><td data-r="Te"></td></tr>
+<tr><td>Belt power / motor power with 1.5 service factor</td><td data-r="P"></td></tr>
+<tr><td>Drive pulley torque / speed</td><td data-r="pul"></td></tr>
+<tr><td>Gear ratio needed</td><td data-r="i"></td></tr>
+<tr><td>Minimum slack tension T₂ / tight tension T₁</td><td data-r="T12"></td></tr>
+<tr><td>Side load on pulley shaft (180° wrap)</td><td data-r="side"></td></tr>
+</table></div>
+<p class="simnote">Boxes and pulleys move at the belt speed you set, scaled to the drawing. The incline angle shown is sin⁻¹(H/L). First-estimate model for a slider bed; see the notes above for what it leaves out. Enter the motor speed under load from the motor interactive below, not the no-load speed.</p>
+</div>
+<h3>Matching the motor to the load</h3>
+<p>Choose the motor and the ratio together. A DC motor at constant voltage slows in a straight line from its no-load speed to zero at its stall torque, and its mechanical power peaks at half the stall torque and half the no-load speed<a class="cite" href="#r43">[43]</a>. One gear motor maker advises running continuously below about 30% of stall torque, using 30% to 60% only for short periods, and staying out of the range above that<a class="cite" href="#r42">[42]</a>. Stall torque and no-load speed come from the motor's datasheet, or students can measure them.</p>
+<div class="eq">T<sub>motor</sub> = T<sub>load</sub>/(i · η) &nbsp;&nbsp; N<sub>motor</sub> = N<sub>0</sub>(1 − T<sub>motor</sub>/T<sub>stall</sub>) &nbsp;&nbsp; N<sub>out</sub> = N<sub>motor</sub>/i <span class="lbl">straight-line motor model<a class="cite" href="#r43">[43]</a></span></div>
+<p><b>Worked check.</b> Take a gear motor with 2 N·m stall torque and 300 rpm no-load speed, the conveyor's 0.68 N·m pulley torque, a 3.14 : 1 reduction, and 90% gearbox efficiency (replace this with your module 1 measurement). The motor carries 12% of its stall torque, slows to 264 rpm, and turns the pulley at 84 rpm, well short of the 95.5 rpm the conveyor needs. Choosing the ratio from the loaded speed instead gives about 2.70 : 1, which lands at 95.6 rpm. Students who size the ratio from the no-load speed build a conveyor that runs about 12% slow.</p>
+
+<div class="sim" id="simMotor" data-sim="motor">
+<div class="simhead"><h4>Interactive: DC motor operating point</h4></div>
+<canvas data-h="300" aria-label="Straight-line motor torque-speed curve with its power curve and the operating point"></canvas>
+<div class="controls">
+<label>Stall torque (N·m) <output data-o="Ts"></output><input type="range" data-k="Ts" min="0.2" max="10" step="0.1" value="2"></label>
+<label>No-load speed (rpm) <output data-o="N0"></output><input type="range" data-k="N0" min="50" max="1000" step="10" value="300"></label>
+<label>Added gear ratio i <output data-o="i"></output><input type="range" data-k="i" min="1" max="10" step="0.01" value="3.14"></label>
+<label>Gearbox efficiency η <output data-o="eta"></output><input type="range" data-k="eta" min="0.5" max="1" step="0.01" value="0.9"></label>
+<label>Load torque at output (N·m) <output data-o="TL"></output><input type="range" data-k="TL" min="0" max="10" step="0.01" value="0.68"></label>
+</div>
+<div class="readout"><table>
+<tr><td>Torque the motor must supply</td><td data-r="Tm"></td></tr>
+<tr><td>Motor speed under load</td><td data-r="Nm"></td></tr>
+<tr><td>Output speed under load</td><td data-r="No"></td></tr>
+<tr><td>Output power / motor's peak power</td><td data-r="P"></td></tr>
+<tr><td>Duty range</td><td data-r="zone"></td></tr>
+</table></div>
+<p class="simnote">Ideal DC motor at constant voltage. Real motors weaken as they warm up, so leave margin.</p>
+</div>
+
+
+<h3>Activities</h3>
+<ul class="days">
+<li><b class="d">Period 27</b>Requirements. Teams turn the brief into a requirements sheet with numbers and pass/fail tests for each. NGSS asks that criteria be quantified so one can tell whether a design meets them<a class="cite" href="#r29">[29]</a>. Weigh the boxes and choose a speed and spacing.</li>
+<li><b class="d">Period 28</b>Belt pull. Measure <i>μ</i> between candidate belt materials and the bed with the ramp method. Compute <i>T</i><sub>e</sub> and power by hand, then check with the interactive.</li>
+<li><b class="d">Period 29</b>Drive train. Choose pulley diameter, compute pulley speed and torque, and pick the motor and ratio together with the motor interactive so the loaded speed hits the target. Build the reduction in the Gear Train Workbench and attach its report. Size the pulley shaft for the belt side load with <i>n</i> = 2 and choose bearings.</li>
+<li><b class="d">Period 30</b>CAD. Model the frame, pulleys, shaft and guard. Teams that brace their stand can check one side frame in the Truss Stress Visualizer. The reel's point applies here. CAD comes after the numbers, so the model reflects decisions already justified on paper.</li>
+<li><b class="d">Period 31</b>Drawing and review. One dimensioned drawing of the drive assembly plus a bill of materials. Two teams swap packages and check each other's calculations before anyone cuts material.</li>
+<li><b class="d">Period 32 and 33</b>Build.</li>
+<li><b class="d">Period 34</b>Test. Time boxes over a measured distance for belt speed, check for slip at start-up, and measure motor current and voltage if you have the equipment. Record predicted versus measured for speed, pull and power.</li>
+<li><b class="d">Period 35</b>Validation talks. Each team presents its requirements, the three biggest prediction gaps, what caused them, and what they would change in a second build. This covers evaluating a solution against criteria and trade-offs<a class="cite" href="#r29">[29]</a>.</li>
+</ul>
+<p><b>Materials.</b> Belt material (rubber or fabric-backed belting, or wide timing belt), pulleys or rollers, the class gearmotors and gear sets from module 1, shafts and bearings, a flat bed (plywood, or UHMW sheet if available), extrusion or wood for the frame, boxes of known mass, a stopwatch, and a multimeter if you plan to measure electrical power.</p>
+<div class="flag"><p><strong>Safety.</strong> The spot where a belt runs onto a pulley is an in-running nip that can pull in fingers, hair or sleeves. Guard both pulleys before first power-up, keep the switch within reach of the operator, and never adjust belt tension while the motor has power.</p></div>
+
+<h2 id="supp">Math and physics supplements</h2>
+<p>Each supplement is a 10 to 20 minute mini-lesson for students who need it, assigned from the period 1 diagnostic or as they hit a wall. They can run as a station during work time while other teams build. Each has a quick check that works as an exit ticket.</p>
+
+<details id="s1"><summary>S1. Units and conversions</summary>
+<p>Newton (N) for force, meter (m) for length, kilogram (kg) for mass, second (s) for time, joule (J) for energy and watt (W) for power. Two conversions come up constantly. 1 N·m = 1000 N·mm, and 1 MPa = 1 N/mm², because a pascal is 1 N/m² and there are a million square millimeters in a square meter. Working in N and mm gives stress directly in MPa. For speed, multiply rpm by 2π/60 to get rad/s, so 300 rpm is 31.4 rad/s<a class="cite" href="#r27">[27]</a>. The Gear Train Workbench reports torque in N·cm, and 1 N·m = 100 N·cm. For US customary sources, 1 inch is exactly 25.4 mm and 1 pound-force is 4.448 N.</p>
+<p><b>Quick check.</b> Convert 150 rpm to rad/s (15.7 rad/s), and 85 N·cm to N·m (0.85 N·m).</p>
+<p><b>Used in</b> every module.</p></details>
+
+<details id="s2"><summary>S2. Rearranging a formula</summary>
+<p>Undo operations in reverse order. To solve <i>τ</i> = 16<i>T</i>/(π<i>d</i>³) for <i>d</i>, multiply both sides by <i>d</i>³, divide by <i>τ</i>, then take the cube root, giving <i>d</i> = ∛(16<i>T</i>/(π<i>τ</i>)). For <i>T</i> = 10,000 N·mm and <i>τ</i> = 50 MPa, <i>d</i> = ∛1018.6 = 10.1 mm.</p>
+<p><b>Quick check.</b> Solve <i>P</i> = <i>τω</i> for <i>ω</i>.</p>
+<p><b>Used in</b> modules 1, 2, 4 and 5.</p></details>
+
+<details id="s3"><summary>S3. Ratios and proportions</summary>
+<p>A 12-tooth gear driving a 36-tooth gear is a 3 : 1 reduction. Speed divides by 3 and ideal torque multiplies by 3. With two stages, multiply the ratios, so 3 : 1 followed by 4 : 1 gives 12 : 1.</p>
+<p><b>Quick check.</b> A 20-tooth gear at 450 rpm drives a 60-tooth gear. Output speed? (150 rpm)</p>
+<p><b>Used in</b> modules 1 and 5.</p></details>
+
+<details id="s4"><summary>S4. Right-triangle trig (tangent and inverse tangent)</summary>
+<p>In a right triangle, the tangent of an angle is the opposite side over the adjacent side, and the inverse tangent turns that ratio back into an angle<a class="cite" href="#r28">[28]</a>. Three uses in this unit. A thread with lead 4 mm on an 18 mm mean diameter has tan <i>λ</i> = 4/(π × 18) = 0.0707, so <i>λ</i> = 4.05°. A friction coefficient of 0.15 gives <i>φ</i> = tan⁻¹ 0.15 = 8.53°. A 20° pressure angle gives <i>F</i><sub>r</sub> = <i>F</i><sub>t</sub> tan 20° = 0.364 <i>F</i><sub>t</sub>.</p>
+<p><b>Quick check.</b> A block starts sliding when the ramp reaches 20°. Estimate <i>μ</i><sub>s</sub>. (0.36)</p>
+<p><b>Used in</b> modules 1 and 2.</p></details>
+
+<details id="s5"><summary>S5. Powers, roots and the cube law</summary>
+<p>Shaft stress depends on <i>d</i>³. Doubling the diameter multiplies the cube by 2³ = 8, so the same torque produces one eighth of the stress. A 20% larger diameter gives 1.2³ = 1.73 times the strength. For the capstan extension, <i>e</i><sup>x</sup> is a calculator key, and <i>e</i><sup>0.3π</sup> = 2.57.</p>
+<p><b>Quick check.</b> A shaft grows from 10 mm to 15 mm. By what factor does its torque capacity grow? (3.375)</p>
+<p><b>Used in</b> modules 4 and 5.</p></details>
+
+<details id="s6"><summary>S6. Mass, weight and free-body diagrams</summary>
+<p>Mass is how much stuff, in kg. Weight is the force gravity puts on it, <i>W</i> = <i>mg</i>, so 1 kg weighs 9.81 N. On a level surface the normal force equals the weight, which is how OpenStax gets a 980 N normal force for a 100 kg crate<a class="cite" href="#r22">[22]</a>. A free-body diagram shows one object and every force on it, drawn as arrows from where they act. The free-body inspector in the Truss Stress Visualizer draws this diagram for any joint and checks that the forces add to zero<a class="cite" href="#r40">[40]</a>.</p>
+<p><b>Quick check.</b> Draw the forces on a box sitting still on a conveyor belt.</p>
+<p><b>Used in</b> every module.</p></details>
+
+<details id="s7"><summary>S7. Torque, moments and balance</summary>
+<p>Torque is force times the perpendicular distance from the pivot<a class="cite" href="#r24">[24]</a>. An object is balanced against rotation when the torques add to zero, with counterclockwise counted positive and clockwise negative by convention<a class="cite" href="#r24">[24]</a>. A 100 N push 0.4 m from a pivot balances 400 N at 0.1 m on the other side. The same rule finds bearing reactions on a shaft and the shoe force on a brake lever.</p>
+<p><b>Quick check.</b> A 2 m shaft rests on bearings at each end with a 600 N gear load 0.5 m from the left bearing. Find both reactions. (450 N left, 150 N right)</p>
+<p><b>Used in</b> modules 0, 3 and 4.</p></details>
+
+<details id="s8"><summary>S8. Friction</summary>
+<p>Static friction grows to match a push up to a maximum of <i>μ</i><sub>s</sub><i>N</i>. Once sliding starts, kinetic friction is <i>μ</i><sub>k</sub><i>N</i>, and <i>μ</i><sub>k</sub> is usually smaller<a class="cite" href="#r22">[22]</a>. Tilt a ramp until an object slides at steady speed and <i>μ</i><sub>k</sub> = tan <i>θ</i><a class="cite" href="#r22">[22]</a>. OpenStax notes that published friction coefficients are only good to one or two digits<a class="cite" href="#r22">[22]</a>, which is a good reason to measure your own.</p>
+<p><b>Quick check.</b> A 5 kg box on a bed with <i>μ</i> = 0.3. What force keeps it sliding? (14.7 N)</p>
+<p><b>Used in</b> modules 2, 3 and 5.</p></details>
+
+<details id="s9"><summary>S9. Work, energy and power</summary>
+<p>Work is force times distance. Power is work per unit time, so it is also force times speed, or torque times angular speed<a class="cite" href="#r27">[27]</a>. Moving objects carry kinetic energy, ½<i>mv</i>² for straight-line motion and ½<i>Iω</i>² for spinning<a class="cite" href="#r25">[25]</a>. Lifting 2 kg by 0.5 m in 2 s takes (2 × 9.81 × 0.5)/2 = 4.9 W.</p>
+<p><b>Quick check.</b> A belt pulls with 20 N at 0.5 m/s. Power? (10 W)</p>
+<p><b>Used in</b> modules 0, 1, 3 and 5.</p></details>
+
+<details id="s10"><summary>S10. Stress, strength and safety factor</summary>
+<p>Stress is force spread over an area, <i>σ</i> = <i>F</i>/<i>A</i><a class="cite" href="#r23">[23]</a>. A 2000 N push on a rod with 50 mm² of cross-section is 40 MPa. A material's strength comes from its datasheet. The safety factor is strength divided by actual stress, so a factor of 2 means the part could take twice the load before yielding.</p>
+<p><b>Quick check.</b> A 10 mm diameter rod carries 3000 N. Stress? (38.2 MPa)</p>
+<p><b>Used in</b> modules 2, 4 and 5.</p></details>
+
+<details id="s11"><summary>S11. Heat and specific heat</summary>
+<p>Heat needed for a temperature change is <i>Q</i> = <i>mc</i>Δ<i>T</i>. The specific heat <i>c</i> depends on the material, and for iron and steel it is 452 J/(kg·°C)<a class="cite" href="#r26">[26]</a>. Putting 3000 J into 1 kg of steel raises it by 6.6 °C.</p>
+<p><b>Quick check.</b> The same 3000 J goes into a 0.2 kg steel brake pad holder. Temperature rise? (33 °C)</p>
+<p><b>Used in</b> module 3.</p></details>
+
+<h2 id="assess">Capstone rubric</h2>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Criterion</th><th>Developing</th><th>Proficient</th><th>Advanced</th></tr></thead>
+<tbody>
+<tr><td>Requirements and constraints</td><td>Goals listed without numbers</td><td>Every requirement has a number and a pass/fail test</td><td>Requirements are ranked and trade-offs between them are stated</td></tr>
+<tr><td>Calculations</td><td>Formulas used without units or sources</td><td>Each step shows units and cites the formula's source</td><td>Hand results cross-checked with the interactive or a spreadsheet, and gaps explained</td></tr>
+<tr><td>Component selection</td><td>Parts chosen by availability only</td><td>Motor, ratio, shaft and bearings each justified by a calculation</td><td>At least one alternative compared on cost, safety or reliability</td></tr>
+<tr><td>CAD and drawing</td><td>Model incomplete or undimensioned</td><td>Drive assembly modeled with a dimensioned drawing and bill of materials</td><td>Drawing is clear enough for another team to build from it</td></tr>
+<tr><td>Testing</td><td>Qualitative results only</td><td>Measured speed, pull or power compared with predictions</td><td>Repeated trials with the spread reported</td></tr>
+<tr><td>Validation and iteration</td><td>States whether it worked</td><td>Explains the biggest prediction gaps with evidence</td><td>Proposes a specific revision and predicts its effect with the same model</td></tr>
+</tbody>
+</table>
+</div>
+<p><b>Standards.</b> The capstone works toward HS-ETS1-2 (design by breaking a complex problem into smaller ones), HS-ETS1-3 (evaluate against prioritized criteria and trade-offs) and HS-ETS1-4 (use a model or simulation to predict performance)<a class="cite" href="#r29">[29]</a>. The brake and conveyor both fit HS-PS3-3, which asks students to design, build and refine a device that converts one form of energy into another within given constraints<a class="cite" href="#r30">[30]</a>. HS-ETS1-1 is framed around major global challenges<a class="cite" href="#r29">[29]</a>, so this unit touches only its criteria-and-constraints part.</p>
+
+<h2 id="safety">Safety summary</h2>
+<ul>
+<li>Safety glasses for every lab with spinning parts, breaking specimens or loaded screws.</li>
+<li>Pinch points at gear meshes and belt nips. Guard them, power off to adjust, tie back hair, and no loose sleeves or lanyards.</li>
+<li>No body part under a raised load. Lift sandbags or masses only.</li>
+<li>Set a class maximum for flywheel speed, jack load and hanging mass before testing starts.</li>
+<li>Brake pads and drums can be hot after repeated stops.</li>
+<li>Breaking dowels splinter. Cover specimens and stand to the side.</li>
+</ul>
+
+<h2 id="video">Notes on the source video</h2>
+<p>Source: an Instagram reel by aerofluid.in, supplied as a screen recording with no link. Instagram labels the post as AI content. The five project ideas and the closing design-process framework are its contribution. The problems below were found by checking the on-screen graphics against references, and they make a good error-hunt activity in period 26.</p>
+<div class="tablewrap">
+<table class="plain">
+<thead><tr><th>Where</th><th>On screen</th><th>Correct version</th></tr></thead>
+<tbody>
+<tr><td>Shaft</td><td>Diameter formula with ρ where π belongs</td><td><i>d</i> = ∛[16<i>T</i><sub>e</sub>/(π<i>τ</i><sub>allow</sub>)]<a class="cite" href="#r13">[13]</a></td></tr>
+<tr><td>Screw jack</td><td>tan <i>α</i> = <i>l</i>/(π/<i>d</i><sub>m</sub>)</td><td>tan <i>λ</i> = <i>l</i>/(π<i>d</i><sub>m</sub>)<a class="cite" href="#r2">[2]</a></td></tr>
+<tr><td>Speed reducer</td><td>"<i>d</i> = <i>N</i><sub>1</sub>/<i>N</i><sub>2</sub>"</td><td><i>N</i><sub>1</sub>/<i>N</i><sub>2</sub> is the speed ratio. Diameter is <i>d</i> = <i>zm</i><a class="cite" href="#r6">[6]</a></td></tr>
+<tr><td>Conveyor</td><td>Velocity given units of m²</td><td><i>v</i> is in m/s. The area <i>A</i> is in m².</td></tr>
+<tr><td>Conveyor flowchart</td><td>"Belt resistance" written as (π/16)<i>τ</i><sub>allow</sub><i>d</i>³</td><td>That expression is a shaft's torsion capacity. Belt resistance is friction plus lift<a class="cite" href="#r19">[19]</a>.</td></tr>
+<tr><td>Several frames</td><td>Scrambled labels such as "01 GEAR TOTOTH FORE"</td><td>Typical of generated graphics. Treat every on-screen label with suspicion.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The reel's order (shaft first) is discussed in <a href="#order">Why the order changed</a>. The audio track was not transcribed, so these notes cover the captions and graphics only.</p>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+<li id="r1">Budynas, R. G., and Nisbett, J. K. <i>Shigley's Mechanical Engineering Design</i>, 11th ed. McGraw-Hill. Chapter 7 (shafts), Chapter 8 (power screws, section 8-2), Chapters 13 and 14 (gears), Chapter 16 (brakes). Print textbook, no free link.</li>
+<li id="r2">Shigley's Mechanical Engineering Design, Chapter 8 lecture slides (Istanbul Technical University course copy). <a href="https://web.itu.edu.tr/~halit/Makel/Ch_8_slides_m.pdf">web.itu.edu.tr/~halit/Makel/Ch_8_slides_m.pdf</a></li>
+<li id="r3">Engineers Edge. Power screws design equation and calculator. <a href="https://www.engineersedge.com/mechanics_machines/power_screws_design_13982.htm">engineersedge.com</a></li>
+<li id="r4">RoyMech. Power screw torque and efficiency equations. <a href="https://www.roymech.co.uk/Useful_Tables/Cams_Springs/Power_Screws_1.html">roymech.co.uk</a></li>
+<li id="r5">ScienceDirect Topics. Power screw (overview compiled from engineering texts). <a href="https://www.sciencedirect.com/topics/engineering/power-screw">sciencedirect.com/topics/engineering/power-screw</a></li>
+<li id="r6">KHK Gears. Basic gear terminology and calculation. <a href="https://khkgears.net/new/gear_knowledge/abcs_of_gears-b/basic_gear_terminology_calculation.html">khkgears.net</a></li>
+<li id="r7">KHK Gears. Center distance. <a href="https://khkgears.net/new/gear_knowledge/gear-nomenclature/center-distance.html">khkgears.net</a></li>
+<li id="r8">KHK Gears. Calculation of gear dimensions (gear technical reference). <a href="https://khkgears.net/new/gear_knowledge/gear_technical_reference/calculation_gear_dimensions.html">khkgears.net</a></li>
+<li id="r9">Drivetrain Hub. Gear force analysis. <a href="https://drivetrainhub.com/notebooks/gears/strength/Chapter%201%20-%20Force%20Analysis.html">drivetrainhub.com</a></li>
+<li id="r10">UNC Charlotte Industrial Solutions Lab. Bending stresses in gears. <a href="https://isl.charlotte.edu/bending-stresses-in-gears/">isl.charlotte.edu</a></li>
+<li id="r11">Engineers Edge. Lewis factor equation for gear teeth. <a href="https://www.engineersedge.com/gears/lewis-factor.htm">engineersedge.com</a></li>
+<li id="r12">Optimal Beam. Simply supported beam: reactions, moment and deflection. <a href="https://optimalbeam.com/engineering-guides/simply-supported-beam">optimalbeam.com</a></li>
+<li id="r13">Omni Calculator. Shaft size calculator (bending, torsion and combined stress). <a href="https://www.omnicalculator.com/physics/shaft-size">omnicalculator.com</a></li>
+<li id="r14">Reuven Engineering Tools. Shaft design calculator with worked example. <a href="https://reuven.tools/tools/shaft-design/">reuven.tools</a></li>
+<li id="r15">Fiveable. Shaft design and analysis, Mechanical Engineering Design study guide. <a href="https://fiveable.me/elements-mechanical-engineering-design/unit-9/shaft-design-analysis/study-guide/AKaXbq1Ti6ao3oRz">fiveable.me</a></li>
+<li id="r16">IIT Kharagpur. Design of Machine Elements, Module 12: Design of brakes, Lesson 1 (NPTEL course notes, hosted copy). <a href="https://www.pcepurnia.org/wp-content/uploads/2020/03/mod12les1.pdf">pcepurnia.org</a></li>
+<li id="r17">ExtruDesign. Single block brake and pivoted block brake. <a href="https://extrudesign.com/single-block-brake-pivoted-block-brake/">extrudesign.com</a></li>
+<li id="r18">Rulmeca. How to calculate conveyor belt tensions. <a href="https://www.rulmeca.blog/question-and-answer/how-to-calculate-conveyor-belt-tensions/">rulmeca.blog</a></li>
+<li id="r19">PackagingConveyor.com. Conveyor engineering calculations: belt pull, motor sizing, speed and throughput. <a href="https://packagingconveyor.com/resources/conveyor-design-guide/conveyor-engineering/">packagingconveyor.com</a></li>
+<li id="r20">BisonConvey. Capstan (Eytelwein) equation, belt drive slip. <a href="https://bisonconvey.com/glossary/capstan-equation-eytelwein/">bisonconvey.com</a></li>
+<li id="r21">Wikipedia. Capstan equation. <a href="https://en.wikipedia.org/wiki/Capstan_equation">en.wikipedia.org/wiki/Capstan_equation</a></li>
+<li id="r22">OpenStax. <i>College Physics 2e</i>, 5.1 Friction. <a href="https://openstax.org/books/college-physics-2e/pages/5-1-friction">openstax.org</a></li>
+<li id="r23">OpenStax. <i>College Physics 2e</i>, 5.3 Elasticity: Stress and Strain. <a href="https://openstax.org/books/college-physics-2e/pages/5-3-elasticity-stress-and-strain">openstax.org</a></li>
+<li id="r24">OpenStax. <i>College Physics 2e</i>, 9.2 The Second Condition for Equilibrium (torque). <a href="https://openstax.org/books/college-physics-2e/pages/9-2-the-second-condition-for-equilibrium">openstax.org</a></li>
+<li id="r25">OpenStax. <i>College Physics 2e</i>, 10.4 Rotational Kinetic Energy. <a href="https://openstax.org/books/college-physics-2e/pages/10-4-rotational-kinetic-energy-work-and-energy-revisited">openstax.org</a></li>
+<li id="r26">OpenStax. <i>College Physics 2e</i>, 14.2 Temperature Change and Heat Capacity (Table 14.1, specific heats). <a href="https://openstax.org/books/college-physics-2e/pages/14-2-temperature-change-and-heat-capacity">openstax.org</a></li>
+<li id="r27">OpenStax. <i>University Physics Volume 1</i>, 10.8 Work and Power for Rotational Motion. <a href="https://openstax.org/books/university-physics-volume-1/pages/10-8-work-and-power-for-rotational-motion">openstax.org</a></li>
+<li id="r28">OpenStax. <i>Algebra and Trigonometry 2e</i>, 7.2 Right Triangle Trigonometry. <a href="https://openstax.org/books/algebra-and-trigonometry-2e/pages/7-2-right-triangle-trigonometry">openstax.org</a></li>
+<li id="r29">NGSS. High School Engineering Design (HS-ETS1-1 to HS-ETS1-4). <a href="https://www.nextgenscience.org/topic-arrangement/hsengineering-design">nextgenscience.org</a></li>
+<li id="r30">NGSS. HS-PS3-3 Energy. <a href="https://www.nextgenscience.org/pe/hs-ps3-3-energy">nextgenscience.org</a></li>
+<li id="r31">OpenStax. <i>College Physics 2e</i>, section 10.3 Dynamics of Rotational Motion: Rotational Inertia (moments of inertia for common shapes). Book home: <a href="https://openstax.org/books/college-physics-2e/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units">openstax.org</a></li>
+<li id="r32">aerofluid.in. Instagram reel on five machine design projects (screen recording supplied by the teacher; URL not provided; labeled AI content on Instagram).</li>
+<li id="r33">OpenStax. <i>Physics</i> (high school), 11.2 Heat, Specific Heat, and Heat Transfer. <a href="https://openstax.org/books/physics/pages/11-2-heat-specific-heat-and-heat-transfer">openstax.org</a></li>
+<li id="r34">KHK Gears. Gear terminology (module and meshing). <a href="https://khkgears.net/new/gear_knowledge/introduction_to_gears/gear_terminology.html">khkgears.net</a></li>
+<li id="r35">MechSimulator. Power screw calculator (formulas for raise torque, efficiency, self-locking and mean diameter). <a href="https://mechsimulator.com/tools/power-screw/">mechsimulator.com</a></li>
+<li id="r36">KHK Gears. Design shapes of spur gears (worked center distance example). <a href="https://khkgears.net/new/gear_knowledge/gear-design-procedure-in-practical-design/design-shapes-of-spur-gears.html">khkgears.net</a></li>
+<li id="r37">Project Lead The Way. PLTW Engineering, Principles of Engineering course outline (district-hosted copy of the published outline). <a href="https://1.cdn.edl.io/saS2geSmoDAkbIxazeU2fjdxzX0KckotObLMBeYvxD6aOc06.pdf">1.cdn.edl.io</a></li>
+<li id="r38">Project Lead The Way. Principles of Engineering course outline, current version. <a href="https://www.pltw.org/hubfs/PLTW_Engineering/CourseDocuments/PE_CourseOutline_ENG.pdf">pltw.org</a></li>
+<li id="r39">Van Loo, B. Gear Train Workbench (interactive tool and built-in help). <a href="https://billvanloo.github.io/GearTrainWorkbench/">billvanloo.github.io/GearTrainWorkbench</a>. Listed with other tools at <a href="https://www.billvanloo.com/learning-design/">billvanloo.com/learning-design</a></li>
+<li id="r40">Van Loo, B. Truss Stress Visualizer (interactive tool and built-in help). <a href="https://www.billvanloo.com/util/TrussVisualizer/">billvanloo.com/util/TrussVisualizer</a>. Source and README: <a href="https://github.com/billvanloo/TrussStressVisualizer">github.com/billvanloo/TrussStressVisualizer</a></li>
+<li id="r41">MechaniCalc. Column buckling (Euler and Johnson formulas, effective length factor). <a href="https://mechanicalc.com/reference/column-buckling">mechanicalc.com</a></li>
+<li id="r42">ISL Products. How to read DC motor and gear motor performance curves. <a href="https://islproducts.com/design-note/how-to-read-dc-motor-gear-motor-performance-curves/">islproducts.com</a></li>
+<li id="r43">MIT. D.C. motor torque/speed curve tutorial, understanding motor characteristics. <a href="http://lancet.mit.edu/motors/motors3.html">lancet.mit.edu</a>; power curve page: <a href="http://lancet.mit.edu/motors/motors4.html">lancet.mit.edu</a></li>
+</ol>
+<footer><p>Interactives run in the browser with no data collected. The math in each one matches the formulas and worked checks printed beside it. Turn on Predict first in any interactive to hide its results until students commit to a number.</p></footer>
+</main>
+</div>
+<script>
+(function(){
+"use strict";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var PI=Math.PI, g=9.81;
+var C={};
+function cv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function readColors(){["ink","paper","graphite","rule","panel","red","blue","good"].forEach(function(k){C[k]=cv("--"+k)||"#000";});}
+readColors();
+function f(x,d){if(!isFinite(x))return "n/a";return x.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});}
+function sig(x){if(!isFinite(x))return "n/a";var a=Math.abs(x);var d=a>=100?0:a>=10?1:a>=1?2:3;return f(x,d);}
+function vals(root){var o={};root.querySelectorAll("input[data-k]").forEach(function(el){o[el.dataset.k]=parseFloat(el.value);});return o;}
+function outs(root){root.querySelectorAll("input[data-k]").forEach(function(el){var o=root.querySelector('output[data-o="'+el.dataset.k+'"]');if(o)o.textContent=el.value;});}
+function setR(root,k,html){var el=root.querySelector('[data-r="'+k+'"]');if(el)el.innerHTML=html;}
+function sizeCanvas(cn){var dpr=window.devicePixelRatio||1;var w=Math.max(280,cn.clientWidth||cn.parentNode.clientWidth||600);var h=+cn.dataset.h;cn.width=Math.round(w*dpr);cn.height=Math.round(h*dpr);cn.style.height=h+"px";var ctx=cn.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);return{ctx:ctx,w:w,h:h};}
+function arrow(ctx,x1,y1,x2,y2,col,lw){var a=Math.atan2(y2-y1,x2-x1),hl=8;ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=lw||2;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2-hl*0.8*Math.cos(a),y2-hl*0.8*Math.sin(a));ctx.stroke();ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hl*Math.cos(a-0.4),y2-hl*Math.sin(a-0.4));ctx.lineTo(x2-hl*Math.cos(a+0.4),y2-hl*Math.sin(a+0.4));ctx.closePath();ctx.fill();}
+function label(ctx,t,x,y,col,align,size,weight){ctx.fillStyle=col||C.ink;ctx.textAlign=align||"left";ctx.textBaseline="middle";ctx.font=(weight||"600")+" "+(size||14)+'px "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif';ctx.fillText(t,x,y);}
+function niceBar(mmPerPx,maxPx){var c=[1,2,5,10,20,50,100,200,500];for(var i=c.length-1;i>=0;i--){if(c[i]/mmPerPx<=maxPx)return c[i];}return 1;}
+
+var sims=[];
+function Sim(root){var s=this;s.root=root;s.cn=root.querySelector("canvas");s.visible=true;s.running=!reduce;s.last=0;
+  var pb=root.querySelector("[data-play]");if(pb){pb.textContent=s.running?"Pause":"Play";pb.addEventListener("click",function(){s.running=!s.running;pb.textContent=s.running?"Pause":"Play";});}
+  root.querySelectorAll("input[data-k]").forEach(function(el){el.addEventListener("input",function(){outs(root);s.compute();s.paint(0);});});
+  outs(root);sims.push(s);}
+Sim.prototype.resize=function(){var r=sizeCanvas(this.cn);this.ctx=r.ctx;this.w=r.w;this.h=r.h;};
+Sim.prototype.paint=function(dt){if(!this.ctx)this.resize();this.ctx.clearRect(0,0,this.w,this.h);this.draw(dt);};
+
+/* ---------- gears ---------- */
+function gearPath(ctx,cx,cy,r,z,mpx,ang){var ra=r+mpx,rf=Math.max(r-1.25*mpx,r*0.45),st=2*PI/z;ctx.beginPath();for(var k=0;k<z;k++){var a=ang+k*st;var p=[[rf,a-0.5*st],[rf,a-0.27*st],[ra,a-0.13*st],[ra,a+0.13*st],[rf,a+0.27*st]];for(var j=0;j<p.length;j++){var x=cx+p[j][0]*Math.cos(p[j][1]),y=cy+p[j][0]*Math.sin(p[j][1]);if(k===0&&j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}}ctx.closePath();}
+function setupGear(root){var s=new Sim(root);s.th=0;
+  s.compute=function(){var v=vals(root);s.v=v;var i=v.z2/v.z1,d1=v.m*v.z1,d2=v.m*v.z2,a=(d1+d2)/2,nout=v.nin/i,Tout=v.eta*i*v.Tin,Pin=v.Tin*2*PI*v.nin/60,Pout=Tout*2*PI*nout/60,Ft=2*v.Tin/(d1/1000),Fr=Ft*Math.tan(20*PI/180);
+    s.c={Tout:Tout};setR(root,"i",f(i,2)+" : 1");setR(root,"nout",sig(nout)+" rpm");setR(root,"Tout",sig(Tout)+" N·m");setR(root,"P",sig(Pin)+" W / "+sig(Pout)+" W");setR(root,"d",f(d1,1)+" mm, "+f(d2,1)+" mm");setR(root,"a",f(a,1)+" mm");setR(root,"F",sig(Ft)+" N / "+sig(Fr)+" N");};
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h;if(s.running)s.th+=dt*0.8*(v.nin/300);
+    var sc=Math.min((w-40)/(v.m*(v.z1+v.z2+4)),(h-70)/(v.m*(Math.max(v.z1,v.z2)+2.5)));var r1=v.z1*v.m/2*sc,r2=v.z2*v.m/2*sc,mpx=v.m*sc;var cy=(h-30)/2+6,cx1=w/2-r2,cx2=w/2+r1;
+    var st2=2*PI/v.z2,a1=s.th,a2=PI-st2/2-(v.z1/v.z2)*s.th;
+    ctx.lineWidth=1.6;gearPath(ctx,cx1,cy,r1,v.z1,mpx,a1);ctx.fillStyle=C.panel;ctx.fill();ctx.strokeStyle=C.ink;ctx.stroke();
+    gearPath(ctx,cx2,cy,r2,v.z2,mpx,a2);ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();
+    ctx.setLineDash([4,4]);ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx1,cy,r1,0,2*PI);ctx.stroke();ctx.beginPath();ctx.arc(cx2,cy,r2,0,2*PI);ctx.stroke();ctx.setLineDash([]);
+    [[cx1,cy,r1,a1],[cx2,cy,r2,a2+st2/2]].forEach(function(q){ctx.strokeStyle=C.red;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(q[0],q[1]);ctx.lineTo(q[0]+q[2]*0.8*Math.cos(q[3]),q[1]+q[2]*0.8*Math.sin(q[3]));ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(q[0],q[1],Math.max(3,q[2]*0.12),0,2*PI);ctx.fill();});
+    label(ctx,"z₁ = "+v.z1,cx1,cy+r1+mpx+14,C.ink,"center",14);label(ctx,"z₂ = "+v.z2,cx2,cy+r2+mpx+14,C.ink,"center",14);
+    var mmpp=1/sc,bar=niceBar(mmpp,w*0.25),bpx=bar*sc;ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(14,h-14);ctx.lineTo(14+bpx,h-14);ctx.moveTo(14,h-19);ctx.lineTo(14,h-9);ctx.moveTo(14+bpx,h-19);ctx.lineTo(14+bpx,h-9);ctx.stroke();label(ctx,bar+" mm",20+bpx,h-14,C.graphite,"left",13,"500");
+    label(ctx,"pitch circles dashed",w-12,h-14,C.graphite,"right",13,"500");};
+  return s;}
+
+/* ---------- screw jack ---------- */
+function setupScrew(root){var s=new Sim(root);s.lift=0;s.hang=0;s.mode="idle";s.vd=0;s.running=true;
+  root.querySelectorAll("[data-act]").forEach(function(b){b.addEventListener("click",function(){var a=b.dataset.act;if(a==="raise"){s.mode=s.mode==="raise"?"idle":"raise";b.textContent=s.mode==="raise"?"Stop turning":"Turn handle";}if(a==="release"){s.mode="release";s.vd=0;root.querySelector('[data-act="raise"]').textContent="Turn handle";}if(a==="reset"){s.mode="idle";s.lift=0;s.hang=0;root.querySelector('[data-act="raise"]').textContent="Turn handle";}});});
+  s.compute=function(){var v=vals(root);s.v=v;var l=v.n*v.p,dm=v.d-v.p/2,dr=v.d-v.p,lam=Math.atan(l/(PI*dm)),phi=Math.atan(v.mu);var T=v.W*(dm/2)*(l+PI*v.mu*dm)/(PI*dm-v.mu*l);var ok=(PI*dm-v.mu*l)>0;var F=T/v.R,Fi=v.W*l/(2*PI*v.R),e=v.W*l/(2*PI*T),lock=PI*v.mu*dm>l,sc=4*v.W/(PI*dr*dr);
+    s.c={l:l,dm:dm,lam:lam,phi:phi,lock:lock,F:ok?F:NaN};
+    setR(root,"geo",f(l,1)+" mm / "+f(dm,1)+" mm");setR(root,"ang",f(lam*180/PI,2)+"° / "+f(phi*180/PI,2)+"°");setR(root,"T",ok?sig(T/1000)+" N·m":"n/a");setR(root,"F",ok?sig(F)+" N / "+sig(Fi)+" N":"n/a");setR(root,"e",ok?f(e*100,1)+"%":"n/a");setR(root,"s",sig(sc)+" MPa");
+    setR(root,"lock",lock?'<span class="status ok">Yes, self-locking (φ &gt; λ)</span>':'<span class="status bad">No, it back-drives (φ &lt; λ)</span>');};
+  s.draw=function(dt){var v=s.v,c=s.c,ctx=s.ctx,w=s.w,h=s.h;var jw=w<520?w*0.44:Math.min(w*0.5,320);var bhw=Math.min(90,jw*0.46);var pxmm=2.2,maxLift=110;
+    if(s.mode==="raise"){s.hang+=2*PI*dt*0.8;s.lift+=c.l*0.8*dt*pxmm;if(s.lift>=maxLift){s.lift=maxLift;}}
+    if(s.mode==="release"){if(c.lock){s.vd=0;}else{s.vd+=90*dt;s.lift-=s.vd*dt;s.hang-=s.vd*dt/(c.l*pxmm)*2*PI;if(s.lift<=0){s.lift=0;s.vd=0;s.mode="idle";}}}
+    var cx=jw/2+6,base=h-24,bodyTop=base-70,sw=Math.max(14,Math.min(34,v.d*1.1)),top=bodyTop-40-s.lift;
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(cx-bhw,base);ctx.lineTo(cx+bhw,base);ctx.lineTo(cx+bhw*0.66,base-10);ctx.lineTo(cx-bhw*0.66,base-10);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx-44,base-10);ctx.lineTo(cx+44,base-10);ctx.lineTo(cx+26,bodyTop);ctx.lineTo(cx-26,bodyTop);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.save();ctx.beginPath();ctx.rect(cx-sw/2,top,sw,bodyTop-top+30);ctx.clip();ctx.fillStyle=C.paper;ctx.fillRect(cx-sw/2,top,sw,bodyTop-top+30);
+    var ppx=Math.max(4,v.p*pxmm*1.6),lpx=ppx*v.n,ph=((s.hang/(2*PI))*lpx)%ppx;ctx.strokeStyle=C.ink;ctx.lineWidth=1.3;
+    for(var y=top-lpx-ppx+ph;y<bodyTop+30+lpx;y+=ppx){ctx.beginPath();ctx.moveTo(cx-sw/2,y);ctx.lineTo(cx+sw/2,y-lpx/2);ctx.stroke();}
+    ctx.restore();ctx.strokeStyle=C.ink;ctx.strokeRect(cx-sw/2,top,sw,bodyTop-top);
+    var hy=top+16,hl=Math.min(jw*0.42,60+v.R*0.12),proj=Math.cos(s.hang)*hl;ctx.lineWidth=5;ctx.strokeStyle=C.ink;ctx.beginPath();ctx.moveTo(cx,hy);ctx.lineTo(cx+proj,hy);ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(cx+proj,hy,6,0,2*PI);ctx.fill();
+    ctx.fillStyle=C.panel;ctx.lineWidth=1.6;ctx.fillRect(cx-40,top-8,80,8);ctx.strokeRect(cx-40,top-8,80,8);
+    var bw=Math.min(110,50+v.W/60),bh=Math.min(44,20+v.W/250);ctx.fillStyle=C.graphite;ctx.fillRect(cx-bw/2,top-8-bh,bw,bh);label(ctx,"W = "+v.W+" N",cx,top-8-bh/2,C.paper,"center",14);
+    if(s.mode==="release"){label(ctx,c.lock?"Holds":"Sliding back down",cx,24,c.lock?C.good:C.red,"center",16,"700");}
+    var ox=jw+24,ow=w-ox-46,oy=h-50;if(ow>90){var B=ow,H=B*Math.tan(c.lam),Hc=Math.min(H,oy-40),Bc=Hc<H?Hc/Math.tan(c.lam):B;
+      ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+Bc,oy);ctx.lineTo(ox+Bc,oy-Hc);ctx.closePath();ctx.fill();ctx.stroke();
+      var L2=Math.min(B,(oy-30)/Math.max(Math.sin(c.phi),0.001));ctx.setLineDash([6,4]);ctx.strokeStyle=C.red;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+L2*Math.cos(c.phi),oy-L2*Math.sin(c.phi));ctx.stroke();ctx.setLineDash([]);
+      label(ctx,"π·dₘ (one turn unrolled)",ox+Bc/2,oy+16,C.graphite,"center",13,"500");label(ctx,"lead l",ox+Bc+6,oy-Hc/2,C.graphite,"left",13,"500");
+      var fs=w<520?13:14;label(ctx,"solid: thread λ = "+f(c.lam*180/PI,1)+"°",ox,26,C.ink,"left",fs);label(ctx,"dashed: friction φ = "+f(c.phi*180/PI,1)+"°",ox,46,C.red,"left",fs);}
+  };
+  return s;}
+
+/* ---------- brake ---------- */
+function setupBrake(root){var s=new Sim(root);s.w0=0;s.om=0;s.ang=0;s.braking=false;s.t=0;s.heat=0;s.running=true;
+  root.querySelector('[data-act="spin"]').addEventListener("click",function(){s.om=s.c.w0;s.braking=false;s.t=0;s.heat=0;});
+  root.querySelector('[data-act="brake"]').addEventListener("click",function(){if(s.om>0){s.braking=true;s.t=0;}});
+  s.compute=function(){var v=vals(root);s.v=v;var N=v.P*v.ratio,F=v.mu*N,r=v.r/1000,Tb=F*r,I=0.5*v.m*r*r,w0=2*PI*v.rpm/60,KE=0.5*I*w0*w0,al=Tb/I,t=w0/al,rev=(w0*w0/(2*al))/(2*PI),dT=KE/(v.m*452);
+    s.c={N:N,F:F,Tb:Tb,I:I,w0:w0,al:al,t:t};
+    setR(root,"NF",sig(N)+" N / "+sig(F)+" N");setR(root,"Tb",sig(Tb)+" N·m");setR(root,"I",f(I,4)+" kg·m²");setR(root,"KE",sig(KE)+" J");setR(root,"t",f(t,2)+" s / "+f(rev,2)+" turns");setR(root,"dT",dT<0.01?f(dT,4)+" °C":f(dT,3)+" °C");};
+  s.draw=function(dt){var v=s.v,c=s.c,ctx=s.ctx,w=s.w,h=s.h;
+    if(s.braking&&s.om>0){s.om-=c.al*dt;s.t+=dt;if(s.om<=0){s.om=0;s.braking=false;}}
+    if(s.om>0)s.ang+=s.om*dt;
+    setR(root,"live",f(s.om*60/(2*PI),0)+" rpm"+(s.t>0?", braking for "+f(s.t,2)+" s":""));
+    var Rp=Math.min(50+(v.r-50)/200*60,(h-120)/2),cx0=Math.max(30,Math.min(80,w*0.08)),xpx=Math.max(70,Math.min(110,w*0.14)),cx=cx0+xpx,cy=h-Rp-26;var lpx=xpx*v.ratio,scaled=false;if(cx0+lpx>w-24){lpx=w-24-cx0;scaled=true;}
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,Rp,0,2*PI);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,Rp*0.22,0,2*PI);ctx.stroke();
+    for(var k=0;k<6;k++){var a=s.ang+k*PI/3;ctx.beginPath();ctx.moveTo(cx+Rp*0.22*Math.cos(a),cy+Rp*0.22*Math.sin(a));ctx.lineTo(cx+Rp*0.9*Math.cos(a),cy+Rp*0.9*Math.sin(a));ctx.lineWidth=k===0?3:1.4;ctx.strokeStyle=k===0?C.red:C.ink;ctx.stroke();}
+    var yc=cy-Rp,shH=12,shW=Math.min(54,Rp*0.9);var hot=Math.min(1,s.t>0?(s.t*c.al/c.w0):0);
+    ctx.fillStyle=s.braking?C.red:C.graphite;ctx.globalAlpha=s.braking?0.55+0.45*hot:1;ctx.fillRect(cx-shW/2,yc-shH,shW,shH);ctx.globalAlpha=1;ctx.strokeStyle=C.ink;ctx.lineWidth=1.5;ctx.strokeRect(cx-shW/2,yc-shH,shW,shH);
+    var ly=yc-shH-4;ctx.fillStyle=C.ink;ctx.fillRect(cx0,ly-4,lpx,8);
+    ctx.beginPath();ctx.moveTo(cx0,ly);ctx.lineTo(cx0-12,ly+22);ctx.lineTo(cx0+12,ly+22);ctx.closePath();ctx.fillStyle=C.panel;ctx.fill();ctx.stroke();ctx.fillStyle=C.ink;ctx.beginPath();ctx.arc(cx0,ly,4,0,2*PI);ctx.fill();
+    ctx.setLineDash([3,4]);ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx0,ly);ctx.lineTo(cx+Rp,yc);ctx.stroke();ctx.setLineDash([]);
+    arrow(ctx,cx0+lpx,ly-58,cx0+lpx,ly-6,C.ink,2.5);label(ctx,"P = "+v.P+" N",cx0+lpx-8,ly-54,C.ink,"right",14);
+    ctx.strokeStyle=C.graphite;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx0,ly-16);ctx.lineTo(cx,ly-16);ctx.moveTo(cx,ly-20);ctx.lineTo(cx,ly-12);ctx.moveTo(cx0,ly-30);ctx.lineTo(cx0+lpx,ly-30);ctx.moveTo(cx0+lpx,ly-34);ctx.lineTo(cx0+lpx,ly-26);ctx.moveTo(cx0,ly-34);ctx.lineTo(cx0,ly-12);ctx.stroke();label(ctx,"x",(cx0+cx)/2,ly-22,C.graphite,"center",13,"500");label(ctx,"l"+(scaled?" (lever not to scale)":""),(cx0+cx0+lpx)/2,ly-38,C.graphite,"center",13,"500");
+    if(s.braking){arrow(ctx,cx+Rp*0.55,yc+12,cx-Rp*0.55,yc+12,C.red,3);label(ctx,"friction μN on drum",cx+Rp+10,yc+16,C.red,"left",14);}
+    label(ctx,"pivot on the friction line",cx0+4,h-10,C.graphite,"left",13,"500");
+  };
+  return s;}
+
+/* ---------- shaft ---------- */
+function setupShaft(root){var s=new Sim(root);s.rot=0;
+  s.compute=function(){var v=vals(root);s.v=v;var M=v.W*v.L/4,wr=2*PI*v.rpm/60,T=v.P/wr*1000,d3=Math.pow(v.d,3),sb=32*M/(PI*d3),tau=16*T/(PI*d3),root2=Math.sqrt(M*M+T*T),tmax=16*root2/(PI*d3),n=tmax>0?v.Sy/(2*tmax):Infinity,dreq=Math.cbrt(16*root2/(PI*(v.Sy/4)));
+    s.c={M:M,T:T,tmax:tmax,n:n,sb:sb,tau:tau};
+    setR(root,"MT",sig(M/1000)+" N·m / "+sig(T/1000)+" N·m");setR(root,"st",sig(sb)+" MPa / "+sig(tau)+" MPa");setR(root,"tmax",sig(tmax)+" MPa");
+    var cls=n>=2?"ok":"bad";setR(root,"n",'<span class="status '+cls+'">'+(isFinite(n)?f(n,2):"no load")+"</span>");setR(root,"dreq",sig(dreq)+" mm");};
+  s.draw=function(dt){var v=s.v,c=s.c,ctx=s.ctx,w=s.w,h=s.h;if(s.running)s.rot+=dt*2*PI*Math.min(v.rpm,600)/600;
+    var x0=50,x1=w-50,sy=Math.round(h*0.36),sh=Math.max(10,Math.min(34,v.d*0.9));var ref=1000*Math.pow(300,3)/Math.pow(20,4);var amp=Math.min(38,14*(v.W*Math.pow(v.L,3)/Math.pow(v.d,4))/ref);
+    var L=x1-x0;function yd(x){var u=(x-x0)/L;if(u>0.5)u=1-u;return amp*(3*u-4*u*u*u)/(1);}
+    var tw=Math.min(1.5,c.tau/(v.Sy/2)*3);
+    ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();for(var x=x0-20;x<=x1+20;x+=4){var xx=Math.max(x0,Math.min(x1,x));ctx.lineTo(x,sy-sh/2+yd(xx));}for(x=x1+20;x>=x0-20;x-=4){xx=Math.max(x0,Math.min(x1,x));ctx.lineTo(x,sy+sh/2+yd(xx));}ctx.closePath();ctx.fill();ctx.stroke();
+    for(var k=0;k<3;k++){ctx.beginPath();var started=false;for(x=x0-20;x<=x1+20;x+=4){xx=Math.max(x0,Math.min(x1,x));var ph=s.rot+k*2*PI/3+tw*(x-x0)/L;if(Math.cos(ph)>0){var y=sy+yd(xx)+(sh/2-2)*Math.sin(ph);if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y);}else started=false;}ctx.strokeStyle=C.ink;ctx.globalAlpha=0.55;ctx.lineWidth=1.6;ctx.stroke();ctx.globalAlpha=1;}
+    [x0,x1].forEach(function(bx){ctx.fillStyle=C.ink;ctx.fillRect(bx-9,sy+sh/2+4,18,16);ctx.beginPath();ctx.moveTo(bx-16,sy+sh/2+26);ctx.lineTo(bx+16,sy+sh/2+26);ctx.strokeStyle=C.ink;ctx.lineWidth=2;ctx.stroke();arrow(ctx,bx,sy+sh/2+58,bx,sy+sh/2+30,C.ink,2);label(ctx,"W/2",bx,sy+sh/2+68,C.graphite,"center",13,"500");});
+    var mx=(x0+x1)/2;arrow(ctx,mx,sy-sh/2-48+yd(mx),mx,sy-sh/2-4+yd(mx),C.red,3);label(ctx,"W = "+v.W+" N",mx+8,sy-sh/2-40,C.red,"left",14);
+    label(ctx,"L = "+v.L+" mm",x0+6,sy-sh/2-30,C.graphite,"left",13,"500");
+    var by=h-28,bmax=Math.max(30,by-(sy+sh/2+100));var Mh=bmax*Math.min(1,c.M/150000);ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x0,by);ctx.lineTo(mx,by-Mh);ctx.lineTo(x1,by);ctx.closePath();ctx.fill();ctx.stroke();label(ctx,s.hide?"Bending moment diagram":"Bending moment, peak WL/4 = "+sig(c.M/1000)+" N·m",mx,by+14,C.ink,"center",13);
+    var gx=w-180,gy=14,gw=160;if(s.hide){}else if(w>460){var cap=v.Sy/2;var fr=Math.min(1,c.tmax/cap);ctx.strokeStyle=C.ink;ctx.lineWidth=1.4;ctx.strokeRect(gx,gy,gw,12);ctx.fillStyle=c.n>=2?C.good:C.red;ctx.fillRect(gx,gy,gw*fr,12);ctx.strokeStyle=C.ink;ctx.beginPath();ctx.moveTo(gx+gw*0.5,gy-4);ctx.lineTo(gx+gw*0.5,gy+16);ctx.stroke();label(ctx,"τₘₐₓ vs Sᵧ/2",gx,gy+26,C.graphite,"left",12,"500");label(ctx,"n = 2",gx+gw*0.5,gy+26,C.graphite,"center",12,"500");label(ctx,"n = 1",gx+gw,gy+26,C.graphite,"right",12,"500");}
+    else{label(ctx,"n = "+f(c.n,2),w-12,16,c.n>=2?C.good:C.red,"right",14);}
+  };
+  return s;}
+
+/* ---------- conveyor ---------- */
+function setupConv(root){var s=new Sim(root);s.off=0;s.pa=0;
+  s.compute=function(){var v=vals(root);s.v=v;var mp=v.mb/v.s,Te=v.mu*g*(v.mbelt+mp)*v.L+mp*g*v.H,Pb=Te*v.v,Pm=Pb*1.5/v.eta,Tp=Te*v.D/2000,np=60*v.v/(PI*v.D/1000),i=v.nmot/np,thr=60*v.v/v.s,k=Math.exp(v.mup*PI),T2=Te/(k-1),T1=Te+T2;
+    setR(root,"load",f(mp,2)+" kg/m / "+sig(thr)+" boxes per min");setR(root,"Te",sig(Te)+" N");setR(root,"P",sig(Pb)+" W / "+sig(Pm)+" W");setR(root,"pul",sig(Tp)+" N·m / "+sig(np)+" rpm");setR(root,"i",f(i,2)+" : 1");setR(root,"T12",sig(T2)+" N / "+sig(T1)+" N");setR(root,"side",sig(T1+T2)+" N");
+    s.c={Te:Te};};
+  s.draw=function(dt){var v=s.v,ctx=s.ctx,w=s.w,h=s.h;var rp=22,ang=Math.asin(Math.min(0.5,v.H/v.L));var span=Math.min(w-130,ang>0?(h-120)/Math.tan(ang):1e9);var xL=Math.max(40,(w-50-span)/2),xR=xL+span;var pxm=span/Math.cos(ang)/v.L;var bl=span/Math.cos(ang);
+    if(s.running){s.off+=v.v*pxm*dt;s.pa+=v.v*pxm/rp*dt;}
+    var rise=span*Math.tan(ang);var baseY=Math.round(h/2+rise/2+(ang>0?0:22));ctx.save();ctx.translate(xL,baseY);ctx.rotate(-ang);
+    ctx.strokeStyle=C.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,-rp);ctx.lineTo(bl,-rp);ctx.arc(bl,0,rp,-PI/2,PI/2);ctx.lineTo(0,rp);ctx.arc(0,0,rp,PI/2,3*PI/2);ctx.stroke();
+    ctx.setLineDash([6,10]);ctx.lineDashOffset=-s.off%16;ctx.strokeStyle=C.graphite;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(0,-rp-3);ctx.lineTo(bl,-rp-3);ctx.stroke();ctx.setLineDash([]);
+    [0,bl].forEach(function(px,j){ctx.fillStyle=C.panel;ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();ctx.arc(px,0,rp-4,0,2*PI);ctx.fill();ctx.stroke();for(var k=0;k<4;k++){var a=s.pa+k*PI/2;ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px+(rp-6)*Math.cos(a),(rp-6)*Math.sin(a));ctx.lineWidth=k===0?2.5:1.2;ctx.strokeStyle=k===0?C.red:C.ink;ctx.stroke();}});
+    var sp=v.s*pxm,bw=Math.max(8,Math.min(42,sp*0.6)),bh=Math.max(8,Math.min(30,10+v.mb*5));var st=((s.off%sp)+sp)%sp;
+    for(var x=st-sp;x<bl;x+=sp){if(x<0||x+bw>bl)continue;var xa=x,xb=x+bw;ctx.fillStyle=C.graphite;ctx.fillRect(xa,-rp-3-bh,xb-xa,bh);ctx.strokeStyle=C.ink;ctx.lineWidth=1;ctx.strokeRect(xa,-rp-3-bh,xb-xa,bh);}
+    ctx.restore();
+    var dy=baseY-bl*Math.sin(ang),dx=xL+bl*Math.cos(ang);ctx.fillStyle=C.ink;ctx.fillRect(dx+rp+6,dy-12,30,24);label(ctx,"M",dx+rp+21,dy,C.paper,"center",14,"700");
+    label(ctx,"drive pulley",dx+rp+36,dy+rp+(ang>0?24:14),C.graphite,"right",13,"500");label(ctx,"tail pulley",xL,baseY+rp+14,C.graphite,"center",13,"500");
+    if(!s.hide)label(ctx,"Tₑ = "+sig(s.c.Te)+" N",w/2,20,C.ink,"center",15);label(ctx,"v = "+v.v+" m/s",w/2,40,C.graphite,"center",13,"500");
+  };
+  return s;}
+
+
+/* ---------- DC motor operating point ---------- */
+function setupMotor(root){var s=new Sim(root);s.running=true;
+  s.compute=function(){var v=vals(root);s.v=v;var Tm=v.TL/(v.i*v.eta),fr=Tm/v.Ts,stall=fr>=1,Nm=stall?0:v.N0*(1-fr),No=Nm/v.i,Po=v.TL*No*2*PI/60,Pmax=v.Ts*v.N0*2*PI/60/4;
+    s.c={Tm:Tm,fr:fr,stall:stall,Nm:Nm,No:No};
+    setR(root,"Tm",f(Tm,3)+" N·m ("+f(fr*100,1)+"% of stall)");setR(root,"Nm",stall?"stalled":sig(Nm)+" rpm");setR(root,"No",stall?"0 rpm":sig(No)+" rpm");setR(root,"P",sig(Po)+" W / "+sig(Pmax)+" W");
+    setR(root,"zone",stall?'<span class="status bad">Stalls: load is above stall torque</span>':fr<=0.3?'<span class="status ok">Continuous-duty range (up to 30% of stall)</span>':fr<=0.6?'<span class="status">Short periods only (30% to 60% of stall)</span>':'<span class="status bad">Above 60% of stall: avoid</span>');};
+  s.draw=function(){var v=s.v,c=s.c,ctx=s.ctx,w=s.w,h=s.h;var L=58,R=18,T=18,B=44,pw=w-L-R,ph=h-T-B;var Tmax=v.Ts*1.05,Nmax=v.N0*1.12;
+    function X(t){return L+t/Tmax*pw;}function Y(n){return T+ph-n/Nmax*ph;}
+    ctx.globalAlpha=0.16;ctx.fillStyle=C.good;ctx.fillRect(X(0),T,X(0.3*v.Ts)-X(0),ph);ctx.fillStyle=C.graphite;ctx.fillRect(X(0.3*v.Ts),T,X(0.6*v.Ts)-X(0.3*v.Ts),ph);ctx.fillStyle=C.red;ctx.fillRect(X(0.6*v.Ts),T,X(Tmax)-X(0.6*v.Ts),ph);ctx.globalAlpha=1;
+    ctx.strokeStyle=C.ink;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,T+ph);ctx.lineTo(L+pw,T+ph);ctx.stroke();
+    [0,0.5,1].forEach(function(k){label(ctx,f(v.Ts*k,2),X(v.Ts*k),T+ph+14,C.graphite,"center",12,"500");label(ctx,f(v.N0*k,0),L-6,Y(v.N0*k),C.graphite,"right",12,"500");});
+    label(ctx,"Motor torque (N·m)",L+pw/2,h-10,C.ink,"center",13);ctx.save();ctx.translate(14,T+ph/2);ctx.rotate(-PI/2);label(ctx,"Motor speed (rpm)",0,0,C.ink,"center",13);ctx.restore();
+    ctx.strokeStyle=C.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(X(0),Y(v.N0));ctx.lineTo(X(v.Ts),Y(0));ctx.stroke();
+    var Pm=v.Ts*v.N0/4;ctx.setLineDash([5,4]);ctx.strokeStyle=C.blue;ctx.lineWidth=1.8;ctx.beginPath();for(var k=0;k<=60;k++){var t=v.Ts*k/60,p=t*v.N0*(1-t/v.Ts);var y=T+ph-(p/Pm)*ph*0.85;if(k===0)ctx.moveTo(X(t),y);else ctx.lineTo(X(t),y);}ctx.stroke();ctx.setLineDash([]);
+    label(ctx,"power (dashed) peaks at half stall torque",X(v.Ts*0.5),T+ph*0.15-10,C.blue,"center",12,"500");
+    label(ctx,"continuous",X(0.15*v.Ts),T+ph-12,C.graphite,"center",12,"500");label(ctx,"short use",X(0.45*v.Ts),T+ph-12,C.graphite,"center",12,"500");label(ctx,"avoid",X(0.8*v.Ts),T+ph-12,C.graphite,"center",12,"500");
+    if(!s.hide){var tx=Math.min(c.Tm,Tmax);var ny=c.stall?0:c.Nm;ctx.fillStyle=C.red;ctx.beginPath();ctx.arc(X(tx),Y(ny),7,0,2*PI);ctx.fill();label(ctx,c.stall?"stalled":"operating point",X(tx)+10,Y(ny)-12,C.red,"left",13);}
+  };
+  return s;}
+
+/* ---------- predict-first mode ---------- */
+var PRED={gear:{label:"output torque",unit:"N·m",k:"Tout"},screw:{label:"actual handle force",unit:"N",k:"F"},brake:{label:"stopping time",unit:"s",k:"t"},shaft:{label:"safety factor n",unit:"",k:"n"},conv:{label:"belt pull Tₑ",unit:"N",k:"Te"},motor:{label:"output speed under load",unit:"rpm",k:"No"}};
+function addPredict(s,cfg){var root=s.root,ro=root.querySelector(".readout");if(!ro)return;var bar=document.createElement("div");bar.className="predict";
+  bar.innerHTML='<label class="pswitch"><input type="checkbox" data-pm> Predict first</label><span class="pbox" hidden><label>My prediction for '+cfg.label+' <input type="number" step="any" inputmode="decimal" data-pv> '+cfg.unit+'</label> <button type="button" data-pc>Check</button></span><span class="pmsg" aria-live="polite"></span>';
+  ro.parentNode.insertBefore(bar,ro);var cb=bar.querySelector("[data-pm]"),box=bar.querySelector(".pbox"),msg=bar.querySelector(".pmsg"),inp=bar.querySelector("[data-pv]");
+  function hide(){s.hide=true;ro.classList.add("concealed");msg.textContent="Results hidden. Work it out on paper, enter your number, then check.";}
+  function show(){s.hide=false;ro.classList.remove("concealed");}
+  cb.addEventListener("change",function(){box.hidden=!cb.checked;if(cb.checked)hide();else{show();msg.textContent="";}s.paint(0);});
+  bar.querySelector("[data-pc]").addEventListener("click",function(){var p=parseFloat(inp.value);if(!isFinite(p)){msg.textContent="Type a number first.";return;}var m=s.c[cfg.k];show();s.paint(0);var d=(isFinite(m)&&m!==0)?(p-m)/m*100:NaN;var u=cfg.unit?" "+cfg.unit:"";msg.textContent="You predicted "+sig(p)+u+". The model gives "+sig(m)+u+(isFinite(d)?" ("+(d>=0?"+":"")+f(d,1)+"% difference).":".");});
+  root.querySelectorAll("input[data-k]").forEach(function(el){el.addEventListener("input",function(){if(cb.checked){hide();inp.value="";}});});}
+
+var map={gear:setupGear,screw:setupScrew,brake:setupBrake,shaft:setupShaft,conv:setupConv,motor:setupMotor};
+document.querySelectorAll(".sim[data-sim]").forEach(function(root){var fn=map[root.dataset.sim];if(fn){var s=fn(root);s.resize();s.compute();s.paint(0);if(PRED[root.dataset.sim])addPredict(s,PRED[root.dataset.sim]);}});
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){sims.forEach(function(s){if(s.root===e.target)s.visible=e.isIntersecting;});});});sims.forEach(function(s){io.observe(s.root);});}
+var last=performance.now();function loop(t){var dt=Math.min(0.05,(t-last)/1000);last=t;sims.forEach(function(s){if(s.visible)s.paint(dt);});requestAnimationFrame(loop);}requestAnimationFrame(loop);
+var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){sims.forEach(function(s){s.resize();s.paint(0);});},120);});
+if(window.matchMedia){window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){readColors();});}
+new MutationObserver(function(){readColors();}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+})();
+</script>
+</body>
+</html>
