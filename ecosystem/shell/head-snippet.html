@@ -1,0 +1,12 @@
+<!-- Paste into <head> before the stylesheet: sets the theme before first paint
+     (shared key across the tools; a stored choice wins, otherwise the OS setting). -->
+<link rel="icon" href="data:,">
+<script>
+  (function () {
+    try {
+      var t = JSON.parse(localStorage.getItem('ebtn-theme') || 'null');
+      if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>

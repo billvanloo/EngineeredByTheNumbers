@@ -1,3 +1,4 @@
 node_modules/
 .DS_Store
 *.log
+ecosystem/shell/demo/dev/screenshots/

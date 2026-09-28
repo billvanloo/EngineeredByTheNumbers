@@ -3,7 +3,7 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** Phases 0 to 3, stopping at Checkpoint B.
-**Current phase:** Phase 1, ecosystem foundation.
+**Current phase:** Phase 2, Shaft and Beam Workbench.
 
 ## Done
 
@@ -23,8 +23,17 @@ Progress record for `PLAN.md`. A resumed session starts here.
   - **Truss Stress Visualizer:** same header, DRO and footer pattern, light theme only.
   - **Small-screen notice:** neither tool shows an on-screen notice today (QUESTIONS Q1).
 
+### Phase 1: ecosystem foundation (2026-09-27)
+- `ecosystem/prediction-log.js`: record format, percent difference, attempts, JSON and CSV (BOM, CRLF, RFC 4180), parse, dedupe, TSV row. Covers PL-1 to PL-5 and PL-7 and PL-8, plus PL-6 at module level.
+- `ecosystem/schemas.js` and `schemas.md`: shaft-loads, drive-request, drive-result and the design-file envelope with migration.
+- `ecosystem/shell/`: shell.css (both themes), shell.js (the full `00 §2–8` frame) and head-snippet.html.
+- `ecosystem/shell/demo/`: the smallest tool on the shell. It passes 46 standard browser checks, including file:// with no network requests.
+- `ecosystem/tooling/`: verify-blocks.js (inline-copy check, core sync) and e2e-kit.js (Playwright; falls back to the cached Chromium in ~/.cache/ms-playwright).
+- `scripts/sync-vendor.js` (with `--check`), `scripts/test-all.sh` (with `--e2e`) and `ecosystem/vendor-manifest.json`.
+- **Playwright setup:** `npm i --no-save playwright@1.63.0` in each repo root. The pinned browser build (1243) isn't downloaded, so the kit uses the cached chromium-1228 automatically.
+
 ## Next
-- Phase 1: `ecosystem/prediction-log.js`, schemas and validators, the shell and its demo, `sync-vendor.js`, `test-all.sh`.
+- Phase 2: `ecosystem/beam-core.js` and its tests, then the `ShaftBeamWorkbench` repo.
 
 ## Blocked
 - None.
@@ -33,3 +42,4 @@ Progress record for `PLAN.md`. A resumed session starts here.
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
+| EngineeredByTheNumbers (ecosystem) | 96/96 | current | demo 46/46 |
