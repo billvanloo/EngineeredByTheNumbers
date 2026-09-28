@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Shaft and Beam Workbench</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Shaft and Beam Workbench</h1><div class="sub">Engineering education · Shafts and beams</div></div><div class="tabs"><span class="on">Shaft</span><span class="">Beam</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Supports and shaft</h2><div class="row"><span>Span L (mm)</span><span class="v">300</span></div><div class="row"><span>Overhangs</span><span class="v sel">off</span></div><div class="row"><span>Diameter d (mm)</span><span class="v">20.0</span></div><div class="row"><span>Yield strength Sᵧ (MPa)</span><span class="v sel">400 ⚠</span></div><div class="row"><span>Target n</span><span class="v">2.0</span></div><div class="row"><span>Rule</span><span class="v sel">Tresca ▾</span></div><div class="cap">⚠ placeholder material value. Replace with datasheet.</div><h2 class="sec">Loads</h2><div class="row"><span>Gear 1 at 150 mm</span><span class="v">1000 N</span></div><span class="btn">+ Add load</span> <span class="btn">Import shaft loads…</span><h2 class="sec">Torque</h2><div class="row"><span>Entry</span><span class="v sel">Power, speed</span></div><div class="row"><span>Power (W)</span><span class="v">500</span></div><div class="row"><span>Speed (rpm)</span><span class="v">300</span></div><div class="row"><span>From / to (mm)</span><span class="v sel">0 / 150</span></div><h2 class="sec">Extension</h2><div class="row"><span>Kb, Kt</span><span class="v sel">1.0, 1.0</span></div><div class="row"><span>E (GPa), deflection</span><span class="v sel">200 ☑</span></div></div></div><div><svg class="draw" viewBox="0 0 640 520" width="100%">
+<text x="12" y="20" font-size="12" font-weight="700">Shaft (L = 300 mm)</text>
+<rect x="60" y="60" width="520" height="18" fill="#E7ECE5" stroke="#1D2733" stroke-width="1.5"/>
+<polygon points="60,78 50,98 70,98" fill="none" stroke="#1D2733" stroke-width="1.5"/><text x="46" y="112" font-size="11">A pin</text>
+<circle cx="580" cy="88" r="9" fill="none" stroke="#1D2733" stroke-width="1.5"/><text x="566" y="112" font-size="11">B roller</text>
+<line x1="320" y1="20" x2="320" y2="56" stroke="#C0402D" stroke-width="3"/><polygon points="314,50 326,50 320,60" fill="#C0402D"/><text x="328" y="32" font-size="12" fill="#C0402D">Gear 1: 1000 N</text>
+<line x1="60" y1="140" x2="60" y2="104" stroke="#1D2733" stroke-width="2"/><text x="66" y="136" font-size="11">500 N</text>
+<line x1="580" y1="140" x2="580" y2="104" stroke="#1D2733" stroke-width="2"/><text x="520" y="136" font-size="11">500 N</text>
+<text x="70" y="56" font-size="11" fill="#5C6773">T in ⟳</text><text x="330" y="94" font-size="11" fill="#5C6773">T out</text>
+<text x="12" y="170" font-size="12" font-weight="700">Shear V (N)</text>
+<line x1="60" y1="215" x2="580" y2="215" stroke="#5C6773"/><rect x="60" y="185" width="260" height="30" fill="#DCE6F5" stroke="#2B63C9"/><rect x="320" y="215" width="260" height="30" fill="#DCE6F5" stroke="#2B63C9"/><text x="66" y="199" font-size="11">+500</text><text x="540" y="238" font-size="11">−500</text>
+<text x="12" y="275" font-size="12" font-weight="700">Bending moment M (N·m)</text>
+<polygon points="60,350 320,285 580,350" fill="#F6DDD8" stroke="#C0402D" stroke-width="1.5"/><text x="326" y="283" font-size="12" font-weight="700">Mmax 75.0 at 150 mm</text>
+<text x="12" y="385" font-size="12" font-weight="700">Torque T (N·m)</text><rect x="60" y="398" width="260" height="20" fill="#E7ECE5" stroke="#1D2733"/><text x="130" y="413" font-size="11">15.9</text>
+<text x="12" y="447" font-size="12" font-weight="700">Safety factor n along shaft</text>
+<line x1="60" y1="500" x2="580" y2="500" stroke="#5C6773"/><line x1="60" y1="488" x2="580" y2="488" stroke="#2E7A45" stroke-dasharray="5 4"/><text x="585" y="491" font-size="11" fill="#2E7A45">n = 2</text>
+<path d="M60,455 Q320,480 320,478 Q320,478 580,455" fill="none" stroke="#1D2733" stroke-width="2"/><circle cx="320" cy="478" r="5" fill="#C0402D"/><text x="328" y="474" font-size="11" fill="#C0402D">critical: n = 4.10</text>
+</svg><div class="cap">Stacked diagrams share one x axis. Drag the load arrow to move it; click a diagram to read values at a station.</div></div><div><div class="panel"><h2>Results</h2><table class="ro"><tr><td>R_A / R_B</td><td>500 N / 500 N</td></tr><tr><td>|M|max</td><td>75.0 N·m at 150 mm</td></tr><tr><td>T</td><td>15.9 N·m</td></tr><tr><td>σ / τ at critical</td><td>95.5 / 10.1 MPa</td></tr><tr><td>τmax (Tresca)</td><td>48.8 MPa</td></tr><tr><td>Safety factor n</td><td><span class="pass">4.10 ✓</span></td></tr><tr><td>d for n = 2</td><td>15.7 mm <span class="btn">Use</span></td></tr><tr><td>Max deflection</td><td>0.358 mm</td></tr></table><div class="pred"><b>Predict first</b> (when on)<br>My prediction for safety factor n: <span class="v"> </span>  <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div><div class="work"><b>Show the working ▾</b><ol><li>R_B = ΣPa/L = (1000)(150)/300 = 500 N</li><li>M = R_A · 150 = 75,000 N·mm</li><li>T = P/ω = 500/31.42 = 15.9 N·m</li><li>τmax = 16√(M²+T²)/(πd³) = 48.8 MPa</li><li>n = Sᵧ/(2τmax) = 400/97.6 = 4.10</li></ol></div></div></div></main>
+<footer>Mockup for spec 01, test case SB-6. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

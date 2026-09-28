@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Friction and Screw Lab</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Friction and Screw Lab</h1><div class="sub">Engineering education · Friction and power screws</div></div><div class="tabs"><span class="on">Ramp + Screw</span><span class="">Challenge</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Ramp</h2><div class="row"><span>Mode</span><span class="v sel">Measure ▾</span></div><div class="row"><span>Angle θ (°)</span><span class="v">19.8</span></div><div class="row"><span>Mass (kg)</span><span class="v">1.00</span></div><h2 class="sec">Screw</h2><div class="row"><span>Load W (N)</span><span class="v">2000</span></div><div class="row"><span>Major d (mm)</span><span class="v">20</span></div><div class="row"><span>Pitch p (mm)</span><span class="v">4</span></div><div class="row"><span>Starts n</span><span class="v">1</span></div><div class="row"><span>Thread form</span><span class="v sel">Square ▾</span></div><div class="row"><span>Friction μ</span><span class="v">0.15</span></div><div class="row"><span>Collar μ_c, d_c</span><span class="v sel">0, 0 mm</span></div><div class="row"><span>Handle R (mm)</span><span class="v">300</span></div><div class="row"><span>Measured F (N)</span><span class="v"></span></div></div></div><div><svg class="draw" viewBox="0 0 640 440" width="100%">
+<text x="12" y="20" font-size="12" font-weight="700">Ramp</text>
+<polygon points="30,200 290,200 290,110" fill="#E7ECE5" stroke="#1D2733" stroke-width="1.5"/><text x="235" y="192" font-size="11">θ = 19.8°</text>
+<g transform="rotate(-19.1 160 155)"><rect x="140" y="130" width="44" height="26" fill="#5C6773"/></g>
+<line x1="162" y1="150" x2="162" y2="215" stroke="#1D2733" stroke-width="2"/><text x="166" y="226" font-size="11">mg</text>
+<text x="30" y="240" font-size="11">μ = tan θ. Measured: 0.364, 0.384, 0.344 · mean 0.364</text><text x="30" y="258" font-size="11" fill="#2B63C9">Send μ to Screw →</text>
+<line x1="320" y1="10" x2="320" y2="430" stroke="#B9C2BC"/>
+<text x="332" y="20" font-size="12" font-weight="700">Screw jack</text>
+<polygon points="360,400 520,400 500,390 380,390" fill="#E7ECE5" stroke="#1D2733"/><polygon points="395,390 485,390 470,320 410,320" fill="#E7ECE5" stroke="#1D2733"/>
+<rect x="428" y="200" width="24" height="150" fill="#fff" stroke="#1D2733"/><g stroke="#1D2733"><line x1="428" y1="210" x2="452" y2="204"/><line x1="428" y1="222" x2="452" y2="216"/><line x1="428" y1="234" x2="452" y2="228"/><line x1="428" y1="246" x2="452" y2="240"/><line x1="428" y1="258" x2="452" y2="252"/><line x1="428" y1="270" x2="452" y2="264"/><line x1="428" y1="282" x2="452" y2="276"/><line x1="428" y1="294" x2="452" y2="288"/><line x1="428" y1="306" x2="452" y2="300"/><line x1="428" y1="318" x2="452" y2="312"/><line x1="428" y1="330" x2="452" y2="324"/><line x1="428" y1="342" x2="452" y2="336"/></g>
+<rect x="400" y="160" width="80" height="34" fill="#5C6773"/><text x="440" y="182" font-size="12" fill="#fff" text-anchor="middle">W = 2000 N</text>
+<line x1="440" y1="216" x2="520" y2="216" stroke="#1D2733" stroke-width="5"/><circle cx="520" cy="216" r="6" fill="#1D2733"/>
+<text x="540" y="60" font-size="11">unrolled thread</text><polygon points="540,120 630,120 630,114" fill="#E7ECE5" stroke="#1D2733"/><line x1="540" y1="120" x2="630" y2="106" stroke="#C0402D" stroke-dasharray="5 4"/>
+<text x="540" y="140" font-size="11">λ 4.05° solid</text><text x="540" y="156" font-size="11" fill="#C0402D">φ 8.53° dashed</text><text x="540" y="176" font-size="11" class="pass" fill="#2E7A45">self-locking</text>
+</svg><div class="cap">Hold Turn to raise, arrow down to lower, Let go to release. Thread profile redraws for Square, Acme, Trapezoidal.</div></div><div><div class="panel"><h2>Results</h2><table class="ro"><tr><td>l / dₘ / dᵣ</td><td>4 / 18 / 16 mm</td></tr><tr><td>λ / φ</td><td>4.05° / 8.53°</td></tr><tr><td>Torque to raise</td><td>4.02 N·m</td></tr><tr><td>Torque to lower</td><td>1.41 N·m</td></tr><tr><td>Handle force / ideal</td><td>13.4 N / 4.24 N</td></tr><tr><td>Efficiency</td><td>31.7%</td></tr><tr><td>Self-locking (thread)</td><td><span class="pass">Yes</span></td></tr><tr><td>Holds with collar</td><td><span class="pass">Yes</span></td></tr><tr><td>σ / τ at root</td><td>9.95 / 4.99 MPa</td></tr></table><div class="pred"><b>Predict first</b> (when on)<br>My prediction for handle force: <span class="v"> </span> N <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div><div class="work"><b>Show the working ▾</b><ol><li>l = n·p = 4 mm; dₘ = d − p/2 = 18 mm</li><li>T_R = (W dₘ/2)(l + πμdₘ)/(πdₘ − μl) = 4.02 N·m</li><li>Same as (W dₘ/2) tan(φ + λ) = 4.02 N·m</li><li>e = Wl/(2πT) = 31.7%</li></ol></div></div></div></main>
+<footer>Mockup for spec 03, test cases FS-3 and FS-4. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

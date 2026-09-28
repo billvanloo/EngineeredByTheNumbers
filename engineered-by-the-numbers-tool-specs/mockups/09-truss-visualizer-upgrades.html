@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Truss Stress Visualizer</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Truss Stress Visualizer</h1><div class="sub">Engineering education · Statics and structures (upgrades)</div></div><div class="tabs"><span class="on">Truss</span><span class="">Beam <span class="tag">NEW</span></span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Tools (existing)</h2><p class="cap">● Add joint · ╱ Add member · ✥ Move · ⊕ Inspect · ✕ Remove</p><h2 class="sec">Load case</h2><div class="row"><span>Case</span><span class="v sel">Tester ▾ (+Uniform deck NEW)</span></div><div class="row"><span>Applied (N)</span><span class="v">100</span></div><div class="new" style="margin-top:8px"><h2>Section and buckling <span class="tag">NEW</span></h2><div class="row"><span>Shape</span><span class="v sel">Rectangle ▾</span></div><div class="row"><span>b × h</span><span class="v sel">1/8 × 1/8 in</span></div><div class="row"><span>E (MPa)</span><span class="v">3000 ⚠</span></div><div class="row"><span>Strength S (MPa)</span><span class="v">14.9 ⚠</span></div><div class="row"><span>Buckling</span><span class="v sel">on ☑</span></div><div class="row"><span>View</span><span class="v sel">Force | Stress</span></div><div class="row"><span>Span</span><span class="v sel">Tester 6 in ▾</span></div><div class="row"><span>Units</span><span class="v sel">in, N ▾</span></div></div></div></div><div><svg class="draw" viewBox="0 0 640 400" width="100%">
+<line x1="100" y1="300" x2="320" y2="300" stroke="#2B63C9" stroke-width="4"/><line x1="320" y1="300" x2="540" y2="300" stroke="#2B63C9" stroke-width="4"/>
+<line x1="320" y1="300" x2="320" y2="80" stroke="#2B63C9" stroke-width="6"/>
+<line x1="100" y1="300" x2="320" y2="80" stroke="#C0402D" stroke-width="9" stroke-dasharray="10 5"/><line x1="320" y1="80" x2="540" y2="300" stroke="#C0402D" stroke-width="9"/>
+<text x="180" y="170" font-size="12" fill="#C0402D" font-weight="700">✕ buckles first</text>
+<polygon points="100,300 88,324 112,324" fill="none" stroke="#1D2733" stroke-width="1.5"/><circle cx="540" cy="312" r="10" fill="none" stroke="#1D2733" stroke-width="1.5"/>
+<line x1="320" y1="300" x2="320" y2="360" stroke="#1D2733" stroke-width="2.5"/><text x="326" y="356" font-size="11">Tester 100 N</text>
+<text x="130" y="292" font-size="11">AC 50 N T</text><text x="430" y="292" font-size="11">CB 50 N T</text><text x="326" y="190" font-size="11">CD 100 N T</text>
+<g class="new"><rect x="400" y="40" width="226" height="130" fill="#fff" stroke="#1D2733"/><text x="410" y="60" font-size="12" font-weight="700">Inspect member AD</text>
+<text x="410" y="80" font-size="11">L 4.243 in · 1/8 × 1/8 in</text><text x="410" y="96" font-size="11">I_min 8.47 mm⁴ · r 0.917 mm</text><text x="410" y="112" font-size="11">λ = KL/r = 118 · method: Euler</text><text x="410" y="128" font-size="11">P_cr 21.6 N vs force 70.7 N C</text><text x="410" y="146" font-size="11" fill="#C0402D">buckling governs</text></g>
+</svg><div class="cap">King post regression truss (spec 09 section 6). Buckling values use test E = 3000 MPa, not a material claim.</div></div><div><div class="panel"><h2>Status</h2><table class="ro"><tr><td>Reactions A / B</td><td>50 / 50 N</td></tr><tr><td>Max tension</td><td>CD 100 N</td></tr><tr><td>Max compression</td><td>AD, DB 70.7 N</td></tr><tr><td>Predicted failure</td><td>30.5 N (AD buckles)</td></tr></table><div class="new" style="margin-top:8px"><table class="ro"><tr><td>Stress CD</td><td>9.92 MPa T</td></tr><tr><td>Governing limit AD</td><td>Euler 21.6 N</td></tr></table></div><div class="pred"><b>Predict first</b> (when on)<br>My prediction for force in member CD: <span class="v"> </span> N <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div></div></div></main>
+<footer>Mockup for spec 09, test cases TV-1e and section 6. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

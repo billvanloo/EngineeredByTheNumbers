@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Conveyor Designer</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Conveyor Designer</h1><div class="sub">Engineering education · Capstone drive design</div></div><div class="tabs"><span class="on">Requirements</span><span class="">Design</span><span class="">Design record</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Requirements</h2><table class="ro"><tr><td>R1 Belt speed 0.30 m/s ±10%</td><td class="pass">pass</td></tr><tr><td>R2 Throughput ≥ 55/min</td><td class="pass">pass</td></tr><tr><td>R3 Motor ≤ 30% of stall</td><td class="pass">pass</td></tr><tr><td>R4 Slip margin ≥ 1.2</td><td class="pass">pass</td></tr><tr><td>R5 Shaft n ≥ 2</td><td class="pass">pass</td></tr><tr><td>R6 Guard on both nips</td><td>manual</td></tr></table><span class="btn">+ Add requirement</span><h2 class="sec">Inputs</h2><div class="row"><span>Box mass (kg)</span><span class="v">1.0</span></div><div class="row"><span>Spacing (m)</span><span class="v">0.30</span></div><div class="row"><span>Bed L, lift H (m)</span><span class="v sel">2.0, 0</span></div><div class="row"><span>Belt (kg/m)</span><span class="v">0.5</span></div><div class="row"><span>Bed μ</span><span class="v">0.30</span></div><div class="row"><span>Pulley D (mm)</span><span class="v">60</span></div><div class="row"><span>Motor Tₛ, N₀</span><span class="v sel">2 N·m, 300</span></div><div class="row"><span>Ratio</span><span class="v sel">2.70 (solver)</span></div></div></div><div><svg class="draw" viewBox="0 0 640 300" width="100%">
+<rect x="30" y="118" width="540" height="44" rx="22" fill="none" stroke="#1D2733" stroke-width="3"/>
+<circle cx="52" cy="140" r="18" fill="#E7ECE5" stroke="#1D2733"/><circle cx="548" cy="140" r="18" fill="#E7ECE5" stroke="#1D2733"/>
+<rect x="80" y="94" width="40" height="24" fill="#5C6773"/><rect x="160" y="94" width="40" height="24" fill="#5C6773"/><rect x="240" y="94" width="40" height="24" fill="#5C6773"/><rect x="320" y="94" width="40" height="24" fill="#5C6773"/><rect x="400" y="94" width="40" height="24" fill="#5C6773"/><rect x="480" y="94" width="40" height="24" fill="#5C6773"/>
+<rect x="578" y="126" width="40" height="28" fill="#1D2733"/><text x="598" y="145" font-size="12" fill="#fff" text-anchor="middle">M</text>
+<line x1="500" y1="118" x2="450" y2="118" stroke="#C0402D" stroke-width="3"/><text x="400" y="110" font-size="11" fill="#C0402D">T₁ 37.0 N</text>
+<line x1="500" y1="162" x2="450" y2="162" stroke="#2B63C9" stroke-width="3"/><text x="400" y="180" font-size="11" fill="#2B63C9">T₂ 14.4 N</text>
+<line x1="548" y1="140" x2="490" y2="140" stroke="#1D2733" stroke-width="2" stroke-dasharray="4 3"/><text x="470" y="205" font-size="11">side load on pulley shaft R = 51.4 N</text>
+<text x="300" y="30" font-size="14" font-weight="700" text-anchor="middle">Tₑ = 22.6 N · v = 0.300 m/s · 60 boxes/min</text>
+<text x="52" y="190" font-size="11" text-anchor="middle">tail</text><text x="548" y="190" font-size="11" text-anchor="middle">drive, D 60 mm</text>
+<text x="30" y="250" font-size="12">Steps: Requirements ✓ → Belt pull ✓ → Power ✓ → Pulley ✓ → Motor and ratio ✓ → Tensions ✓ → Shaft ✓ → Bearings ✓</text>
+</svg><div class="cap">Side view to scale. Each design step below is collapsible with its own predict-first fields and working.</div></div><div><div class="panel"><h2>Design</h2><table class="ro"><tr><td>Belt pull Tₑ</td><td>22.6 N</td></tr><tr><td>Belt / motor power (SF 1.5)</td><td>6.77 / 10.2 W</td></tr><tr><td>Pulley torque / speed</td><td>0.677 N·m / 95.5 rpm</td></tr><tr><td>Loaded belt speed</td><td>0.300 m/s</td></tr><tr><td>T₂ min / setting / T₁</td><td>14.4 / 18.7 / 41.3 N</td></tr><tr><td>Side load R / shaft n</td><td>60.0 N / <span class="pass">12.2</span></td></tr></table><div class="cap">Drawing shows minimum tensions (test CD-3). Readout uses the 1.3 × minimum tension setting.</div><div class="pred"><b>Predict first</b> (when on)<br>My prediction for belt pull Tₑ: <span class="v"> </span> N <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div><span class="btn">Export shaft loads</span> <span class="btn">Send to Motor Matcher</span></div></div></main>
+<footer>Mockup for spec 05, test cases CD-1, CD-3, CD-6. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Units and Formula Checker</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Units and Formula Checker</h1><div class="sub">Engineering education · Units and dimensions</div></div><div class="tabs"><span class="on">Worksheet</span><span class="">Convert</span><span class="">Formula library</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Formula library</h2><table class="ro"><tr><td>τ = rF</td><td>9.2</td></tr><tr><td>ω = 2πN/60</td><td></td></tr><tr><td>P = τω</td><td>10.8</td></tr><tr><td>σ = 32M/(πd³)</td><td></td></tr><tr><td>τ = 16T/(πd³)</td><td></td></tr><tr><td>KE = ½Iω²</td><td>10.4</td></tr><tr><td>Q = mcΔT</td><td>14.2</td></tr><tr><td>T₁/T₂ = e^(μθ)</td><td></td></tr></table><span class="btn">Insert</span> <span class="btn">Rearrange…</span></div></div><div><div class="panel"><h2>Worksheet</h2><table class="ro" style="font-family:Consolas,monospace">
+<tr><td>1  P = 500 W</td><td>500 W</td></tr>
+<tr><td>2  N = 300 rpm</td><td>300 rpm</td></tr>
+<tr><td style="color:#C0402D">3  T = P/N &nbsp;⚑ rpm used where rad/s is needed</td><td style="color:#C0402D">no value</td></tr>
+<tr><td>3′ omega = 2*pi*N/60 &nbsp;(fix applied)</td><td>31.4 rad/s</td></tr>
+<tr><td>4  T = P/omega</td><td>15.9 N·m ✓</td></tr>
+<tr><td>5  T in N·m</td><td class="pass">matches</td></tr>
+<tr><td>6  tau = 50 MPa</td><td>50 MPa</td></tr>
+<tr><td>7  d = cbrt(16*T/(pi*tau))</td><td>10.1 mm ✓</td></tr>
+<tr><td style="color:#C0402D">8  x = 5 N + 2 m &nbsp;⚑ cannot add force and length</td><td style="color:#C0402D">no value</td></tr>
+</table><div class="cap">Type a line and press Enter. Click a ⚑ for the explanation and Apply fix.</div></div></div><div><div class="panel"><h2>Line 3 flag</h2><p>N is in rpm. P = τω needs ω in rad/s. Multiply rpm by 2π/60.</p><span class="btn dark">Apply fix</span><h2 class="sec">Convert</h2><table class="ro"><tr><td>1 hp</td><td>745.70 W</td></tr><tr><td>85 N·cm</td><td>0.85 N·m</td></tr><tr><td>100 lbf·in</td><td>11.3 N·m</td></tr><tr><td>1 MPa</td><td>1 N/mm²</td></tr></table><h2 class="sec">Dimensions of line 7</h2><p>L¹ → mm. Expected for a diameter: length ✓</p></div></div></main>
+<footer>Mockup for spec 06, test cases UF-1 to UF-6. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

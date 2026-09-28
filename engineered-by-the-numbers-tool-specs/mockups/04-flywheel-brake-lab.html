@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Flywheel Brake Lab</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Flywheel Brake Lab</h1><div class="sub">Engineering education · Energy and friction brakes</div></div><div class="tabs"><span class="on">Model</span><span class="">Data</span><span class="">Compare</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Wheel</h2><div class="row"><span>Type</span><span class="v sel">Disk ▾</span></div><div class="row"><span>Mass (kg)</span><span class="v">8</span></div><div class="row"><span>Radius (mm)</span><span class="v">150</span></div><div class="row"><span>Start (rpm)</span><span class="v">300</span></div><h2 class="sec">Brake</h2><div class="row"><span>Hand force P (N)</span><span class="v">20</span></div><div class="row"><span>l (mm)</span><span class="v">300</span></div><div class="row"><span>x (mm)</span><span class="v">100</span></div><div class="row"><span>Offset a (mm)</span><span class="v">0</span></div><div class="row"><span>Direction</span><span class="v sel">Energizing ▾</span></div><div class="row"><span>Friction μ</span><span class="v">0.35</span></div><div class="row"><span>Bearing drag (N·m)</span><span class="v">0</span></div><h2 class="sec">Heat</h2><div class="row"><span>Part mass (kg)</span><span class="v">8</span></div><div class="row"><span>c (J/kg·°C)</span><span class="v">452</span></div></div></div><div><svg class="draw" viewBox="0 0 640 440" width="100%">
+<circle cx="200" cy="230" r="110" fill="#E7ECE5" stroke="#1D2733" stroke-width="2"/><circle cx="200" cy="230" r="22" fill="none" stroke="#1D2733"/>
+<line x1="200" y1="230" x2="300.0" y2="230.0" stroke="#C0402D" stroke-width="3"/><line x1="200" y1="230" x2="250.017107459707" y2="316.5926611287823" stroke="#1D2733" stroke-width="1.2"/><line x1="200" y1="230" x2="150.0342207727176" y2="316.622288738006" stroke="#1D2733" stroke-width="1.2"/><line x1="200" y1="230" x2="100.00001756191335" y2="230.05926535550995" stroke="#1D2733" stroke-width="1.2"/><line x1="200" y1="230" x2="149.93158187579056" y2="143.43699689509765" stroke="#1D2733" stroke-width="1.2"/><line x1="200" y1="230" x2="249.9144334449641" y2="143.34811407783297" stroke="#1D2733" stroke-width="1.2"/>
+<rect x="175" y="108" width="50" height="12" fill="#C0402D"/><rect x="60" y="100" width="300" height="8" fill="#1D2733"/>
+<polygon points="60,104 48,128 72,128" fill="none" stroke="#1D2733" stroke-width="1.5"/><text x="30" y="145" font-size="11">pivot O</text>
+<line x1="360" y1="40" x2="360" y2="96" stroke="#1D2733" stroke-width="2.5"/><text x="300" y="36" font-size="12">P = 20 N</text>
+<line x1="60" y1="84" x2="200" y2="84" stroke="#5C6773"/><text x="120" y="80" font-size="11">x = 100</text><line x1="60" y1="70" x2="360" y2="70" stroke="#5C6773"/><text x="200" y="66" font-size="11">l = 300</text>
+<line x1="230" y1="132" x2="170" y2="132" stroke="#C0402D" stroke-width="2.5"/><text x="240" y="138" font-size="11" fill="#C0402D">μN = 21.0 N</text>
+<text x="200" y="365" font-size="12" text-anchor="middle">disk 8 kg, r 150 mm · 300 rpm → 0 in 0.898 s</text>
+<line x1="410" y1="10" x2="410" y2="430" stroke="#B9C2BC"/>
+<text x="422" y="24" font-size="12" font-weight="700">Data fit (240 fps)</text>
+<line x1="430" y1="200" x2="630" y2="200" stroke="#1D2733"/><line x1="430" y1="200" x2="430" y2="40" stroke="#1D2733"/>
+<path d="M430,200 Q530,40 630,52" fill="none" stroke="#2B63C9" stroke-width="2"/><circle cx="430" cy="200" r="3.5" fill="#1D2733"/><circle cx="463" cy="153" r="3.5" fill="#1D2733"/><circle cx="497" cy="114" r="3.5" fill="#1D2733"/><circle cx="530" cy="83" r="3.5" fill="#1D2733"/><circle cx="563" cy="61" r="3.5" fill="#1D2733"/><circle cx="597" cy="46" r="3.5" fill="#1D2733"/><circle cx="630" cy="40" r="3.5" fill="#1D2733"/>
+<text x="436" y="224" font-size="11">θ(t) fit: ω₀ = 31.4 rad/s, α = −10.0 rad/s², R² = 1.000</text>
+<text x="436" y="244" font-size="11">T_b,meas = I·|α| = 0.900 N·m · μ_meas = 0.100</text>
+<text x="422" y="290" font-size="12" font-weight="700">Energy</text><rect x="430" y="300" width="190" height="16" fill="#fff" stroke="#1D2733"/><rect x="430" y="300" width="120" height="16" fill="#C0402D"/><text x="436" y="334" font-size="11">KE 44.4 J → brake heat · ΔT ≤ 0.0123 °C (8 kg steel)</text>
+</svg><div class="cap">Spin up, Apply brake (hold B). Data tab: paste frame counts, drag to choose the fit window.</div></div><div><div class="panel"><h2>Results</h2><table class="ro"><tr><td>I</td><td>0.0900 kg·m²</td></tr><tr><td>N / μN</td><td>60.0 / 21.0 N</td></tr><tr><td>Braking torque</td><td>3.15 N·m</td></tr><tr><td>Stop time / turns</td><td>0.898 s / 2.24</td></tr><tr><td>KE</td><td>44.4 J</td></tr><tr><td>ΔT upper limit</td><td>0.0123 °C</td></tr></table><h2 class="sec">Compare</h2><table class="ro"><tr><td>Stop time: predicted / measured</td><td>0.898 s / not yet measured</td></tr><tr><td>μ: model / from data</td><td>0.35 / 0.100</td></tr></table><div class="pred"><b>Predict first</b> (when on)<br>My prediction for stopping time: <span class="v"> </span> s <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div><div class="work"><b>Show the working ▾</b><ol><li>N x = P l → N = (20)(300)/100 = 60.0 N</li><li>T_b = μNr = 0.35 × 60 × 0.150 = 3.15 N·m</li><li>α = T_b/I = 35.0 rad/s²; t = ω₀/α = 0.898 s</li></ol></div></div></div></main>
+<footer>Mockup for spec 04, test cases FB-1 and FB-6 to FB-7. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

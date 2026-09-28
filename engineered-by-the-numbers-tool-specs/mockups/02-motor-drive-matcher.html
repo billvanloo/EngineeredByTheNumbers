@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Motor and Drive Matcher</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Motor and Drive Matcher</h1><div class="sub">Engineering education · Motors and gearing</div></div><div class="tabs"><span class="on">Sandbox</span><span class="">Challenge</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel"><h2>Motor</h2><div class="row"><span>Stall torque</span><span class="v">2.00 N·m ▾</span></div><div class="row"><span>No-load speed (rpm)</span><span class="v">300</span></div><div class="row"><span>Motors in parallel</span><span class="v">1</span></div><div class="row"><span>Preset</span><span class="v sel">Example motor ⚠</span></div><h2 class="sec">Gearing</h2><div class="row"><span>Stage 1 ratio</span><span class="v">3.14</span></div><div class="row"><span>Stage 1 efficiency</span><span class="v">0.90</span></div><div class="row"><span>+ stage</span><span class="v sel"></span></div><h2 class="sec">Load</h2><div class="row"><span>Type</span><span class="v sel">Torque ▾</span></div><div class="row"><span>Load torque (N·m)</span><span class="v">0.68</span></div><div class="row"><span>Target output (rpm)</span><span class="v">95.5</span></div><h2 class="sec">Extension: electrical</h2><div class="row"><span>Voltage (V)</span><span class="v"></span></div><div class="row"><span>I₀, Iₛ (A)</span><span class="v"></span></div></div></div><div><svg class="draw" viewBox="0 0 640 420" width="100%">
+<rect x="70" y="30" width="165" height="330" fill="#DCEBDF"/><rect x="235" y="30" width="165" height="330" fill="#E7ECE5"/><rect x="400" y="30" width="200" height="330" fill="#F6DDD8"/>
+<text x="152" y="352" font-size="11" text-anchor="middle">continuous ≤30%</text><text x="317" y="352" font-size="11" text-anchor="middle">short use 30–60%</text><text x="500" y="352" font-size="11" text-anchor="middle">avoid &gt;60%</text>
+<line x1="70" y1="30" x2="70" y2="360" stroke="#1D2733" stroke-width="1.5"/><line x1="70" y1="360" x2="620" y2="360" stroke="#1D2733" stroke-width="1.5"/>
+<line x1="70" y1="60" x2="620" y2="360" stroke="#1D2733" stroke-width="3"/>
+<path d="M70,360 Q345,-20 620,360" fill="none" stroke="#2B63C9" stroke-width="2" stroke-dasharray="6 5"/><text x="345" y="60" font-size="11" fill="#2B63C9" text-anchor="middle">power (dashed), peak 15.7 W at 1.00 N·m, 150 rpm</text>
+<circle cx="136" cy="96" r="7" fill="#C0402D"/><text x="148" y="92" font-size="12" fill="#C0402D" font-weight="700">operating point: 0.241 N·m, 264 rpm</text>
+<text x="345" y="395" font-size="12" text-anchor="middle">Motor torque (N·m)   0 … 1.00 … 2.00</text><text x="20" y="200" font-size="12" transform="rotate(-90 20 200)" text-anchor="middle">Motor speed (rpm) 0 … 300</text>
+</svg><div class="cap">Drag horizontally to change load torque. Add up to two more motors to compare (different line styles).</div></div><div><div class="panel"><h2>Results</h2><table class="ro"><tr><td>Motor torque</td><td>0.241 N·m (12.0%)</td></tr><tr><td>Motor speed</td><td>264 rpm</td></tr><tr><td>Output speed</td><td>84.0 rpm</td></tr><tr><td>Output power / peak</td><td>5.99 W / 15.7 W</td></tr><tr><td>Duty range</td><td><span class="pass">Continuous</span></td></tr></table><h2 class="sec">Ratio solver</h2><table class="ro"><tr><td>Recommended i</td><td>2.70</td></tr><tr><td>Other root</td><td>0.439 (86% of stall) ⚠</td></tr><tr><td>Output at 2.70</td><td>95.5 rpm, error 0.0%</td></tr></table><span class="btn dark">Solve ratio</span> <span class="btn">Send to Gear Train Workbench</span><div class="pred"><b>Predict first</b> (when on)<br>My prediction for output speed: <span class="v"> </span> rpm <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div><div class="work"><b>Show the working ▾</b><ol><li>T_m = T_L/(iη) = 0.68/(3.14 × 0.90) = 0.241 N·m</li><li>N_m = N₀(1 − T_m/T_s) = 300(1 − 0.120) = 264 rpm</li><li>N_out = 264/3.14 = 84.0 rpm</li></ol></div></div></div></main>
+<footer>Mockup for spec 02, test cases MD-1 and MD-2. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>

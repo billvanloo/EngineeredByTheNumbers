@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mockup: Gear Train Workbench</title><style>
+:root{--paper:#F2F4EF;--grid:#DDE3DA;--ink:#1D2733;--muted:#5C6773;--rule:#B9C2BC;--panel:#E7ECE5;--blue:#2B63C9;--red:#C0402D;--good:#2E7A45;--amber:#9A6B12}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;font-size:14px}
+.mock{position:fixed;bottom:0;right:0;background:var(--amber);color:#fff;font-weight:700;padding:4px 10px;font-size:12px;z-index:9}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:2px solid var(--ink);background:var(--paper)}
+header h1{font-size:19px;margin:0}header .sub{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:0;margin-left:10px}.tabs span{border:1.5px solid var(--ink);padding:4px 10px;font-weight:600;font-size:13px}.tabs span.on{background:var(--ink);color:var(--paper)}
+.sp{flex:1}.hb{display:flex;gap:6px}.hb span,.btn{border:1.5px solid var(--ink);padding:4px 9px;font-size:12px;font-weight:600;background:var(--paper);display:inline-block}
+.btn.dark{background:var(--ink);color:var(--paper)}
+input.name{border:1.5px solid var(--ink);padding:4px;width:120px;background:var(--paper);font:inherit}
+main{display:grid;grid-template-columns:270px 1fr 330px;gap:14px;padding:14px 16px}
+.panel{background:var(--paper);border:1.5px solid var(--ink);padding:10px 12px}
+.panel h2{font-size:13px;margin:0 0 8px;padding-bottom:4px;border-bottom:1px solid var(--rule)}
+.panel h2 + h2{margin-top:10px}
+.row{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:6px;margin:5px 0}
+.row .v{border:1.5px solid var(--ink);padding:3px 6px;text-align:right;background:#fff;font-variant-numeric:tabular-nums}
+.row .v.sel{text-align:left}
+.sec{margin-top:12px}
+table.ro{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.ro td{padding:4px 2px;border-bottom:1px dotted var(--rule)}table.ro td:last-child{text-align:right;font-weight:700}
+.pass{color:var(--good);font-weight:700}.fail{color:var(--red);font-weight:700}
+.pred{margin-top:10px;padding:8px;background:var(--panel);border-left:4px solid var(--ink)}
+.pred .v{display:inline-block;border:1.5px solid var(--ink);background:#fff;padding:2px 6px;width:70px;text-align:right}
+.work{margin-top:10px;font-size:12.5px;background:var(--panel);padding:8px;border-left:4px solid var(--muted)}
+.work ol{margin:4px 0;padding-left:18px}.work li{margin:3px 0}
+.draw{background:#fff;border:1.5px solid var(--ink)}
+.cap{color:var(--muted);font-size:12px;margin-top:6px}
+.new{outline:3px dashed var(--amber);outline-offset:3px}
+.tag{display:inline-block;background:var(--amber);color:#fff;font-size:10.5px;font-weight:700;padding:1px 5px;margin-left:6px;vertical-align:middle}
+footer{padding:8px 16px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--rule)}
+svg text{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+</style></head><body>
+<div class="mock">MOCKUP: layout and content only. Values are from the spec's test cases.</div>
+<header><div><h1>Gear Train Workbench</h1><div class="sub">Engineering education · Mechanisms and gear systems (upgrades)</div></div><div class="tabs"><span class="on">Sandbox</span><span class="">Challenge</span></div><div class="sp"></div>
+<label>Name <input class="name" value="A. Student"></label><div class="hb"><span>Predict first ☐</span><span>Export image</span><span>Report</span><span>Save</span><span>Load</span><span>theme</span><span>?</span></div></header>
+<main><div><div class="panel new"><h2>Motor <span class="tag">NEW</span></h2><div class="row"><span>Mode</span><span class="v sel">DC motor ▾</span></div><div class="row"><span>Stall torque (N·cm)</span><span class="v">200</span></div><div class="row"><span>No-load (rpm)</span><span class="v">300</span></div><h2 class="sec">Mesh 1 <span class="tag">NEW</span></h2><div class="row"><span>Efficiency η</span><span class="v">0.90</span></div><div class="row"><span>Module (mm)</span><span class="v">2</span></div><div class="row"><span>Pressure angle</span><span class="v sel">20° ▾</span></div><h2 class="sec">Load <span class="tag">NEW</span></h2><div class="row"><span>Type</span><span class="v sel">Torque ▾</span></div><div class="row"><span>Torque (N·cm)</span><span class="v">68</span></div><div class="row"><span>or Spool r, mass</span><span class="v sel">20 mm, 5 kg</span></div></div><div class="panel" style="margin-top:10px"><h2>Existing palette and tools</h2><p class="cap">Gears · ⚙ Motor · ◎ Load · ✕ Remove · Undo · <span class="tag">NEW</span> Pulley · Sprocket · Belt</p></div></div><div><svg class="draw" viewBox="0 0 640 400" width="100%">
+<circle cx="200" cy="200" r="46" fill="#E7ECE5" stroke="#1D2733" stroke-width="1.5"/><text x="200" y="204" font-size="12" text-anchor="middle">14T</text>
+<circle cx="340" cy="200" r="96" fill="#E7ECE5" stroke="#1D2733" stroke-width="1.5"/><text x="340" y="204" font-size="12" text-anchor="middle">44T</text>
+<text x="190" y="140" font-size="11">⚙ Motor</text><text x="330" y="90" font-size="11">◎ Load 68 N·cm</text>
+<g class="new"><line x1="246" y1="200" x2="296" y2="200" stroke="#C0402D" stroke-width="3"/><text x="252" y="190" font-size="10.5" fill="#C0402D">Fᵣ</text><line x1="246" y1="200" x2="246" y2="250" stroke="#2B63C9" stroke-width="3"/><text x="250" y="262" font-size="10.5" fill="#2B63C9">Fₜ</text></g>
+<text x="200" y="330" font-size="11" text-anchor="middle">a = 58.0 mm (module 2)</text><line x1="200" y1="315" x2="340" y2="315" stroke="#5C6773"/>
+<g class="new"><rect x="460" y="30" width="160" height="120" fill="#fff" stroke="#1D2733"/><line x1="470" y1="45" x2="610" y2="140" stroke="#1D2733" stroke-width="2"/><rect x="470" y="40" width="42" height="100" fill="#DCEBDF" opacity=".7"/><circle cx="487" cy="57" r="5" fill="#C0402D"/><text x="470" y="165" font-size="11">Motor inset: 12.0% of stall</text></g>
+</svg><div class="cap">Dashed amber outlines mark new elements. Everything else is the existing sheet.</div></div><div><div class="panel"><h2>Readout</h2><table class="ro"><tr><td>Ratio</td><td>3.14</td></tr><tr><td>Output rpm</td><td>84.0</td></tr><tr><td>Output N·cm</td><td>68 (load)</td></tr><tr><td>Direction</td><td>CCW</td></tr></table><div class="new" style="margin-top:8px"><table class="ro"><tr><td>Motor load</td><td>24.0 N·cm (12.0%)</td></tr><tr><td>Efficiency / power lost</td><td>90% / 0.66 W</td></tr><tr><td>Fₜ / Fᵣ mesh 1</td><td>see sheet</td></tr><tr><td>Center distance</td><td>58.0 mm</td></tr></table></div><span class="btn">Export shaft loads</span> <span class="btn">Export gear plate SVG</span><div class="pred"><b>Predict first</b> (when on)<br>My prediction for output rpm: <span class="v"> </span> rpm <span class="btn dark">Check</span><div class="cap">Results stay hidden until Check. Changing an input hides them again.</div></div></div></div></main>
+<footer>Mockup for spec 08, test WB-2a (14T/44T). Tooth force arrows illustrative. Designed by Bill Van Loo · footer links as in existing tools.</footer></body></html>
