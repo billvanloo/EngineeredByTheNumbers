@@ -3,7 +3,7 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** Phases 0 to 3, stopping at Checkpoint B.
-**Current phase:** Phase 2, Shaft and Beam Workbench.
+**Current phase:** Phase 3, Motor and Drive Matcher.
 
 ## Done
 
@@ -32,8 +32,25 @@ Progress record for `PLAN.md`. A resumed session starts here.
 - `scripts/sync-vendor.js` (with `--check`), `scripts/test-all.sh` (with `--e2e`) and `ecosystem/vendor-manifest.json`.
 - **Playwright setup:** `npm i --no-save playwright@1.63.0` in each repo root. The pinned browser build (1243) isn't downloaded, so the kit uses the cached chromium-1228 automatically.
 
+### Phase 2: ShaftBeamWorkbench (2026-09-27), commit 86b738a
+- `ecosystem/beam-core.js` has 59 unit checks in `ecosystem/test/test-beam-core.js`.
+- `~/GitHub/ShaftBeamWorkbench` repo:
+  - `index.html`: v1.0.0, Shaft and Beam modes, stacked SVG diagrams, drag, click-to-place, keyboard control, station readout, import dialog, extension options.
+  - `dev/core.js` and tests: 75 unit (SB-1 to SB-15 plus CD-10), 6 inline, 101 e2e.
+  - README, docs/spec.md, docs/conventions.md and screenshots (light and dark).
+- **Shell fixes made along the way:** header fits at 1280 px; select fields are wider; report header rows are marked `hd` so row labels keep their case (σ/τ were printing as Σ/T); the e2e kit resolves relative roots.
+- **Found and fixed:** SVG `clipPath` IDs have to be unique per rendering, because the report embeds a second copy of the drawing. Every tool drawing must prefix its IDs (`uid` in the Shaft and Beam Workbench).
+- **Acceptance (spec 01 §9):**
+  - [x] All test cases pass in Node and match in the interface. Every SB case is in `dev/test.js`. SB-3, 6, 7, 10, 11, 13, 14 and 15 are also checked through the interface in e2e.
+  - [x] Moving a load updates every diagram in under 50 ms. Measured 16.6 ms median in headless Chromium on the build machine. A real Chromebook still needs a manual check.
+  - [x] Show the working lists the reactions, M at the critical section, T, σ, τ, the combined value, n and the required d, with substituted numbers and units.
+  - [x] Predict first hides R_A, |M|max, n and the required d, plus the moment peak label (and the reactions, shear jump values, critical marker and station readout).
+  - [x] The exported report reproduces the diagrams and every readout. Checked by rendering the report to PDF.
+  - [x] A keyboard-only session can add, move and delete loads and read the station readout.
+- **Definition of done:** the screenshot matches the mockup's three-column arrangement (inputs, drawing, then results with predict-first and the working).
+
 ## Next
-- Phase 2: `ecosystem/beam-core.js` and its tests, then the `ShaftBeamWorkbench` repo.
+- Phase 3: `ecosystem/motor-core.js` and its tests, then the `MotorDriveMatcher` repo.
 
 ## Blocked
 - None.
@@ -42,4 +59,5 @@ Progress record for `PLAN.md`. A resumed session starts here.
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
-| EngineeredByTheNumbers (ecosystem) | 96/96 | current | demo 46/46 |
+| EngineeredByTheNumbers (ecosystem) | 155/155 | current | demo 46/46 |
+| ShaftBeamWorkbench | 75/75 | 6/6 | 101/101 |

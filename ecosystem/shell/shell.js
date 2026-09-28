@@ -567,13 +567,13 @@ const Shell = (function () {
       const r = cfg.report(app);
       const rows = list => list.map(([k, v]) => '<tr><th style="width:45%">' + k + '</th><td class="mono">' + v + '</td></tr>').join('');
       const session = app.log.filter(x => Date.parse(x.timestamp) >= app.sessionStart - 1000);
-      const wk = app.masked() ? '<p>Hidden until the prediction is checked.</p>' : app.working.length ? '<table><tr><th>#</th><th>Step</th><th>Formula</th><th>With numbers</th><th>Result</th><th>Source</th></tr>' +
+      const wk = app.masked() ? '<p>Hidden until the prediction is checked.</p>' : app.working.length ? '<table><tr class="hd"><th>#</th><th>Step</th><th>Formula</th><th>With numbers</th><th>Result</th><th>Source</th></tr>' +
         app.working.map((s, i) => '<tr><td>' + (i + 1) + '</td><td>' + s.title + '</td><td class="mono">' + (s.formula || '') + '</td><td class="mono">' + (s.sub || '') + '</td><td class="mono">' + (s.result || '') + '</td><td>' + esc(s.source || '') + '</td></tr>').join('') + '</table>' : '<p>Nothing to show.</p>';
-      const hist = session.length ? '<table><tr><th>Time</th><th>Quantity</th><th>Predicted</th><th>Model</th><th>Difference</th><th>Attempt</th></tr>' +
+      const hist = session.length ? '<table><tr class="hd"><th>Time</th><th>Quantity</th><th>Predicted</th><th>Model</th><th>Difference</th><th>Attempt</th></tr>' +
         session.map(x => '<tr><td>' + esc(x.timestamp.slice(11, 19)) + '</td><td>' + esc(x.quantity) + '</td><td class="mono">' + fmtSig(x.predicted, app.settings.sig) + ' ' + esc(x.unit) + '</td><td class="mono">' + (x.model === null ? 'not defined' : fmtSig(x.model, app.settings.sig) + ' ' + esc(x.unit)) + '</td><td class="mono">' + fmtPct(x.pctPredVsModel, app.settings.sig) + '</td><td>' + x.attempt + '</td></tr>').join('') + '</table>' : '<p>No predictions checked this session.</p>';
       const sources = (cfg.help && cfg.help.sources || []).map(s => '<li>' + esc(s.title) + (s.url ? ': ' + esc(s.url) : '') + '</li>').join('');
       report.innerHTML = '<div class="rb"><h1>' + esc(cfg.tool) + ' — Report</h1><div class="sub">' + esc(cfg.subtitle || '') + '</div>' +
-        '<table><tr><th>Name</th><th>Date</th><th>Mode</th><th>Tool version</th></tr><tr><td>' + esc(app.student() || 'unnamed') + '</td><td>' + localDateISO() + '</td><td>' + esc(cfg.contextLabel ? cfg.contextLabel(app) : 'Sandbox') + '</td><td>' + esc(cfg.version) + '</td></tr></table>' +
+        '<table><tr class="hd"><th>Name</th><th>Date</th><th>Mode</th><th>Tool version</th></tr><tr><td>' + esc(app.student() || 'unnamed') + '</td><td>' + localDateISO() + '</td><td>' + esc(cfg.contextLabel ? cfg.contextLabel(app) : 'Sandbox') + '</td><td>' + esc(cfg.version) + '</td></tr></table>' +
         '<div class="fig">' + d.svg + '</div>' +
         '<h2>Inputs</h2><table>' + rows(r.inputs) + '</table>' +
         '<h2>Results</h2><table>' + rows(r.outputs) + '</table>' +

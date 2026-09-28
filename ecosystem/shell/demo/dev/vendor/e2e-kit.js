@@ -57,6 +57,7 @@ function serve(root) {
 }
 
 async function start(root, opts) {
+  root = path.resolve(root);
   opts = opts || {};
   const server = await serve(root);
   const base = 'http://127.0.0.1:' + server.address().port;
