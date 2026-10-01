@@ -48,6 +48,12 @@ console.log('Prediction log: attempts');
   const list = [rec({ attempt: 1 }), rec({ attempt: 2 }), rec({ attempt: 1, quantity: 'other' })];
   ok('next attempt counts per student/problem/quantity', PL.nextAttempt(list, 'A', 'p1', 'q') === 3);
   ok('new quantity starts at 1', PL.nextAttempt(list, 'A', 'p1', 'new') === 1);
+  const m = { student: 'A', problemId: 'p1', quantity: 'q' };
+  const al = PL.annotateLatest(list, m, { measured: 3 });
+  ok('annotateLatest changes only the latest matching record', al.index === 1 && al.records[1].measured === 3 && al.records[0].measured === null && list[1].measured === null);
+  ok('annotateLatest finds nothing for another problem', PL.annotateLatest(list, Object.assign({}, m, { problemId: 'p9' }), { measured: 3 }).index === -1);
+  ok('annotateLatest respects the tool when given', PL.annotateLatest(list, Object.assign({ tool: 'Other Tool' }, m), { measured: 3 }).index === -1);
+  ok('makeRecord keeps a measured value given at Check', rec({ predicted: 2, model: 2.5, measured: 2.4 }).measured === 2.4 && Math.abs(rec({ predicted: 2, model: 2.5, measured: 2.4 }).pctMeasVsModel + 4) < 1e-9);
   ok('sandbox ID is stable under key order', PL.sandboxProblemId({ a: 1, b: 2 }) === PL.sandboxProblemId({ b: 2, a: 1 }));
   ok('sandbox ID changes with inputs', PL.sandboxProblemId({ a: 1 }) !== PL.sandboxProblemId({ a: 2 }));
 }
