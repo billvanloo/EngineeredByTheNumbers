@@ -2,12 +2,27 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4a (FrictionScrewLab).
-**Current phase:** Phase 4a done. FrictionScrewLab is on GitHub, `main` at commit 264590d. Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4b (FlywheelBrakeLab).
+**Current phase:** Phase 4b done, at checkpoint C1. FlywheelBrakeLab is built and committed locally (b55431b) and needs a GitHub repo (see "For review"). FrictionScrewLab is on GitHub, `main` at 264590d.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 4b: FlywheelBrakeLab (2026-11-01), local commit b55431b
+- `~/FlywheelBrakeLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light, dark and the Data tab).
+  - Model tab: wheel builder (disk, hoop, disk + hoop, custom I), lever with pivot offset and direction, spin up and brake (button or hold B) at true speed or ¼ and 1/10, pad heating, energy bar split between brake heat and bearing drag, self-locking shown as a result.
+  - Data tab: three formats (frame counts with fps, time and turns, time per turn), paste or CSV upload, example data, braking and coast-down runs, a least-squares fit over a window set by drag or keyboard, plots of θ(t), ω(t) and residuals, coast-down copied into the model as T_d.
+  - Compare tab: model against data for t, T_b and μ, with the measured values added to the student's log.
+  - Three example challenges built on FB-1, FB-2 and FB-3.
+- **Spec findings:** none of the FB values disagree. New questions Q33 (drum radius for disk + hoop and custom I) and Q34 (meaning of "time per turn"); Q16 and Q17 updated to what was built.
+- **Acceptance (spec 04 §8):**
+  - [x] All test cases pass in Node and in the interface. FB-1 to FB-12 are all in `dev/test.js`. FB-1 to FB-8 and FB-10 to FB-12 are also checked through the interface; FB-9 is a calculation check (3000 J into 1 kg of steel) done in Node.
+  - [x] The animated stop time matches the computed t within one animation frame at 1×: stepping one 60 Hz frame at a time, the wheel stops at 0.8976 s against t = 0.8976 s. The stop is found inside the frame, so it is exact.
+  - [x] The fit plot shows data, curve and residuals (plus ω(t)); the window is shaded, and both edges can be dragged or moved one data point at a time with the arrow keys.
+  - [x] Show the working covers the lever moments with the sign choice explained, T_b, I, α, t, KE and ΔT, and for data the fitted coefficients and how α becomes T_b and μ.
+  - [x] The help panel has a one-page student guide to counting frames in phone slow-motion video (a draft for review, Q18).
+- **Definition of done:** unit 73/73, inline 5/5, e2e 119/119, works from file:// with no network requests, a full update takes 3.2 ms (headless Chromium), and the screenshot matches mockup 04: inputs, the lever and wheel with the energy bar and data fit, then the results with the comparison.
 
 ### Phase 4a: FrictionScrewLab (2026-11-01), commit 264590d
 - `~/FrictionScrewLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light and dark).
@@ -137,8 +152,12 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
+### For review (Phase 4b, checkpoint C1)
+- **FlywheelBrakeLab needs a GitHub repo.** Create an empty `billvanloo/FlywheelBrakeLab`, then it can be pushed from `~/FlywheelBrakeLab`. Until then the code exists only in this session's container.
+- QUESTIONS Q16 to Q18, Q33 and Q34.
+
 ## Next
-- Phase 4b (FlywheelBrakeLab), then checkpoint C1.
+- Checkpoint C1 review, then Phase 5 (ConveyorDesigner).
 
 ## Blocked
 - None.
@@ -151,3 +170,4 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | ShaftBeamWorkbench | 75/75 | 6/6 | 102/102 |
 | MotorDriveMatcher | 84/84 | 6/6 | 121/121 |
 | FrictionScrewLab | 94/94 | 5/5 | 152/152 |
+| FlywheelBrakeLab | 73/73 | 5/5 | 119/119 |
