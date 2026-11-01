@@ -3,13 +3,13 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 6 (UnitsFormulaChecker).
-**Current phase:** Phase 6 done, at checkpoint C2. UnitsFormulaChecker is built and committed locally (19d0b17) and needs a GitHub repo (see "For review"). ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 7 (PredictionLogCollector), then checkpoint C.
+**Current phase:** Phase 6 done, at checkpoint C2. UnitsFormulaChecker is on GitHub, `main` at f15e401. ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 7 (PredictionLogCollector), then checkpoint C.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
 
-### Phase 6: UnitsFormulaChecker (2026-11-01), local commit 19d0b17
+### Phase 6: UnitsFormulaChecker (2026-11-01), commit f15e401
 - `~/UnitsFormulaChecker` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
   - Core: a units table built from §3.3's exact definitions; a tokenizer and Pratt parser that read units only right after numbers; an evaluator that carries dimensions, angle tags, torque or energy kind, absolute-temperature and percent tags; display units chosen from compatible families; the §3.5 detectors with fixes; a converter; the 18-formula library with sources; and a rearranger that records each step and declines when the unknown appears more than once.
   - Interface: Worksheet tab (one input per line, live values, unit dropdowns, ✓ ℹ ⚑ ✗ marks, Enter, arrow keys and Backspace, insert from the library), a line-details panel with dimensions, kind choice, flags and Apply fix, an all-results list, Convert tab, and Formula library tab with Insert and Rearrange. The worksheet is drawn as an SVG sheet for the PNG export and the report.
@@ -183,7 +183,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
 ### For review (Phase 6, checkpoint C2)
-- **UnitsFormulaChecker needs a GitHub repo.** Create an empty `billvanloo/UnitsFormulaChecker`, then it can be pushed from `~/UnitsFormulaChecker`. Until then the code exists only in this session's container.
+- **UnitsFormulaChecker:** on `main` of `billvanloo/UnitsFormulaChecker`, on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos). Kept as its own repo rather than in this one: it shares no code with the other tools, only the prediction-log format. Turn on GitHub Pages to publish it.
 - QUESTIONS Q23 to Q25 and Q36.
 
 ### For review (Phase 5)
