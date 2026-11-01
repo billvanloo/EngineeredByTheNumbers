@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shell fixture</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="vendor/shell.css">
+<script>
+  (function () {
+    try {
+      var t = JSON.parse(localStorage.getItem('ebtn-theme') || 'null');
+      document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+</head>
+<body>
+<!-- Test fixture for dev/e2e.js only (not shipped). Two configurations of the shell:
+     default: two predict groups with grouped working, the way the Conveyor Designer will use them;
+     ?teacher: no Name field, no predict first, many files at once, the way the Collector will. -->
+<script src="vendor/prediction-log.js"></script>
+<script src="vendor/schemas.js"></script>
+<script src="vendor/shell.js"></script>
+<script>
+(function () {
+  'use strict';
+  const teacher = /[?&]teacher\b/.test(location.search);
+  const esc = Shell.util.esc;
+  let R = null;
+  const solve = s => ({ omega: s.N * 2 * Math.PI / 60, T: s.P / (s.N * 2 * Math.PI / 60) });
+  function draw(app) {
+    const p = app.pal();
+    return { width: 320, height: 120, svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120" role="img" aria-label="Fixture"><rect width="320" height="120" fill="' + p.paper + '"/><text x="20" y="60" font-size="16" fill="' + p.ink + '">ω = ' + (app.masked('speed') ? '?' : esc(app.fmtU(R && R.omega, 'rad/s'))) + '</text></svg>' };
+  }
+  window.__files = [];
+  Shell.create({
+    tool: teacher ? 'Shell Teacher Fixture' : 'Shell Group Fixture', repo: 'EngineeredByTheNumbers', slug: teacher ? 'shell-teacher' : 'shell-group', version: '1.0.0', schemaVersion: 1,
+    subtitle: 'Test fixture',
+    predictFirst: teacher ? false : undefined,
+    nameField: teacher ? false : undefined,
+    onFiles: teacher ? (app, files) => { window.__files = files.map(f => ({ name: f.name, length: f.text ? f.text.length : -1 })); app.toast('Read ' + files.length + ' files.'); } : undefined,
+    defaultState: () => ({ P: 500, N: 300 }),
+    help: { html: '<p>Fixture.</p>', teacher: '<p>Fixture.</p>', sources: [{ title: 'OpenStax University Physics Vol. 1, 10.8' }] },
+    build(app) {
+      app.numField(app.el.inputs, { id: 'inP', label: 'Power P', name: 'Power', unit: 'W', min: 0, max: 100000, step: 1, get: a => a.state.P, set: (a, v) => { a.state.P = v; } });
+      app.numField(app.el.inputs, { id: 'inN', label: 'Speed N', name: 'Speed', unit: 'rpm', min: 1, max: 20000, step: 1, get: a => a.state.N, set: (a, v) => { a.state.N = v; } });
+      app.el.stage.innerHTML = '<div class="drawcard" id="fxDraw"></div>';
+    },
+    render(app) {
+      R = app.hasInvalid() ? null : solve(app.state);
+      document.getElementById('fxDraw').innerHTML = draw(app).svg;
+      app.el.results.innerHTML = '<table class="ro"><tr><th>ω</th><td id="fxW">' + app.show(esc(app.fmtU(R && R.omega, 'rad/s')), 'speed') + '</td></tr><tr><th>T</th><td id="fxT">' + app.show(esc(app.fmtU(R && R.T, 'N·m')), 'torque') + '</td></tr></table>';
+      app.setWorking(R ? [
+        { heading: 'Speed', group: 'speed', steps: [{ title: 'Angular speed', formula: 'ω = 2πN/60', result: app.fmtU(R.omega, 'rad/s'), source: 'OpenStax' }] },
+        { heading: 'Torque', group: 'torque', steps: [{ title: 'Torque', formula: 'T = P/ω', result: app.fmtU(R.T, 'N·m'), source: 'OpenStax' }] },
+      ] : []);
+      app.describe('Fixture drawing for the shell browser checks.');
+    },
+    drawing: app => draw(app),
+    predictTargets: app => [
+      { key: 'w', group: 'speed', groupLabel: 'Step 1 · Speed', quantity: 'angular speed omega', label: 'ω', unit: 'rad/s', model: R ? R.omega : null },
+      { key: 'T', group: 'torque', groupLabel: 'Step 2 · Torque', quantity: 'torque T', label: 'Torque T', unit: 'N·m', model: R ? R.T : null },
+    ],
+    inputsSnapshot: app => ({ values: { P: app.state.P, N: app.state.N }, units: { P: 'W', N: 'rpm' } }),
+    report: app => ({ inputs: [['Power P', app.fmtU(app.state.P, 'W')]], outputs: [['Torque T', app.masked('torque') ? 'hidden until checked' : app.fmtU(R && R.T, 'N·m')]], sections: teacher ? [{ title: 'Class summary', html: '<p>Fixture section.</p>' }] : [] }),
+  });
+})();
+</script>
+</body>
+</html>

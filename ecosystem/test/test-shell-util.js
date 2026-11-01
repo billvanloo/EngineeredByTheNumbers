@@ -63,4 +63,32 @@ is('model zero', U.predictionMessage(1, 0, 'N', 3), 'You predicted 1.00 N. The m
 is('model undefined', U.predictionMessage(1, null, '', 3, 'no load'), 'You predicted 1.00. The model value is not defined: no load.');
 is('escape', U.esc('<a "b">'), '&lt;a &quot;b&quot;&gt;');
 
+console.log('Shell: challenge lists (00 §4.5–4.6)');
+{
+  const R = U.readChallengeList;
+  const good = { tool: 'Friction and Screw Lab', schemaVersion: 1, challenges: [
+    { id: 'FS-M1', title: 'Mystery surface', brief: 'Find μ.', inputs: { muS: 0.42, muK: 0.35 }, hidden: ['muS', 'muK'], tolerance: { match: 2, close: 10 }, requirePrediction: true },
+    { id: 'FS-M2', inputs: { theta: 0.3 } },
+  ] };
+  const r = R(JSON.stringify(good), 'Friction and Screw Lab');
+  ok('reads a list from JSON text', r.value.challenges.length === 2 && r.warnings.length === 0);
+  const c = r.value.challenges[0];
+  ok('keeps id, title, inputs, hidden, tolerance', c.id === 'FS-M1' && c.title === 'Mystery surface' && c.inputs.muS === 0.42 && c.hidden.join() === 'muS,muK' && c.tolerance.close === 10);
+  ok('requirePrediction and predict first', c.requirePrediction === true && c.predictFirst === true);
+  const c2 = r.value.challenges[1];
+  ok('defaults: title is the id, nothing hidden, no tolerance, no gate', c2.title === 'FS-M2' && c2.hidden.length === 0 && c2.tolerance === null && c2.requirePrediction === false);
+  ok('a bare array is accepted', R([{ id: 'A' }]).value.challenges[0].id === 'A');
+  ok('newer version warns', R({ schemaVersion: 2, challenges: [] }).warnings.length === 1);
+  const msg = (x, tool) => { try { R(x, tool); return ''; } catch (e) { return e.message; } };
+  is('bad JSON', msg('{"challenges": [', ''), 'The challenge list is not valid JSON. Check for a missing comma, quote or bracket.');
+  is('no list', msg({}), 'A challenge list needs a "challenges" list.');
+  is('other tool', msg({ tool: 'Flywheel Brake Lab', challenges: [] }, 'Friction and Screw Lab'), 'This challenge list is for the Flywheel Brake Lab, not the Friction and Screw Lab.');
+  is('missing id', msg({ challenges: [{ title: 'x' }] }), 'Challenge 1 needs an "id", for example "FS-1".');
+  is('duplicate id', msg({ challenges: [{ id: 'A' }, { id: 'A' }] }), 'Two challenges have the id "A". Each id must be different.');
+  is('bad inputs', msg({ challenges: [{ id: 'A', inputs: [1] }] }), 'A: "inputs" must be an object of input names and values.');
+  is('bad input value', msg({ challenges: [{ id: 'A', inputs: { x: null } }] }), 'A: input "x" must be a number, text or true/false.');
+  is('bad hidden', msg({ challenges: [{ id: 'A', hidden: 'muS' }] }), 'A: "hidden" must be a list of input names.');
+  is('bad tolerance', msg({ challenges: [{ id: 'A', tolerance: { match: 5, close: 1 } }] }), 'A: "tolerance" needs "match" and "close" percentages, with 0 < match ≤ close.');
+}
+
 module.exports = { passed, failed };

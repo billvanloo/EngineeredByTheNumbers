@@ -2,10 +2,28 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** Phases 0 to 3, stopping at Checkpoint B.
-**Current phase:** Checkpoint B reached (end of the current goal). The next step is the user's review, then creating the GitHub repos.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4.0 (shared groundwork for tools 03 to 07).
+**Current phase:** Phase 4.0 done, at its review checkpoint. Next is Phase 4a (FrictionScrewLab) and 4b (FlywheelBrakeLab), which can run in parallel.
+
+**Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 4.0: shared groundwork (2026-11-01)
+- **Shell 1.2** (`ecosystem/shell/`), all additions opt-in:
+  - header tabs (`cfg.tabs`, keyboard tablist)
+  - challenges: built-in examples, a teacher list pasted in Settings, hidden inputs, per-challenge tolerance, the challenge ID as problem ID and file context, `app.gate()` for 00 §4.6
+  - grouped predict targets (one Check per group) and grouped working, in the panel and the report
+  - `predictFirst: false` and `nameField: false` for a teacher tool, and `onFiles` for many files at once
+  - report `sections`
+- **Bug fixed in the published shell:** pressing Enter in a prediction box ran Check, and then the same key press activated "Predict again", which undid the Check at once. Confirmed against MotorDriveMatcher's published `index.html` (the new kit check fails there and passes after the sync). Both tools get the fix with this sync.
+- **CSS fix:** `.namewrap` and the new `.chwrap` set `display:flex`, which overrode the `hidden` attribute.
+- **New shared modules** with unit tests: `stats.js` (FS-3 and FB-6 values checked), `plot.js`, `anim.js` (fake-frame and manual-clock tests), `hold.js` (browser-tested in the demo).
+- **e2e kit 1.1:** `start(root, { page, query })`, `standard(t, { teacherTool })`, and a new standard check that Enter in a prediction box keeps the results shown.
+- **Demo** now uses tabs, a Sandbox/Challenge switch with example challenge DM-1, a gated hold-to-spin control and an animation clock. `dev/fixture-v12.html` covers grouped predict-first and the teacher-tool settings.
+- **Docs:** `ecosystem/README.md` (new files and config), `schemas.md` (challenge-list format, problem ID prefixes, prediction quantity names, the tool-to-module table), `QUESTIONS.md` Q11 to Q31.
+- **Regression:** ShaftBeamWorkbench and MotorDriveMatcher pass all their unit, inline and browser checks on shell 1.2 (102 and 121 e2e, one more each than before: the Enter check).
+- **Not pushed to the tool repos:** the sync changes `dev/vendor/` and the inline blocks in both tools. Attaching ShaftBeamWorkbench with push access was refused in this session, and pushing to either tool's `main` waits for review. See "For review".
 
 ### Phase 0: setup and spec check (2026-09-27)
 - Curriculum repo `EngineeredByTheNumbers` initialized with git (`main`), with README, LICENSE (MIT), `.gitignore`, `curriculum/` placeholder, `ERRATA.md` and `QUESTIONS.md`.
@@ -90,8 +108,17 @@ Progress record for `PLAN.md`. A resumed session starts here.
 ### Proposed next step (needs approval)
 Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, MotorDriveMatcher) under billvanloo, push `main`, and turn on GitHub Pages for the two tools. After that, Phase 4 (FrictionScrewLab, FlywheelBrakeLab) as the next goal.
 
+## Phase 4.0 review checkpoint
+
+### For review
+- Shell 1.2 and the Enter fix need to go into ShaftBeamWorkbench and MotorDriveMatcher: run `node scripts/sync-vendor.js` with both repos checked out beside this one, run `scripts/test-all.sh --e2e`, and commit in each tool repo. This session couldn't push to ShaftBeamWorkbench.
+- QUESTIONS Q11 to Q31, especially Q19 (motor power margin), Q24 (rpm in ω = 2πN/60) and Q27 (module field).
+
+### Not verified
+- Hold and the animation clock on a real touch screen (checked with mouse and keyboard in headless Chromium).
+
 ## Next
-- Waiting for review at Checkpoint B.
+- Phase 4a (FrictionScrewLab) and 4b (FlywheelBrakeLab).
 
 ## Blocked
 - None.
@@ -100,6 +127,6 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
-| EngineeredByTheNumbers (ecosystem) | 193/193 | current | demo 46/46 |
-| ShaftBeamWorkbench | 75/75 | 6/6 | 101/101 |
-| MotorDriveMatcher | 56/56 | 5/5 | 96/96 |
+| EngineeredByTheNumbers (ecosystem) | 287/287 | current | demo 139/139 |
+| ShaftBeamWorkbench | 75/75 | 6/6 | 102/102 |
+| MotorDriveMatcher | 84/84 | 6/6 | 121/121 |

@@ -96,3 +96,71 @@ Each tool's Save button writes its own design file (spec 00 §6):
 ```
 
 `state` is the tool's full input state, and its shape belongs to each tool. Loading a file from an older `schemaVersion` runs the tool's `migrate()`. Anything that can't be carried forward is named in the load message. The Load button also accepts prediction-log files (it merges them into the student's log) and whatever import formats the tool reads.
+
+## challenge-list (version 1)
+
+Pasted by the teacher into a tool's Settings (Challenges). The same list goes to every student, who pastes it into their copy. It replaces the tool's built-in example challenges. The reader is `Shell.util.readChallengeList`.
+
+```json
+{
+  "tool": "Friction and Screw Lab", "schemaVersion": 1,
+  "challenges": [
+    { "id": "FS-M1", "title": "Mystery surface", "brief": "Find μ for the hidden surface.",
+      "inputs": { "muS": 0.42, "muK": 0.35 }, "hidden": ["muS", "muK"],
+      "tolerance": { "match": 2, "close": 10 }, "requirePrediction": true }
+  ]
+}
+```
+
+- `id` is required and unique. Use the tool's prefix (below).
+- `inputs` are values in SI, named as in the tool's saved design file. They are applied when the challenge starts.
+- `hidden` lists inputs the student can't see. They show as "hidden" in the input box, the drawing and the report.
+- `tolerance` sets the Match and Close bands in percent (default 1% and 5%, spec 00 §4.5).
+- `requirePrediction`: buttons such as Run, Spin up and Turn wait for a checked prediction (spec 00 §4.6).
+- `predictFirst` defaults to true: choosing a challenge turns predict first on (spec 00 §4).
+- A bare array of challenges is also accepted. A list made for another tool is refused with a message.
+
+## Conventions for the remaining tools
+
+### Problem IDs
+
+A challenge's `id` is the record's `problemId`. IDs start with the tool's prefix, the same one its spec test cases use: `SB-`, `MD-`, `FS-`, `FB-`, `CD-`, `UF-`. Sandbox work stays `sandbox-<hash>`.
+
+### Prediction quantities
+
+The Collector groups records by `quantity`, so each tool uses these exact names for its predict targets.
+
+| Tool | quantity | unit |
+|---|---|---|
+| Friction and Screw Lab | `friction coefficient mu` | |
+| | `torque to raise T_R` | N·m |
+| | `handle force F` | N |
+| | `efficiency e` | % |
+| | `self-locking` (1 yes, 0 no) | yes/no |
+| Flywheel Brake Lab | `normal force N` | N |
+| | `braking torque T_b` | N·m |
+| | `stopping time t` | s |
+| | `turns to stop` | turns |
+| | `temperature rise upper limit` | °C |
+| Conveyor Designer | `belt pull T_e` | N |
+| | `belt power P` | W |
+| | `pulley speed N_p` | rpm |
+| | `minimum slack-side tension T2_min` | N |
+| | `shaft side load R` | N |
+| | `shaft safety factor n` | |
+| Units and Formula Checker | the line's variable name, for example `T` | the line's display unit |
+
+### Modules
+
+Prediction records have no module field (QUESTIONS Q27). The Collector's Module filter uses this table, from the spec package README.
+
+| Tool | Unit modules |
+|---|---|
+| Truss Stress Visualizer | 0, 2, 4, 5 |
+| Motor and Drive Matcher | 1, 5 |
+| Gear Train Workbench | 1, 5 |
+| Friction and Screw Lab | 2 |
+| Flywheel Brake Lab | 3 |
+| Shaft and Beam Workbench | 4, 5 |
+| Conveyor Designer | 5 |
+| Units and Formula Checker | all |

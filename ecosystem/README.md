@@ -21,9 +21,13 @@ The formats are in [`schemas.md`](schemas.md).
 | `schemas.js` | Readers and builders for shaft-loads, drive-request, drive-result and saved design files | every tool |
 | `beam-core.js` | Reactions, shear, moment, torque, stress, safety factor, required diameter, deflection (spec 01 §3) | Shaft and Beam Workbench, later Conveyor Designer and Truss Stress Visualizer |
 | `motor-core.js` | DC motor line, gearing, load, ratio solver, duty bands, current and efficiency (spec 02 §3) | Motor and Drive Matcher, later Conveyor Designer and Gear Train Workbench |
+| `stats.js` | Mean, median, quantiles, standard deviation, summary, quadratic least-squares fit with R² and residuals | Friction and Screw Lab, Flywheel Brake Lab, Prediction Log Collector |
+| `plot.js` | Nice ticks, linear scales, and SVG axes, grid, points, lines and reference lines that use the tool's palette | Friction and Screw Lab, Flywheel Brake Lab, Prediction Log Collector |
+| `anim.js` | Animation clock: simulation time from frames, slow motion, pause when hidden, reduced motion, and a manual clock for tests | shell demo, Friction and Screw Lab, Flywheel Brake Lab, Conveyor Designer |
+| `hold.js` | Press-and-hold binding for a button plus keys (Turn, hold B) | shell demo, Friction and Screw Lab, Flywheel Brake Lab |
 | `shell/shell.css`, `shell/shell.js` | The shared tool frame: header, footer, themes, help, predict-first, show the working, validation, save and load, PNG export, report, prediction log, settings (spec 00 §2–8) | every new tool |
 | `shell/head-snippet.html` | Theme pre-paint script and the inline favicon for each tool's `<head>` | pasted by hand |
-| `shell/demo/` | The smallest complete tool built on the shell. It's also the starting template for a new tool | — |
+| `shell/demo/` | The smallest complete tool built on the shell, with tabs, a challenge, a hold control and an animation clock. It's also the starting template for a new tool. `dev/fixture-v12.html` is a test-only page for grouped predict-first and the teacher-tool settings | — |
 | `tooling/verify-blocks.js` | Checks that a tool's inline code matches its tested copies | every tool's `dev/` |
 | `tooling/e2e-kit.js` | Playwright helpers and the standard browser checks every tool runs | every tool's `dev/` |
 | `vendor-manifest.json` | Which files go into which tool repo | |
@@ -49,12 +53,19 @@ The tool repo also keeps the same files in `dev/vendor/`, so its tests run witho
 1. Copy `shell/demo/` into a new repository and rename it: title, `tool`, `repo`, `slug`.
 2. Add the repository to `vendor-manifest.json` with the files it needs, and run `node scripts/sync-vendor.js`.
 3. Write `dev/core.js` with its tests first, then the interface. `node dev/verify-html.js --fix` copies the core into `index.html`.
-4. Run `dev/test.js`, `dev/verify-html.js` and `dev/e2e.js`. `kit.standard()` covers the shell requirements, and the tool's own e2e adds its spec checks.
+4. Run `dev/test.js`, `dev/verify-html.js` and `dev/e2e.js`. `kit.standard()` covers the shell requirements, and the tool's own e2e adds its spec checks. `kit.start(root, { page, query })` can open a page other than `index.html`, and `kit.standard(t, { teacherTool: true })` checks a tool with no Name field and no predict first.
+5. A tool with animation calls `Anim.manual(true)` in its e2e and moves time with `Anim.advanceAll(seconds)`, so timing checks don't depend on the speed of the machine.
 
 ## The shell in one paragraph
 
 A tool calls `Shell.create(cfg)`.
 
 - **The config supplies:** `defaultState()`, `build(app)` (creates the input fields once), `render(app)` (runs the model and draws after every change), `drawing(app)` (returns `{ svg, width, height }`, drawn with `app.pal()` colours), `predictTargets(app)`, `inputsSnapshot(app)`, `report(app)` and `help`.
+- **Optional config (shell 1.2):**
+  - `modes` and `tabs`: header switches. Tabs are a keyboard tablist (← → Home End); the tool keeps the current tab in its state and reads it with `app.tab()`.
+  - `challenges: { builtIn, active(app), apply(app, c) }`: a challenge picker in Challenge mode, teacher lists pasted in Settings (format in `schemas.md`), hidden inputs (`numField` with `key`, and `app.isHidden(key)`), per-challenge tolerance, the challenge ID as the problem ID and file-name context, and `app.gate()` for buttons that need a checked prediction first.
+  - Predict targets with `group` and `groupLabel`: one Check per group. `app.masked(group)` and `app.show(html, group)` work per group, and `app.setWorking([{ heading, group, steps }])` hides each group's working until it's checked.
+  - `predictFirst: false` and `nameField: false` for a teacher tool, and `onFiles(app, files)` to take many files at once (saved design files still load as usual).
+  - `report()` can return `sections: [{ title, html }]` for extra report sections.
 - **The shell handles:** the header and footer, theme and palette, input fields with validation messages, predict-first masking (`app.show(html)`), prediction records (a target's optional `measured` is logged at Check, and `app.recordMeasured(quantity, value)` adds a lab value to the student's latest prediction for the current inputs), the working panel (`app.setWorking(steps)`), save and load, imports (`cfg.imports[schema]`), the 2× PNG with its caption strip, the printable report, the log dialog, settings, Clear my data and help.
 - **What it stores:** state is saved in local storage under `ebtn:<slug>:`. The student's name and theme are shared across tools under `ebtn-name` and `ebtn-theme`.
