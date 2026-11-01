@@ -3,7 +3,7 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4a (FrictionScrewLab).
-**Current phase:** Phase 4a done. FrictionScrewLab is on GitHub on branch `claude/festive-hawking-uxdha3` (commit 264590d), waiting to be merged into `main`. Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
+**Current phase:** Phase 4a done. FrictionScrewLab is on GitHub, `main` at commit 264590d. Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
@@ -133,7 +133,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - Hold and the animation clock on a real touch screen (checked with mouse and keyboard in headless Chromium).
 
 ### For review (Phase 4a)
-- **FrictionScrewLab:** `billvanloo/FrictionScrewLab` branch `claude/festive-hawking-uxdha3` holds the tool on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos). Merging it into `main` is a fast-forward; then turn on GitHub Pages.
+- **FrictionScrewLab:** merged into `main` of `billvanloo/FrictionScrewLab` (fast-forward over the repo's initial LICENSE commit; the copyright line now reads "Bill Van Loo", like the other repos). Turn on GitHub Pages to publish it.
 - MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
