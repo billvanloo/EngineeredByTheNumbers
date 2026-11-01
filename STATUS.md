@@ -3,13 +3,13 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 5 (ConveyorDesigner).
-**Current phase:** Phase 5 done. ConveyorDesigner is built and committed locally (d492378) and needs a GitHub repo (see "For review"). FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 6 (UnitsFormulaChecker); checkpoint C2 comes after it.
+**Current phase:** Phase 5 done. ConveyorDesigner is on GitHub, `main` at 72773a8. FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 6 (UnitsFormulaChecker); checkpoint C2 comes after it.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
 
-### Phase 5: ConveyorDesigner (2026-11-01), local commit d492378
+### Phase 5: ConveyorDesigner (2026-11-01), commit 72773a8
 - `~/ConveyorDesigner` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
   - Requirements tab: an editable sheet (quantity, check type, target, tolerance), scored live; example rows from the mockup.
   - Design tab: a side view to scale along the bed with boxes moving at the loaded belt speed, T₁, T₂, the side load, a slip mark and the incline flag; six step sections, each with its own predict-first Check; a step strip marking steps with failing requirements; the motor's torque-speed plot with the operating point and duty bands.
@@ -170,7 +170,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
 ### For review (Phase 5)
-- **ConveyorDesigner needs a GitHub repo.** Create an empty `billvanloo/ConveyorDesigner`, then it can be pushed from `~/ConveyorDesigner`. Until then the code exists only in this session's container.
+- **ConveyorDesigner:** on `main` of `billvanloo/ConveyorDesigner`, on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos). Turn on GitHub Pages to publish it.
 - The shell 1.2.2 and kit 1.2 updates are synced into every tool repo's working copy. MotorDriveMatcher, FrictionScrewLab and FlywheelBrakeLab get them on their `claude/festive-hawking-uxdha3` branches; ShaftBeamWorkbench still can't be pushed from this session.
 - QUESTIONS Q19 to Q22, Q30 and Q35.
 

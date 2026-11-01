@@ -12,7 +12,7 @@ This repository holds the curriculum side of the project: the unit materials, th
 | Motor and Drive Matcher | [MotorDriveMatcher](https://github.com/billvanloo/MotorDriveMatcher) | 1, 5 | v1.0.0 built, not yet published |
 | Friction and Screw Lab | [FrictionScrewLab](https://github.com/billvanloo/FrictionScrewLab) | 2 | v1.0.0 built, not yet published |
 | Flywheel Brake Lab | [FlywheelBrakeLab](https://github.com/billvanloo/FlywheelBrakeLab) | 3 | v1.0.0 built, not yet published |
-| Conveyor Designer | ConveyorDesigner | 5 (capstone) | v1.0.0 built; GitHub repo not created yet |
+| Conveyor Designer | [ConveyorDesigner](https://github.com/billvanloo/ConveyorDesigner) | 5 (capstone) | v1.0.0 built, not yet published |
 | Units and Formula Checker | UnitsFormulaChecker | All | Planned |
 | Prediction Log Collector | PredictionLogCollector | All | Planned |
 | Gear Train Workbench | [GearTrainWorkbench](https://github.com/billvanloo/GearTrainWorkbench) | 1, 5 | Existing; upgrades planned |
