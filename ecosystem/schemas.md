@@ -34,14 +34,14 @@ Written by the Gear Train Workbench (tooth forces) and the Conveyor Designer (pu
   "source": "Conveyor Designer",
   "units": { "force": "N", "torque": "N·m" },
   "loads": [
-    { "label": "Drive pulley", "magnitude": 51.4, "angleDeg": 270, "torque": 0.677 }
+    { "label": "Drive pulley", "magnitude": 51.4, "angleDeg": 180, "torque": 0.677 }
   ],
   "notes": []
 }
 ```
 
 - `magnitude` is in N and always positive.
-- `angleDeg` is the direction in the source drawing: 0° is +x on the source sheet, counterclockwise positive, so 270° points straight down.
+- `angleDeg` is the direction in the source drawing: 0° is +x on the source sheet, counterclockwise positive, so 270° points straight down. The Conveyor Designer's side load points along the belt toward the tail, so it is 180° at 180° wrap (QUESTIONS Q22).
 - `torque` (N·m, optional) is the torque carried by that element's shaft.
 - `plane` (`"front"` or `"back"`) and `shaft` (an ID) are optional and used by the Gear Train Workbench.
 - If any two loads point more than 5° apart, the reader flags `multiPlane`, and the Workbench shows the two-plane warning from spec 01 §5.5.

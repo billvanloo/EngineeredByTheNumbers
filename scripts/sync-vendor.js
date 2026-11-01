@@ -40,7 +40,8 @@ for (const [target, files] of Object.entries(manifest.targets)) {
       console.log((checkOnly ? 'DRIFT ' : 'update ') + path.relative(siblings, dst));
       if (!checkOnly) { fs.writeFileSync(dst, src); wrote++; }
     }
-    if (html !== null && !NOT_INLINED.has(base)) {
+    // Code goes inline as well; data files (test fixtures) only go to dev/vendor/.
+    if (html !== null && !NOT_INLINED.has(base) && /\.(js|css)$/.test(base)) {
       const b = '/* BEGIN vendor:' + base + ' */\n', e = '/* END vendor:' + base + ' */';
       const i = html.indexOf(b), j = i < 0 ? -1 : html.indexOf(e, i);
       if (i < 0 || j < 0) { console.log('WARN ' + target + '/index.html has no block for ' + base); drift++; continue; }

@@ -32,3 +32,9 @@ These don't change any value. They record which reading of the spec the tests us
 |---|---|---|
 | FS-10 | **Range conflict inside spec 03.** FS-10 sets thread friction μ = 0.6, but the §4 input table limits μ to 0.01–0.5, so the case can't be entered. The values themselves are right (π d_m − μ l = 18.85 − 19.2 < 0). | The thread μ field accepts 0.01 to 1.0, the same range §3.5 uses for the back-calculation. Everything else in §4 is unchanged. **Teacher to confirm.** |
 | FS-12 | "Screw μ field shows 0.364." The mean of tan 20°, 21° and 19° is 0.36398. | Send μ to Screw copies the mean rounded to 3 significant figures (0.364), since slip-angle measurements are only good to one or two digits (§3.1). The working says so. |
+
+## Found while building the Conveyor Designer (2026-11-01)
+
+| Test | Note | What the tool does |
+|---|---|---|
+| CD-5 in the interface | With the linked values (T_p = 0.6769 N·m, N_p = 95.49 rpm) instead of the table's rounded 0.68 and 95.5, CD-5 shows 84.1 rpm and a −11.9% speed error, not 84.0 rpm and −12.0%. The requirement still fails. | `dev/test.js` checks CD-5 and CD-6 with the table values, and checks the linked values separately. The help panel explains the 0.1%. |

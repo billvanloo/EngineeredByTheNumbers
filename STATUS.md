@@ -2,12 +2,29 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4b (FlywheelBrakeLab).
-**Current phase:** Phase 4b done, at checkpoint C1. FlywheelBrakeLab is on GitHub, `main` at b55431b. FrictionScrewLab is on GitHub, `main` at 264590d.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 5 (ConveyorDesigner).
+**Current phase:** Phase 5 done. ConveyorDesigner is built and committed locally (d492378) and needs a GitHub repo (see "For review"). FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 6 (UnitsFormulaChecker); checkpoint C2 comes after it.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 5: ConveyorDesigner (2026-11-01), local commit d492378
+- `~/ConveyorDesigner` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
+  - Requirements tab: an editable sheet (quantity, check type, target, tolerance), scored live; example rows from the mockup.
+  - Design tab: a side view to scale along the bed with boxes moving at the loaded belt speed, T₁, T₂, the side load, a slip mark and the incline flag; six step sections, each with its own predict-first Check; a step strip marking steps with failing requirements; the motor's torque-speed plot with the operating point and duty bands.
+  - Design record tab: the printable calculation package.
+  - Exports shaft-loads and drive-request files; Load reads the Motor and Drive Matcher's drive result.
+- **Shared code:** MotorCore and BeamCore are vendored unchanged. New `ecosystem/test/fixtures/conveyor-shared.json` (CD-5, CD-6, CD-7) is checked by `ecosystem/test/test-shared-fixtures.js` against the cores and by the conveyor's `dev/test.js` against its own core, which must give the same numbers exactly. `sync-vendor.js` and `verify-blocks.js` now copy data files without inlining them.
+- **Shell 1.2.2:** `report().lead` sections print before the drawing. **e2e kit 1.2:** `kit.standard` handles tools with one Check per step.
+- **Flaky test fixed in FrictionScrewLab:** its drag check measured the drawing while the sliding block's arrival at the bottom redrew it, so it failed about one run in three. The test now measures again when that happens (four clean runs in a row after the fix).
+- **Spec findings:** ERRATA note on CD-5 in the interface (84.1 rpm, −11.9% with linked values). QUESTIONS Q35 (throughput requirement uses the loaded speed); the defaults for Q19 to Q22 and Q30 are what was built; `schemas.md` now shows the side load at 180°.
+- **Acceptance (spec 05 §9):**
+  - [x] All test cases pass in Node and in the interface. CD-1 to CD-10 are all in `dev/test.js` and all are checked through the interface; CD-10 runs in the real Shaft and Beam Workbench (M 1.28 N·m, τ_max 14.4 MPa, n 13.8, reactions 25.7 N).
+  - [x] The design record prints on letter paper with the requirements table first, then each section's working, then sources. e2e checks the heading order and renders a letter-size PDF.
+  - [x] Every number in the design record carries a unit: e2e checks every input and result cell; dimensionless values say "(no unit)".
+  - [x] The embedded motor and shaft calculations give identical results to files 02 and 01 for the same inputs (shared fixtures, exact equality).
+- **Definition of done:** unit 80/80, inline 5/5, e2e 121/121, works from file:// with no network requests, and the screenshot matches mockup 05's three columns. A drive request also makes a round trip through the real Motor and Drive Matcher.
 
 ### Phase 4b: FlywheelBrakeLab (2026-11-01), commit b55431b
 - `~/FlywheelBrakeLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light, dark and the Data tab).
@@ -152,12 +169,17 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
+### For review (Phase 5)
+- **ConveyorDesigner needs a GitHub repo.** Create an empty `billvanloo/ConveyorDesigner`, then it can be pushed from `~/ConveyorDesigner`. Until then the code exists only in this session's container.
+- The shell 1.2.2 and kit 1.2 updates are synced into every tool repo's working copy. MotorDriveMatcher, FrictionScrewLab and FlywheelBrakeLab get them on their `claude/festive-hawking-uxdha3` branches; ShaftBeamWorkbench still can't be pushed from this session.
+- QUESTIONS Q19 to Q22, Q30 and Q35.
+
 ### For review (Phase 4b, checkpoint C1)
 - **FlywheelBrakeLab:** pushed to `main` of `billvanloo/FlywheelBrakeLab` (the repo was empty, so `main` is its default branch). Turn on GitHub Pages to publish it.
 - QUESTIONS Q16 to Q18, Q33 and Q34.
 
 ## Next
-- Checkpoint C1 review, then Phase 5 (ConveyorDesigner).
+- Phase 6 (UnitsFormulaChecker), then checkpoint C2.
 
 ## Blocked
 - None.
@@ -166,8 +188,9 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
-| EngineeredByTheNumbers (ecosystem) | 287/287 | current | demo 139/139 |
+| EngineeredByTheNumbers (ecosystem) | 300/300 | current | demo 139/139 |
 | ShaftBeamWorkbench | 75/75 | 6/6 | 102/102 |
 | MotorDriveMatcher | 84/84 | 6/6 | 121/121 |
 | FrictionScrewLab | 94/94 | 5/5 | 152/152 |
 | FlywheelBrakeLab | 73/73 | 5/5 | 119/119 |
+| ConveyorDesigner | 80/80 | 5/5 | 121/121 |
