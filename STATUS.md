@@ -3,13 +3,13 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4b (FlywheelBrakeLab).
-**Current phase:** Phase 4b done, at checkpoint C1. FlywheelBrakeLab is built and committed locally (b55431b) and needs a GitHub repo (see "For review"). FrictionScrewLab is on GitHub, `main` at 264590d.
+**Current phase:** Phase 4b done, at checkpoint C1. FlywheelBrakeLab is on GitHub, `main` at b55431b. FrictionScrewLab is on GitHub, `main` at 264590d.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
 
-### Phase 4b: FlywheelBrakeLab (2026-11-01), local commit b55431b
+### Phase 4b: FlywheelBrakeLab (2026-11-01), commit b55431b
 - `~/FlywheelBrakeLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light, dark and the Data tab).
   - Model tab: wheel builder (disk, hoop, disk + hoop, custom I), lever with pivot offset and direction, spin up and brake (button or hold B) at true speed or ¼ and 1/10, pad heating, energy bar split between brake heat and bearing drag, self-locking shown as a result.
   - Data tab: three formats (frame counts with fps, time and turns, time per turn), paste or CSV upload, example data, braking and coast-down runs, a least-squares fit over a window set by drag or keyboard, plots of θ(t), ω(t) and residuals, coast-down copied into the model as T_d.
@@ -153,7 +153,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
 ### For review (Phase 4b, checkpoint C1)
-- **FlywheelBrakeLab needs a GitHub repo.** Create an empty `billvanloo/FlywheelBrakeLab`, then it can be pushed from `~/FlywheelBrakeLab`. Until then the code exists only in this session's container.
+- **FlywheelBrakeLab:** pushed to `main` of `billvanloo/FlywheelBrakeLab` (the repo was empty, so `main` is its default branch). Turn on GitHub Pages to publish it.
 - QUESTIONS Q16 to Q18, Q33 and Q34.
 
 ## Next
