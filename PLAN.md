@@ -135,6 +135,8 @@ Stop and report:
 - the proposed next step: creating the GitHub repos and pushing, which needs user approval
 
 ### Later phases (future goals, not this run)
+Phases 4 to 7 are planned in detail in [`PLAN-REMAINING-TOOLS.md`](PLAN-REMAINING-TOOLS.md).
+
 - **Phase 4:** `FrictionScrewLab` (FS-1 to FS-12) and `FlywheelBrakeLab` (FB-1 to FB-12).
 - **Phase 5:** `ConveyorDesigner`, which vendors `beam-core` and `motor-core` unchanged and has shared fixtures proving identical results to 01 and 02. CD-1 to CD-10, with CD-10 round-tripping into `ShaftBeamWorkbench` in e2e.
 - **Phase 6:** `UnitsFormulaChecker`: UF-1 to UF-14 and the 30-line 50 ms check.

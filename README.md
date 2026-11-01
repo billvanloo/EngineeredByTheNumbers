@@ -35,6 +35,7 @@ The tools pass work to each other as small JSON files, so no server or accounts 
 | `ecosystem/` | Shared file formats, and the canonical copy of code used by more than one tool |
 | `scripts/` | Spec value check, vendoring script, and a test runner across all tool repos |
 | `PLAN.md`, `STATUS.md` | Build plan and progress |
+| `PLAN-REMAINING-TOOLS.md` | Detailed plan for the tools that are still spec-only (03 to 06 and the Collector) |
 | `ERRATA.md`, `QUESTIONS.md` | Spec corrections and open decisions for review |
 
 ## Development
