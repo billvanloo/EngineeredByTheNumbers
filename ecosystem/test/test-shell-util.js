@@ -63,6 +63,11 @@ is('model zero', U.predictionMessage(1, 0, 'N', 3), 'You predicted 1.00 N. The m
 is('model undefined', U.predictionMessage(1, null, '', 3, 'no load'), 'You predicted 1.00. The model value is not defined: no load.');
 is('escape', U.esc('<a "b">'), '&lt;a &quot;b&quot;&gt;');
 
+console.log('Shell: yes/no predictions (QUESTIONS Q13)');
+is('yes vs no', U.yesNoMessage(1, 0), 'You predicted yes. The model says no.');
+is('no vs no', U.yesNoMessage(0, 0), 'You predicted no. The model says no.');
+is('model not defined', U.yesNoMessage(1, null, 'the thread cannot be turned'), 'You predicted yes. The model answer is not defined: the thread cannot be turned.');
+
 console.log('Shell: challenge lists (00 §4.5–4.6)');
 {
   const R = U.readChallengeList;

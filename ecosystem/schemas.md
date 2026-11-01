@@ -113,7 +113,7 @@ Pasted by the teacher into a tool's Settings (Challenges). The same list goes to
 ```
 
 - `id` is required and unique. Use the tool's prefix (below).
-- `inputs` are values in SI, named as in the tool's saved design file. They are applied when the challenge starts.
+- `inputs` use the names and units of the tool's saved design file (its `state`). They are applied when the challenge starts.
 - `hidden` lists inputs the student can't see. They show as "hidden" in the input box, the drawing and the report.
 - `tolerance` sets the Match and Close bands in percent (default 1% and 5%, spec 00 §4.5).
 - `requirePrediction`: buttons such as Run, Spin up and Turn wait for a checked prediction (spec 00 §4.6).
@@ -136,7 +136,7 @@ The Collector groups records by `quantity`, so each tool uses these exact names 
 | | `torque to raise T_R` | N·m |
 | | `handle force F` | N |
 | | `efficiency e` | % |
-| | `self-locking` (1 yes, 0 no) | yes/no |
+| | `self-locking` (a yes/no target: 1 yes, 0 no) | yes/no |
 | Flywheel Brake Lab | `normal force N` | N |
 | | `braking torque T_b` | N·m |
 | | `stopping time t` | s |

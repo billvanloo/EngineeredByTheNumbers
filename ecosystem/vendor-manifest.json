@@ -3,6 +3,7 @@
   "targets": {
     "EngineeredByTheNumbers/ecosystem/shell/demo": ["prediction-log.js", "schemas.js", "shell/shell.css", "shell/shell.js", "anim.js", "hold.js", "tooling/verify-blocks.js", "tooling/e2e-kit.js"],
     "ShaftBeamWorkbench": ["prediction-log.js", "schemas.js", "beam-core.js", "shell/shell.css", "shell/shell.js", "tooling/verify-blocks.js", "tooling/e2e-kit.js"],
+    "FrictionScrewLab": ["prediction-log.js", "schemas.js", "stats.js", "plot.js", "shell/shell.css", "shell/shell.js", "anim.js", "hold.js", "tooling/verify-blocks.js", "tooling/e2e-kit.js"],
     "MotorDriveMatcher": ["prediction-log.js", "schemas.js", "motor-core.js", "shell/shell.css", "shell/shell.js", "tooling/verify-blocks.js", "tooling/e2e-kit.js"]
   }
 }

@@ -64,6 +64,7 @@ A tool calls `Shell.create(cfg)`.
 - **Optional config (shell 1.2):**
   - `modes` and `tabs`: header switches. Tabs are a keyboard tablist (← → Home End); the tool keeps the current tab in its state and reads it with `app.tab()`.
   - `challenges: { builtIn, active(app), apply(app, c) }`: a challenge picker in Challenge mode, teacher lists pasted in Settings (format in `schemas.md`), hidden inputs (`numField` with `key`, and `app.isHidden(key)`), per-challenge tolerance, the challenge ID as the problem ID and file-name context, and `app.gate()` for buttons that need a checked prediction first.
+  - Predict targets with `kind: 'yesno'` show a Yes/No choice and are logged as 1 or 0 (QUESTIONS Q13).
   - Predict targets with `group` and `groupLabel`: one Check per group. `app.masked(group)` and `app.show(html, group)` work per group, and `app.setWorking([{ heading, group, steps }])` hides each group's working until it's checked.
   - `predictFirst: false` and `nameField: false` for a teacher tool, and `onFiles(app, files)` to take many files at once (saved design files still load as usual).
   - `report()` can return `sections: [{ title, html }]` for extra report sections.

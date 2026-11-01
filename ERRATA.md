@@ -25,3 +25,10 @@ These don't change any value. They record which reading of the spec the tests us
 | PL-1 | PL-1 computes −7.32% from the displayed model value 4.10. In SB-6 the model's safety factor is 4.0975 before rounding. Spec 00 §3 says never round inside the calculation chain, so a live record holds `model: 4.0975` and `pctPredVsModel: −7.26`. The student's message shows "4.10 (−7.26% difference)". | Records store unrounded model values. The PL-1 test itself feeds in 4.10 and gets −7.32. |
 | MD-1 | P_out = 0.68 N·m × 84.04 rpm × 2π/60 = 5.9845 W, which displays as **5.98 W** at 3 significant figures. The spec lists 5.99 W. The difference (0.09%) is well within tolerance. | Tests compare the unrounded value. The interface shows 5.98 W. |
 | MD-2 | "With i = 2.70: N_out = 95.5 rpm." At the rounded ratio 2.70 the output is 95.56 rpm, which **displays as 95.6 rpm** (error +0.068% against the 95.5 target). 95.5 is the value at the exact root 2.7018. | Tests accept 95.56 against 95.5 (tolerance). The interface shows "2.70 → 95.6 rpm, error +0.0677%". |
+
+## Found while building the Friction and Screw Lab (2026-11-01)
+
+| Test | Note | What the tool does |
+|---|---|---|
+| FS-10 | **Range conflict inside spec 03.** FS-10 sets thread friction μ = 0.6, but the §4 input table limits μ to 0.01–0.5, so the case can't be entered. The values themselves are right (π d_m − μ l = 18.85 − 19.2 < 0). | The thread μ field accepts 0.01 to 1.0, the same range §3.5 uses for the back-calculation. Everything else in §4 is unchanged. **Teacher to confirm.** |
+| FS-12 | "Screw μ field shows 0.364." The mean of tan 20°, 21° and 19° is 0.36398. | Send μ to Screw copies the mean rounded to 3 significant figures (0.364), since slip-angle measurements are only good to one or two digits (§3.1). The working says so. |

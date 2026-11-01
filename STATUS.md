@@ -2,12 +2,27 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4.0 (shared groundwork for tools 03 to 07).
-**Current phase:** Phase 4.0 done, at its review checkpoint. Next is Phase 4a (FrictionScrewLab) and 4b (FlywheelBrakeLab), which can run in parallel.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4a (FrictionScrewLab).
+**Current phase:** Phase 4a done. FrictionScrewLab is built and committed locally, and needs a GitHub repo (see "For review"). Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 4a: FrictionScrewLab (2026-11-01), local commit 81c35e8
+- `~/FrictionScrewLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light and dark).
+  - Ramp: simulate (drag or arrow keys, block animation at the computed acceleration, force diagram with values) and measure (static and kinetic trial lists, dot plot, mean, range, sample standard deviation).
+  - Send μ to Screw, and "Use Ramp result" to keep μ linked.
+  - Screw jack: three thread forms, collar, measured diameters, hold-to-raise and hold-to-lower with release behaviour, unrolled-thread triangle with zoom, back-calculation from a measured handle force.
+  - Three example challenges: mystery surface (hidden μ), FS-6 and FS-7/8, the last two gated on a checked prediction.
+- **Shell 1.2.1:** yes/no predict targets (`kind: 'yesno'`, logged as 1/0, Q13), used for "self-locking". Invalid built-in challenges are now a console error, so the standard e2e catches them (this caught a real bug in the tool's own list). The help text and `schemas.md` say challenge inputs use the tool's own design-file units.
+- **Spec findings:** ERRATA has FS-10 (thread μ range conflict; the field accepts up to 1.0) and FS-12 (rounding of the sent μ). QUESTIONS Q32: τ at the root uses the thread torque.
+- **Acceptance (spec 03 §8):**
+  - [x] All test cases pass in Node and in the interface. FS-1 to FS-12 are all in `dev/test.js`. FS-1 to FS-12 are also checked through the interface (FS-3 and FS-12 in measure mode, FS-8 in the working, FS-11 as a field message).
+  - [x] The release animation matches the self-locking result every time. Five configurations (FS-4, FS-6, FS-8, FS-7 without its collar, a 3-start screw) each check hold when T_L,total ≥ 0 and drop when it is below 0, using the manual animation clock.
+  - [x] The unrolled-thread triangle is drawn to true angle: e2e reads the polygon and gets λ = 4.05° at ×1 and ×5 zoom. Zoom works from the keyboard.
+  - [x] Show the working has the tangent form T_R = (W d_m/2) tan(φ + λ) for square threads, with the same 4.02 N·m (not shown for Acme or trapezoidal).
+- **Definition of done:** unit 94/94, inline 5/5, e2e 152/152, works from file:// with no network requests, a full update takes 4.2 ms (headless Chromium), and the screenshot matches mockup 03's three columns.
 
 ### Phase 4.0: shared groundwork (2026-11-01)
 - **Shell 1.2** (`ecosystem/shell/`), all additions opt-in:
@@ -117,8 +132,13 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 ### Not verified
 - Hold and the animation clock on a real touch screen (checked with mouse and keyboard in headless Chromium).
 
+### For review (Phase 4a)
+- **FrictionScrewLab needs a GitHub repo.** This session can't create repositories. Create an empty `billvanloo/FrictionScrewLab` and attach it to a session, then push `main` from `~/FrictionScrewLab`. Until then the code exists only in this session's container.
+- MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
+- ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
+
 ## Next
-- Phase 4a (FrictionScrewLab) and 4b (FlywheelBrakeLab).
+- Phase 4b (FlywheelBrakeLab), then checkpoint C1.
 
 ## Blocked
 - None.
@@ -130,3 +150,4 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | EngineeredByTheNumbers (ecosystem) | 287/287 | current | demo 139/139 |
 | ShaftBeamWorkbench | 75/75 | 6/6 | 102/102 |
 | MotorDriveMatcher | 84/84 | 6/6 | 121/121 |
+| FrictionScrewLab | 94/94 | 5/5 | 152/152 |
