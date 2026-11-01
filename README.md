@@ -10,7 +10,7 @@ This repository holds the curriculum side of the project: the unit materials, th
 |---|---|---|---|
 | Shaft and Beam Workbench | [ShaftBeamWorkbench](https://github.com/billvanloo/ShaftBeamWorkbench) | 4, 5 | v1.0.0 built, not yet published |
 | Motor and Drive Matcher | [MotorDriveMatcher](https://github.com/billvanloo/MotorDriveMatcher) | 1, 5 | v1.0.0 built, not yet published |
-| Friction and Screw Lab | FrictionScrewLab | 2 | v1.0.0 built; GitHub repo not created yet |
+| Friction and Screw Lab | [FrictionScrewLab](https://github.com/billvanloo/FrictionScrewLab) | 2 | v1.0.0 built, not yet published |
 | Flywheel Brake Lab | FlywheelBrakeLab | 3 | Planned |
 | Conveyor Designer | ConveyorDesigner | 5 (capstone) | Planned |
 | Units and Formula Checker | UnitsFormulaChecker | All | Planned |

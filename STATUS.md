@@ -3,13 +3,13 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 4a (FrictionScrewLab).
-**Current phase:** Phase 4a done. FrictionScrewLab is built and committed locally, and needs a GitHub repo (see "For review"). Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
+**Current phase:** Phase 4a done. FrictionScrewLab is on GitHub on branch `claude/festive-hawking-uxdha3` (commit 264590d), waiting to be merged into `main`. Next is Phase 4b (FlywheelBrakeLab), then checkpoint C1.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
 
-### Phase 4a: FrictionScrewLab (2026-11-01), local commit 81c35e8
+### Phase 4a: FrictionScrewLab (2026-11-01), commit 264590d
 - `~/FrictionScrewLab` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots (light and dark).
   - Ramp: simulate (drag or arrow keys, block animation at the computed acceleration, force diagram with values) and measure (static and kinetic trial lists, dot plot, mean, range, sample standard deviation).
   - Send μ to Screw, and "Use Ramp result" to keep μ linked.
@@ -133,7 +133,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - Hold and the animation clock on a real touch screen (checked with mouse and keyboard in headless Chromium).
 
 ### For review (Phase 4a)
-- **FrictionScrewLab needs a GitHub repo.** This session can't create repositories. Create an empty `billvanloo/FrictionScrewLab` and attach it to a session, then push `main` from `~/FrictionScrewLab`. Until then the code exists only in this session's container.
+- **FrictionScrewLab:** `billvanloo/FrictionScrewLab` branch `claude/festive-hawking-uxdha3` holds the tool on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos). Merging it into `main` is a fast-forward; then turn on GitHub Pages.
 - MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
