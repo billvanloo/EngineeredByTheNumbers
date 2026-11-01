@@ -2,12 +2,25 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 5 (ConveyorDesigner).
-**Current phase:** Phase 5 done. ConveyorDesigner is on GitHub, `main` at 72773a8. FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 6 (UnitsFormulaChecker); checkpoint C2 comes after it.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 6 (UnitsFormulaChecker).
+**Current phase:** Phase 6 done, at checkpoint C2. UnitsFormulaChecker is built and committed locally (19d0b17) and needs a GitHub repo (see "For review"). ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 7 (PredictionLogCollector), then checkpoint C.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 6: UnitsFormulaChecker (2026-11-01), local commit 19d0b17
+- `~/UnitsFormulaChecker` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
+  - Core: a units table built from §3.3's exact definitions; a tokenizer and Pratt parser that read units only right after numbers; an evaluator that carries dimensions, angle tags, torque or energy kind, absolute-temperature and percent tags; display units chosen from compatible families; the §3.5 detectors with fixes; a converter; the 18-formula library with sources; and a rearranger that records each step and declines when the unknown appears more than once.
+  - Interface: Worksheet tab (one input per line, live values, unit dropdowns, ✓ ℹ ⚑ ✗ marks, Enter, arrow keys and Backspace, insert from the library), a line-details panel with dimensions, kind choice, flags and Apply fix, an all-results list, Convert tab, and Formula library tab with Insert and Rearrange. The worksheet is drawn as an SVG sheet for the PNG export and the report.
+- **Bugs found and fixed while testing:** `2 kg * g` was read as kg·grams (a `*` after a unit now joins units only with no space before it; QUESTIONS Q36), and selecting a percent line crashed the details panel (the percent family had no name; now unit-tested).
+- **Spec findings:** none of the UF values disagree. QUESTIONS Q36 (how units and variables that share letters are read); Q23 to Q25 are built as their defaults.
+- **Acceptance (spec 06 §6):**
+  - [x] All test cases pass in Node (parser, dimensions, conversion, detectors) and in the interface. UF-1 to UF-14 are all in `dev/test.js` and all are checked through the interface.
+  - [x] Every conversion constant traces to §3.3 and is listed in help: `dev/test.js` checks each factor against the definitions, and e2e checks the help panel and the Convert tab list them.
+  - [x] A worksheet of 30 lines recalculates in under 50 ms: 6.0 ms for a full update in headless Chromium (0.3 ms in Node).
+  - [x] Screen readers hear each line's result and any flag: Enter announces the line through the polite live region, including flags and Apply fix; e2e checks the text.
+- **Definition of done:** unit 119/119, inline 4/4, e2e 92/92, works from file:// with no network requests, and the screenshot matches mockup 06's three columns.
 
 ### Phase 5: ConveyorDesigner (2026-11-01), commit 72773a8
 - `~/ConveyorDesigner` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
@@ -169,6 +182,10 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch carries shell 1.2.1. ShaftBeamWorkbench still needs the sync (no push access in this session).
 - ERRATA FS-10 and FS-12; QUESTIONS Q32 and the defaults used for Q11 to Q15.
 
+### For review (Phase 6, checkpoint C2)
+- **UnitsFormulaChecker needs a GitHub repo.** Create an empty `billvanloo/UnitsFormulaChecker`, then it can be pushed from `~/UnitsFormulaChecker`. Until then the code exists only in this session's container.
+- QUESTIONS Q23 to Q25 and Q36.
+
 ### For review (Phase 5)
 - **ConveyorDesigner:** on `main` of `billvanloo/ConveyorDesigner`, on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos). Turn on GitHub Pages to publish it.
 - The shell 1.2.2 and kit 1.2 updates are synced into every tool repo's working copy. MotorDriveMatcher, FrictionScrewLab and FlywheelBrakeLab get them on their `claude/festive-hawking-uxdha3` branches; ShaftBeamWorkbench still can't be pushed from this session.
@@ -179,7 +196,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - QUESTIONS Q16 to Q18, Q33 and Q34.
 
 ## Next
-- Phase 6 (UnitsFormulaChecker), then checkpoint C2.
+- Checkpoint C2 review, then Phase 7 (PredictionLogCollector) and checkpoint C.
 
 ## Blocked
 - None.
@@ -194,3 +211,4 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | FrictionScrewLab | 94/94 | 5/5 | 152/152 |
 | FlywheelBrakeLab | 73/73 | 5/5 | 119/119 |
 | ConveyorDesigner | 80/80 | 5/5 | 121/121 |
+| UnitsFormulaChecker | 119/119 | 4/4 | 92/92 |
