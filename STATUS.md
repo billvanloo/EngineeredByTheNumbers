@@ -23,7 +23,7 @@ Progress record for `PLAN.md`. A resumed session starts here.
 - **Demo** now uses tabs, a Sandbox/Challenge switch with example challenge DM-1, a gated hold-to-spin control and an animation clock. `dev/fixture-v12.html` covers grouped predict-first and the teacher-tool settings.
 - **Docs:** `ecosystem/README.md` (new files and config), `schemas.md` (challenge-list format, problem ID prefixes, prediction quantity names, the tool-to-module table), `QUESTIONS.md` Q11 to Q31.
 - **Regression:** ShaftBeamWorkbench and MotorDriveMatcher pass all their unit, inline and browser checks on shell 1.2 (102 and 121 e2e, one more each than before: the Enter check).
-- **Not pushed to the tool repos:** the sync changes `dev/vendor/` and the inline blocks in both tools. Attaching ShaftBeamWorkbench with push access was refused in this session, and pushing to either tool's `main` waits for review. See "For review".
+- **Tool repos:** the sync changes `dev/vendor/` and the inline blocks in both tools. MotorDriveMatcher has it on branch `claude/festive-hawking-uxdha3` (commit 01bc5db), not on `main`. ShaftBeamWorkbench passed every check with it locally, but push access to that repo was refused in this session, so nothing was pushed there.
 
 ### Phase 0: setup and spec check (2026-09-27)
 - Curriculum repo `EngineeredByTheNumbers` initialized with git (`main`), with README, LICENSE (MIT), `.gitignore`, `curriculum/` placeholder, `ERRATA.md` and `QUESTIONS.md`.
@@ -111,7 +111,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 ## Phase 4.0 review checkpoint
 
 ### For review
-- Shell 1.2 and the Enter fix need to go into ShaftBeamWorkbench and MotorDriveMatcher: run `node scripts/sync-vendor.js` with both repos checked out beside this one, run `scripts/test-all.sh --e2e`, and commit in each tool repo. This session couldn't push to ShaftBeamWorkbench.
+- Shell 1.2 and the Enter fix: merge MotorDriveMatcher's `claude/festive-hawking-uxdha3` branch. For ShaftBeamWorkbench, run `node scripts/sync-vendor.js` with it checked out beside this repo, run `scripts/test-all.sh --e2e`, and commit there (this session couldn't push to it).
 - QUESTIONS Q11 to Q31, especially Q19 (motor power margin), Q24 (rpm in ω = 2πN/60) and Q27 (module field).
 
 ### Not verified
