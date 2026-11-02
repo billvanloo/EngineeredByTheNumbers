@@ -3,7 +3,7 @@
 Progress record for `PLAN.md`. A resumed session starts here.
 
 **Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 7 (PredictionLogCollector).
-**Current phase:** Phase 7 done, at checkpoint C (the end of `PLAN-REMAINING-TOOLS.md`). PredictionLogCollector is on GitHub, `main` at 789fc39. UnitsFormulaChecker (`main` f15e401), ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next, after review: Phase 8 (Gear Train Workbench upgrades) and Phase 9 (Truss Stress Visualizer upgrades), as their own goals.
+**Current phase:** Phase 7 done, at checkpoint C (the end of `PLAN-REMAINING-TOOLS.md`). PredictionLogCollector is on GitHub, `main` at 789fc39. UnitsFormulaChecker (`main` db61389), ConveyorDesigner (`main` d373fe2), FlywheelBrakeLab (`main` 6058a56), FrictionScrewLab (`main` 71a1217) and MotorDriveMatcher (`main` 25faf23) are on GitHub with every shared update merged. Next, after review: Phase 8 (Gear Train Workbench upgrades) and Phase 9 (Truss Stress Visualizer upgrades), as their own goals.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
@@ -192,11 +192,11 @@ The end of `PLAN-REMAINING-TOOLS.md`: Phases 4.0 to 7 are built.
 |---|---|---|
 | EngineeredByTheNumbers | fb126d2 | this branch: the plan, shared code and records for Phases 4.0 to 7 |
 | ShaftBeamWorkbench | d559400 | can't be pushed from this session; needs the vendor sync (below) |
-| MotorDriveMatcher | 9ac3502 | 25faf23: shell 1.2.2, kit 1.2, prediction-log 1.2 |
-| FrictionScrewLab | 264590d | 71a1217: shell 1.2.2, kit 1.2, a test fix, prediction-log 1.2 |
-| FlywheelBrakeLab | b55431b | 6058a56: shell 1.2.2, kit 1.2, prediction-log 1.2 |
-| ConveyorDesigner | 72773a8 | d373fe2: prediction-log 1.2 |
-| UnitsFormulaChecker | f15e401 | db61389: prediction-log 1.2 |
+| MotorDriveMatcher | 25faf23 | merged: shell 1.2.2, kit 1.2, prediction-log 1.2 |
+| FrictionScrewLab | 71a1217 | merged: shell 1.2.2, kit 1.2, a test fix, prediction-log 1.2 |
+| FlywheelBrakeLab | 6058a56 | merged: shell 1.2.2, kit 1.2, prediction-log 1.2 |
+| ConveyorDesigner | d373fe2 | merged: prediction-log 1.2 |
+| UnitsFormulaChecker | db61389 | merged: prediction-log 1.2 |
 | PredictionLogCollector | 789fc39 | — |
 
 ### Tests
@@ -208,7 +208,7 @@ The end of `PLAN-REMAINING-TOOLS.md`: Phases 4.0 to 7 are built.
 ### For review
 - `ERRATA.md`: FS-10 (μ beyond §4's range) and FS-12 (rounding) are interpretation notes; no spec value is wrong.
 - `QUESTIONS.md` Q11 to Q36, each with what the build does. These need a teacher answer: Q19 (motor power margin), Q27 (a `module` field in the log), Q29 (one real Google Sheets file), Q32 (screw stress torque), and the placeholder values in Q4 and Q17.
-- Merges: the `claude/festive-hawking-uxdha3` branches above are ready to merge into `main` (each passes its full suite). ShaftBeamWorkbench: check it out beside this repo, run `node scripts/sync-vendor.js`, then `scripts/test-all.sh --e2e`, and commit there.
+- Merges: the tool repos' `claude/festive-hawking-uxdha3` branches were fast-forwarded into `main` on 2026-11-02, after a full `test-all.sh --e2e` pass. ShaftBeamWorkbench still needs the update: check it out beside this repo, run `node scripts/sync-vendor.js`, then `scripts/test-all.sh --e2e`, and commit there.
 - **PredictionLogCollector:** on `main` of `billvanloo/PredictionLogCollector`, on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos).
 - GitHub Pages is still off for every new tool.
 
