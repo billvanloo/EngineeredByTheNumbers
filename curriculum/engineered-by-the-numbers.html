@@ -215,11 +215,11 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <thead><tr><th>Module</th><th>Periods</th><th>Driving question</th><th>Main deliverable</th><th>Main tools</th></tr></thead>
 <tbody>
 <tr><td>0. Toolkit</td><td>1 to 3</td><td>What do engineers measure when a machine moves?</td><td>Personal formula card, started</td><td>Power lab, formula card</td></tr>
-<tr><td>1. Speed reducer</td><td>4 to 9</td><td>How can a small fast motor lift something heavy?</td><td>Two-stage reducer calc sheet and test report</td><td>Gear Train Workbench, gear interactive</td></tr>
-<tr><td>2. Screw jack</td><td>10 to 15</td><td>Why doesn't a car jack slide back down?</td><td>Jack specification brief</td><td>Screw jack interactive</td></tr>
-<tr><td>3. Brake</td><td>16 to 20</td><td>Where does the motion go when a wheel stops?</td><td>Brake design memo with test data</td><td>Brake interactive, slow-motion video</td></tr>
-<tr><td>4. Shaft</td><td>21 to 26</td><td>Why does a slightly thicker shaft get so much stronger?</td><td>Shaft sizing sheet, checkpoint quiz</td><td>Truss Stress Visualizer, shaft interactive</td></tr>
-<tr><td>5. Conveyor</td><td>27 to 35</td><td>Can your team design a conveyor that meets a spec on the first build?</td><td>Design package, working conveyor, validation talk</td><td>Conveyor and motor interactives, Workbench</td></tr>
+<tr><td>1. Speed reducer</td><td>4 to 9</td><td>How can a small fast motor lift something heavy?</td><td>Two-stage reducer calc sheet and test report</td><td><a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a>, gear interactive</td></tr>
+<tr><td>2. Screw jack</td><td>10 to 15</td><td>Why doesn't a car jack slide back down?</td><td>Jack specification brief</td><td>Screw jack interactive, <a href="https://billvanloo.github.io/FrictionScrewLab/">Friction and Screw Lab</a></td></tr>
+<tr><td>3. Brake</td><td>16 to 20</td><td>Where does the motion go when a wheel stops?</td><td>Brake design memo with test data</td><td>Brake interactive, <a href="https://billvanloo.github.io/FlywheelBrakeLab/">Flywheel Brake Lab</a>, slow-motion video</td></tr>
+<tr><td>4. Shaft</td><td>21 to 26</td><td>Why does a slightly thicker shaft get so much stronger?</td><td>Shaft sizing sheet, checkpoint quiz</td><td>Truss Stress Visualizer, shaft interactive, <a href="https://billvanloo.github.io/ShaftBeamWorkbench/">Shaft and Beam Workbench</a></td></tr>
+<tr><td>5. Conveyor</td><td>27 to 35</td><td>Can your team design a conveyor that meets a spec on the first build?</td><td>Design package, working conveyor, validation talk</td><td>Conveyor and motor interactives, Workbench, <a href="https://billvanloo.github.io/ConveyorDesigner/">Conveyor Designer</a>, <a href="https://billvanloo.github.io/MotorDriveMatcher/">Motor and Drive Matcher</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -242,7 +242,7 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </div>
 
 <h2 id="tools">Tools and simulations</h2>
-<p>Simulations carry a lot of this unit. Two of them already exist as your own classroom tools, the <a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a><a class="cite" href="#r39">[39]</a> and the <a href="https://www.billvanloo.com/util/TrussVisualizer/">Truss Stress Visualizer</a><a class="cite" href="#r40">[40]</a>. Six more are built into this page. The section below maps where each one is used, suggests extensions to your two tools that would close gaps in the unit, and proposes new tools worth building.</p>
+<p>Simulations carry a lot of this unit. Two of them already exist as your own classroom tools, the <a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a><a class="cite" href="#r39">[39]</a> and the <a href="https://www.billvanloo.com/util/TrussVisualizer/">Truss Stress Visualizer</a><a class="cite" href="#r40">[40]</a>. Six more are built into this page, and seven standalone tools built from this plan are published, listed under <a href="#newtools">New tools, now built</a>. The section below maps where each one is used, suggests extensions to your two tools that would close gaps in the unit, and links the new tools.</p>
 
 <h3>One routine for every tool: predict, run, explain</h3>
 <p>The Workbench's challenge mode already models the right habit. Students enter a predicted output before the readout appears, and each run hides the readout again, so every attempt needs a fresh prediction<a class="cite" href="#r39">[39]</a>. Every interactive on this page now has the same switch. Turn on <b>Predict first</b>, and the results column goes blank until the student types a number and presses Check. The tool then reports the model value and the percent difference. Moving any slider hides the results again.</p>
@@ -257,15 +257,16 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 <tr><td>5 to 6</td><td>Workbench and the spur gear interactive</td><td>Compare the Workbench's ideal output torque with the torque measured in the lift lab. The gap is the efficiency. Then use the gear interactive for module, pitch diameter and center distance.</td></tr>
 <tr><td>7</td><td>Spur gear interactive</td><td>Predict tooth forces before revealing them.</td></tr>
 <tr><td>8 to 9</td><td>Workbench, compound trains</td><td>Build the two-stage reducer in the Workbench first and attach the exported report to the calc sheet.</td></tr>
-<tr><td>12 to 14</td><td>Screw jack interactive</td><td>Predict handle force, then test self-locking by changing starts and friction.</td></tr>
-<tr><td>16 to 18</td><td>Brake interactive</td><td>Predict stopping time, then compare with slow-motion video of the real wheel.</td></tr>
+<tr><td>12 to 14</td><td>Screw jack interactive, or the <a href="https://billvanloo.github.io/FrictionScrewLab/">Friction and Screw Lab</a></td><td>Predict handle force, then test self-locking by changing starts and friction.</td></tr>
+<tr><td>16 to 18</td><td>Brake interactive, or the <a href="https://billvanloo.github.io/FlywheelBrakeLab/">Flywheel Brake Lab</a></td><td>Predict stopping time, then compare with slow-motion video of the real wheel.</td></tr>
 <tr><td>21</td><td>Truss Stress Visualizer</td><td>Warm-up on support reactions. Build a small truss on the 6-inch span, apply the Tester load at the deck center, and inspect the joints at the pin and roller. Each support carries half the load, the same split as two bearings under a shaft with a gear at its center. The Moving load case steps the load across the deck joints, so students can predict how the split changes before they step it.</td></tr>
-<tr><td>22 to 24</td><td>Shaft interactive</td><td>Predict the safety factor for a given diameter, then find the smallest diameter that meets <i>n</i> = 2.</td></tr>
-<tr><td>28 to 29</td><td>Conveyor and motor interactives, Workbench</td><td>Predict belt pull, choose a motor and ratio using the loaded speed, and build the reduction in the Workbench.</td></tr>
+<tr><td>22 to 24</td><td>Shaft interactive, or the <a href="https://billvanloo.github.io/ShaftBeamWorkbench/">Shaft and Beam Workbench</a></td><td>Predict the safety factor for a given diameter, then find the smallest diameter that meets <i>n</i> = 2.</td></tr>
+<tr><td>28 to 29</td><td>Conveyor and motor interactives, Workbench, or the <a href="https://billvanloo.github.io/ConveyorDesigner/">Conveyor Designer</a> and <a href="https://billvanloo.github.io/MotorDriveMatcher/">Motor and Drive Matcher</a></td><td>Predict belt pull, choose a motor and ratio using the loaded speed, and build the reduction in the Workbench.</td></tr>
 <tr><td>30 (optional)</td><td>Truss Stress Visualizer</td><td>If a team braces its conveyor stand, model one side frame with belt and box loads at the joints. This needs the larger-workspace extension below.</td></tr>
 </tbody>
 </table>
 </div>
+<p>Two tools run through the whole unit rather than one module. Students check hand calculations in the <a href="https://billvanloo.github.io/UnitsFormulaChecker/">Units and Formula Checker</a> (supplements <a href="#s1">S1</a> and <a href="#s2">S2</a>), and you merge the class's prediction logs from every tool in the <a href="https://billvanloo.github.io/PredictionLogCollector/">Prediction Log Collector</a>.</p>
 <p>The Workbench reports torque in N·cm, while this page uses N·m. That mismatch is worth keeping. It gives students a real reason to practice conversion (1 N·m = 100 N·cm, <a href="#s1">S1</a>).</p>
 
 <h3>Gear Train Workbench: suggested extensions</h3>
@@ -290,31 +291,31 @@ footer{margin-top:4rem; font-family:var(--sans); color:var(--graphite); font-siz
 </ol>
 
 <h3>Interactives built into this page</h3>
-<p>These six are prototypes. Each runs from the same formulas and worked checks printed beside it, and each could become a standalone tool in the same style as yours.</p>
+<p>These six are prototypes. Each runs from the same formulas and worked checks printed beside it. The standalone tools in the last column grew from them. The spur gear interactive's ideas are planned as Gear Train Workbench extensions.</p>
 <div class="tablewrap">
 <table class="plain">
-<thead><tr><th>Interactive</th><th>Module</th><th>Predict-first target</th></tr></thead>
+<thead><tr><th>Interactive</th><th>Module</th><th>Predict-first target</th><th>Standalone tool</th></tr></thead>
 <tbody>
-<tr><td><a href="#simGear">Spur gear pair</a></td><td>1</td><td>Output torque</td></tr>
-<tr><td><a href="#simScrew">Screw jack and unrolled thread</a></td><td>2</td><td>Handle force</td></tr>
-<tr><td><a href="#simBrake">Lever shoe brake</a></td><td>3</td><td>Stopping time</td></tr>
-<tr><td><a href="#simShaft">Shaft under bending and torsion</a></td><td>4</td><td>Safety factor</td></tr>
-<tr><td><a href="#simConv">Conveyor drive sizing</a></td><td>5</td><td>Belt pull</td></tr>
-<tr><td><a href="#simMotor">DC motor operating point</a></td><td>5</td><td>Output speed under load</td></tr>
+<tr><td><a href="#simGear">Spur gear pair</a></td><td>1</td><td>Output torque</td><td><a href="https://billvanloo.github.io/GearTrainWorkbench/">Gear Train Workbench</a></td></tr>
+<tr><td><a href="#simScrew">Screw jack and unrolled thread</a></td><td>2</td><td>Handle force</td><td><a href="https://billvanloo.github.io/FrictionScrewLab/">Friction and Screw Lab</a></td></tr>
+<tr><td><a href="#simBrake">Lever shoe brake</a></td><td>3</td><td>Stopping time</td><td><a href="https://billvanloo.github.io/FlywheelBrakeLab/">Flywheel Brake Lab</a></td></tr>
+<tr><td><a href="#simShaft">Shaft under bending and torsion</a></td><td>4</td><td>Safety factor</td><td><a href="https://billvanloo.github.io/ShaftBeamWorkbench/">Shaft and Beam Workbench</a></td></tr>
+<tr><td><a href="#simConv">Conveyor drive sizing</a></td><td>5</td><td>Belt pull</td><td><a href="https://billvanloo.github.io/ConveyorDesigner/">Conveyor Designer</a></td></tr>
+<tr><td><a href="#simMotor">DC motor operating point</a></td><td>5</td><td>Output speed under load</td><td><a href="https://billvanloo.github.io/MotorDriveMatcher/">Motor and Drive Matcher</a></td></tr>
 </tbody>
 </table>
 </div>
 
-<h3>New tools worth building</h3>
-<p>Listed by how much each would help the unit, most useful first.</p>
+<h3 id="newtools">New tools, now built</h3>
+<p>Listed by how much each would help the unit, most useful first. All seven are built and published. Each name opens the tool, which runs in the browser and can also be downloaded as a single file for offline use.</p>
 <ol>
-<li><b>Shaft and Beam Workbench.</b> Place bearings and loads on a shaft, import gear forces from the Workbench or belt tensions from the conveyor tool, and see reactions, the bending moment diagram, torque, combined stress and the diameter needed for a chosen safety factor<a class="cite" href="#r13">[13]</a><a class="cite" href="#r14">[14]</a>. A switch between the Tresca and von Mises rules, and a keyway toggle that shows the local stress rise<a class="cite" href="#r15">[15]</a>, would cover the extension work. Module 4 is the hardest module and this tool would link your two existing ones.</li>
-<li><b>Motor and Drive Matcher.</b> Enter a motor's stall torque and no-load speed from its datasheet, add a gear ratio and efficiency, and set the load. The tool plots the operating point on the motor curve, flags the duty range<a class="cite" href="#r42">[42]</a>, and solves for the ratio that hits a target loaded speed. The capstone depends on this, and the prototype is on this page.</li>
-<li><b>Friction and Screw Lab.</b> A ramp to find friction coefficients (tan <i>θ</i>, with a place to enter measured angles)<a class="cite" href="#r22">[22]</a>, joined to a screw jack with square or Acme thread and optional collar friction<a class="cite" href="#r4">[4]</a><a class="cite" href="#r5">[5]</a>. Students see measured friction flow into lift torque and self-locking.</li>
-<li><b>Flywheel Brake Lab.</b> Students enter frame counts from slow-motion video, and the tool plots speed against time, fits the slowdown, and computes braking torque, friction coefficient and energy<a class="cite" href="#r25">[25]</a><a class="cite" href="#r27">[27]</a>. An energy bar that empties from kinetic into heat, with the <i>Q</i> = <i>mc</i>Δ<i>T</i> upper limit, would carry the module 3 argument<a class="cite" href="#r26">[26]</a>.</li>
-<li><b>Conveyor Designer.</b> The capstone integrator. Students enter the requirements sheet, the tool walks through belt pull, pulley, ratio, motor check and shaft side load, and each requirement shows pass or fail. A printable design record, like the one in the Truss Stress Visualizer<a class="cite" href="#r40">[40]</a>, would serve as the capstone's calculation package.</li>
-<li><b>Units and formula checker.</b> Students type a chain of calculation steps with units, and the tool flags mismatches such as N·mm mixed with N·m, or rpm used where rad/s is needed. It directly supports supplements S1 and S2, where most early errors happen.</li>
-<li><b>A shared prediction log.</b> One export format for every tool, with a row for predicted, model and measured values plus the percent differences. A single class spreadsheet could then collect results from all six modules.</li>
+<li><b><a href="https://billvanloo.github.io/ShaftBeamWorkbench/">Shaft and Beam Workbench</a>.</b> Place bearings and loads on a shaft, import gear forces from the Workbench or belt tensions from the conveyor tool, and see reactions, the bending moment diagram, torque, combined stress and the diameter needed for a chosen safety factor<a class="cite" href="#r13">[13]</a><a class="cite" href="#r14">[14]</a>. A switch between the Tresca and von Mises rules, and a keyway toggle that shows the local stress rise<a class="cite" href="#r15">[15]</a>, would cover the extension work. Module 4 is the hardest module and this tool would link your two existing ones.</li>
+<li><b><a href="https://billvanloo.github.io/MotorDriveMatcher/">Motor and Drive Matcher</a>.</b> Enter a motor's stall torque and no-load speed from its datasheet, add a gear ratio and efficiency, and set the load. The tool plots the operating point on the motor curve, flags the duty range<a class="cite" href="#r42">[42]</a>, and solves for the ratio that hits a target loaded speed. The capstone depends on this, and the prototype is on this page.</li>
+<li><b><a href="https://billvanloo.github.io/FrictionScrewLab/">Friction and Screw Lab</a>.</b> A ramp to find friction coefficients (tan <i>θ</i>, with a place to enter measured angles)<a class="cite" href="#r22">[22]</a>, joined to a screw jack with square or Acme thread and optional collar friction<a class="cite" href="#r4">[4]</a><a class="cite" href="#r5">[5]</a>. Students see measured friction flow into lift torque and self-locking.</li>
+<li><b><a href="https://billvanloo.github.io/FlywheelBrakeLab/">Flywheel Brake Lab</a>.</b> Students enter frame counts from slow-motion video, and the tool plots speed against time, fits the slowdown, and computes braking torque, friction coefficient and energy<a class="cite" href="#r25">[25]</a><a class="cite" href="#r27">[27]</a>. An energy bar that empties from kinetic into heat, with the <i>Q</i> = <i>mc</i>Δ<i>T</i> upper limit, would carry the module 3 argument<a class="cite" href="#r26">[26]</a>.</li>
+<li><b><a href="https://billvanloo.github.io/ConveyorDesigner/">Conveyor Designer</a>.</b> The capstone integrator. Students enter the requirements sheet, the tool walks through belt pull, pulley, ratio, motor check and shaft side load, and each requirement shows pass or fail. A printable design record, like the one in the Truss Stress Visualizer<a class="cite" href="#r40">[40]</a>, would serve as the capstone's calculation package.</li>
+<li><b><a href="https://billvanloo.github.io/UnitsFormulaChecker/">Units and Formula Checker</a>.</b> Students type a chain of calculation steps with units, and the tool flags mismatches such as N·mm mixed with N·m, or rpm used where rad/s is needed. It directly supports supplements S1 and S2, where most early errors happen.</li>
+<li><b>A shared prediction log.</b> One export format for every tool, with a row for predicted, model and measured values plus the percent differences. A single class spreadsheet could then collect results from all six modules. Every tool now writes this log, and the <a href="https://billvanloo.github.io/PredictionLogCollector/">Prediction Log Collector</a> merges a class's files and summarizes them.</li>
 </ol>
 <p><b>Build conventions worth keeping.</b> Your tools already share habits that suit this unit: one self-contained file that runs on a Chromebook, predict before reveal, a "show the working" view, keyboard control, respect for reduced-motion settings, and export to an image or report<a class="cite" href="#r39">[39]</a><a class="cite" href="#r40">[40]</a>. The Visualizer also tests its solver against hand-calculated cases before release<a class="cite" href="#r40">[40]</a>. The worked checks on this page are ready-made test cases for each new tool, and each has already been run through the code behind the interactives.</p>
 

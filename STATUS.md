@@ -210,7 +210,7 @@ The end of `PLAN-REMAINING-TOOLS.md`: Phases 4.0 to 7 are built.
 - `QUESTIONS.md` Q11 to Q36, each with what the build does. These need a teacher answer: Q19 (motor power margin), Q27 (a `module` field in the log), Q29 (one real Google Sheets file), Q32 (screw stress torque), and the placeholder values in Q4 and Q17.
 - Merges: the tool repos' `claude/festive-hawking-uxdha3` branches were fast-forwarded into `main` on 2026-11-02, after a full `test-all.sh --e2e` pass. ShaftBeamWorkbench still needs the update: check it out beside this repo, run `node scripts/sync-vendor.js`, then `scripts/test-all.sh --e2e`, and commit there.
 - **PredictionLogCollector:** on `main` of `billvanloo/PredictionLogCollector`, on top of the repo's initial LICENSE commit (its copyright line now reads "Bill Van Loo", like the other repos).
-- GitHub Pages is on (Deploy from a branch, `main`, root) for the tools, and each tool repo has a `.nojekyll` file (2026-11-02). ShaftBeamWorkbench has no `.nojekyll` yet (no push access from this session). The README tool table links each live page; the Truss Stress Visualizer has no link until its Pages address is confirmed.
+- GitHub Pages is on (Deploy from a branch, `main`, root) for the tools, and each tool repo has a `.nojekyll` file (2026-11-02). ShaftBeamWorkbench has no `.nojekyll` yet (no push access from this session). The README tool table links each live page (the Truss Stress Visualizer's is on billvanloo.com), and the unit plan links the published tools in its Tools and simulations section.
 
 ### Not verified
 - PL-10 and the other speed targets on a real Chromebook (build machine: 0.3 s in headless Chromium for 20,000 records).
