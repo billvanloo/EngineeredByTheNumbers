@@ -143,6 +143,24 @@ console.log('Schemas: design file envelope');
   ok('kindOf', Schemas.kindOf(JSON.stringify(f)) === 'design' && Schemas.kindOf('{"schema":"drive-request"}') === 'drive-request' && Schemas.kindOf('nope') === null);
 }
 
+console.log('Prediction log: spreadsheet round trips (PL-11)');
+{
+  const orig = [rec({ student: 'O\'Brien, Ana "AJ"', predicted: 3.8, model: 4.0975, timestamp: '2026-10-01T14:03:09-04:00', inputs: { values: { d: 0.02 }, units: { d: 'm' } } }),
+    rec({ student: 'B', predicted: 22, model: 22.56, attempt: 2, timestamp: '2026-10-02T09:15:00-04:00' })];
+  // What Google Sheets gives back: no byte order mark, its own line ends, its own date format, empty rows at the end.
+  const sheets = PL.toCSV(orig).replace(/^\uFEFF/, '').replace(/\r\n/g, '\n')
+    .replace('2026-10-01T14:03:09-04:00', '10/1/2026 14:03:09').replace('2026-10-02T09:15:00-04:00', '10/2/2026 9:15:00 AM') + ',,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,\n';
+  const back = PL.fromCSV(sheets);
+  ok('empty rows at the end are not records', back.records.length === 2);
+  ok('names, numbers and inputs come back', back.records[0].student === 'O\'Brien, Ana "AJ"' && back.records[0].model === 4.0975 && back.records[0].inputs.values.d === 0.02);
+  ok('Sheets dates become ISO again', back.records[0].timestamp === '2026-10-01T14:03:09' && back.records[1].timestamp === '2026-10-02T09:15:00');
+  ok('12-hour times', PL.normTimestamp('10/2/2026 12:05:00 AM') === '2026-10-02T00:05:00' && PL.normTimestamp('10/2/2026 1:05 PM') === '2026-10-02T13:05:00');
+  ok('ISO stays as it is', PL.normTimestamp('2026-10-01T14:03:09-04:00') === '2026-10-01T14:03:09-04:00' && PL.normTimestamp('2026-10-01 14:03') === '2026-10-01T14:03:00');
+  const d = PL.dedupe(orig.concat(back.records));
+  ok('a re-saved copy dedupes against the original', d.records.length === 2 && d.removed === 2);
+  throws('another kind of file is named', () => PL.fromJSON('{"schema":"shaft-loads","loads":[]}'), /"shaft-loads" file, not a prediction log/);
+}
+
 // Further module suites live beside this file (beam-core, motor-core, shell-logic).
 for (const f of fs.readdirSync(__dirname).filter(f => /^test-.*\.js$/.test(f)).sort()) {
   const r = require(path.join(__dirname, f));

@@ -2,12 +2,27 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 6 (UnitsFormulaChecker).
-**Current phase:** Phase 6 done, at checkpoint C2. UnitsFormulaChecker is on GitHub, `main` at f15e401. ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next is Phase 7 (PredictionLogCollector), then checkpoint C.
+**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 7 (PredictionLogCollector).
+**Current phase:** Phase 7 done, at checkpoint C (the end of `PLAN-REMAINING-TOOLS.md`). PredictionLogCollector is committed locally (`main` cf21a07) and waits for its GitHub repo. UnitsFormulaChecker (`main` f15e401), ConveyorDesigner (`main` 72773a8), FlywheelBrakeLab (`main` b55431b) and FrictionScrewLab (`main` 264590d) are on GitHub. Next, after review: Phase 8 (Gear Train Workbench upgrades) and Phase 9 (Truss Stress Visualizer upgrades), as their own goals.
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 7: PredictionLogCollector (2026-11-02), commit cf21a07
+- `~/PredictionLogCollector` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, `dev/fixtures/` (a seeded class generator and the Sheets-style CSV), README, `docs/spec.md`, `docs/conventions.md`, screenshots.
+  - Core: `loadFiles` (per-file results with reasons and warnings, merge, dedupe), `filter` (module through the tool-to-module table, tool, problem, quantity, student, team, period, date range), `problemSummary` (first-try median |%|, share within 5%, median tries to within 5% and how many haven't got there), `studentSummary` (with a trend from the earlier and later halves of first tries in date order), `measuredVsModel`, `sortBy` and `totals`. Medians everywhere.
+  - Interface (mockup 07): Files and Filters on the left (drop zone that also works from the keyboard, status line, failed files with reasons, warnings, Clear loaded data, "Nothing leaves this browser"), Summary, Records and Students tabs in the centre, Record format, Export merged CSV and Print summary on the right. Tables sort from their headings by mouse or keyboard, with `aria-sort` and an announcement. Records page 100 rows at a time instead of the plan's virtualised table: simpler, and 20,000 records stay fast. Measured against model is drawn with `plot.js` and a dashed 0% line; groups of more than 30 values become a box (the middle half) with lines to the smallest and largest. Show the working walks through the top row of the summary.
+  - Uses the shell's teacher-tool settings (`predictFirst: false`, `nameField: false`, `onFiles`); no shell change was needed.
+- **Shared change, prediction-log 1.2.0:** reading a CSV saved back from Google Sheets. Blank rows are skipped, Sheets' `M/D/YYYY H:MM:SS` and `YYYY-MM-DD HH:MM:SS` dates are turned back into ISO time, and dedupe matches on the wall-clock time, so a re-saved copy is a duplicate of its original. A JSON file of another kind now fails with "this is a "shaft-loads" file, not a prediction log". Ecosystem tests 307; synced into every tool.
+- **Bugs found and fixed while testing:** a saved filter stayed active after a reload while its drop-down showed "All students" (the value is now listed and marked "not in the loaded files"); the chart's x tick labels were removed with a pattern that also took out the axis title.
+- **Spec findings:** none of the PL values disagree. QUESTIONS Q27 to Q29 and Q31 updated to what was built.
+- **Acceptance (spec 07 §6):**
+  - [x] The format is one shared module, `ecosystem/prediction-log.js`, copied exactly into tools 01 to 06, the Collector and the shell demo (`sync-vendor.js --check`). The two existing tools get it in Phases 8 and 9.
+  - [x] All test cases pass: PL-1 to PL-5 in `ecosystem/test`, PL-6 to PL-11 in `dev/test.js` and through the page in `dev/e2e.js`. PL-10: 500 files and 20,000 records load, summarize and draw in about 0.3 s in headless Chromium (0.2 s in Node); a real Chromebook is not verified.
+  - [x] Summaries use the median of the absolute percent difference, and the help panel says why ("a few wild predictions don't swamp the picture"); e2e checks the text.
+- **Cross-tool check:** e2e opens each sibling tool from disk, makes one prediction, exports its log as JSON, and loads all six into the Collector: one tool name each, no failures.
+- **Definition of done:** unit 43/43, inline 4/4, e2e 98/98, works from file:// with no network requests, and the screenshot matches mockup 07's three columns.
 
 ### Phase 6: UnitsFormulaChecker (2026-11-01), commit f15e401
 - `~/UnitsFormulaChecker` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, README, `docs/spec.md`, `docs/conventions.md`, screenshots.
@@ -168,6 +183,42 @@ Progress record for `PLAN.md`. A resumed session starts here.
 ### Proposed next step (needs approval)
 Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, MotorDriveMatcher) under billvanloo, push `main`, and turn on GitHub Pages for the two tools. After that, Phase 4 (FrictionScrewLab, FlywheelBrakeLab) as the next goal.
 
+## Checkpoint C report (2026-11-02)
+
+The end of `PLAN-REMAINING-TOOLS.md`: Phases 4.0 to 7 are built.
+
+### Repos
+| Repo | `main` on GitHub | `claude/festive-hawking-uxdha3` |
+|---|---|---|
+| EngineeredByTheNumbers | fb126d2 | this branch: the plan, shared code and records for Phases 4.0 to 7 |
+| ShaftBeamWorkbench | d559400 | can't be pushed from this session; needs the vendor sync (below) |
+| MotorDriveMatcher | 9ac3502 | 25faf23: shell 1.2.2, kit 1.2, prediction-log 1.2 |
+| FrictionScrewLab | 264590d | 71a1217: shell 1.2.2, kit 1.2, a test fix, prediction-log 1.2 |
+| FlywheelBrakeLab | b55431b | 6058a56: shell 1.2.2, kit 1.2, prediction-log 1.2 |
+| ConveyorDesigner | 72773a8 | d373fe2: prediction-log 1.2 |
+| UnitsFormulaChecker | f15e401 | db61389: prediction-log 1.2 |
+| PredictionLogCollector | not on GitHub yet | local `main` cf21a07 |
+
+### Tests
+`scripts/test-all.sh --e2e` passes everything (2026-11-02): spec check 222/222, ecosystem 307, shell demo 2 + inline + 139 e2e, and every tool as in the table at the end of this file.
+
+### Screenshots
+`docs/screenshots/` in each tool repo: light and dark for every tool, plus `prediction-log-collector-class.png` (a class of 125 students, 20,000 records) and `perf.txt` timings where a spec sets a target.
+
+### For review
+- `ERRATA.md`: FS-10 (μ beyond §4's range) and FS-12 (rounding) are interpretation notes; no spec value is wrong.
+- `QUESTIONS.md` Q11 to Q36, each with what the build does. These need a teacher answer: Q19 (motor power margin), Q27 (a `module` field in the log), Q29 (one real Google Sheets file), Q32 (screw stress torque), and the placeholder values in Q4 and Q17.
+- Merges: the `claude/festive-hawking-uxdha3` branches above are ready to merge into `main` (each passes its full suite). ShaftBeamWorkbench: check it out beside this repo, run `node scripts/sync-vendor.js`, then `scripts/test-all.sh --e2e`, and commit there.
+- GitHub Pages is still off for every new tool.
+
+### Not verified
+- PL-10 and the other speed targets on a real Chromebook (build machine: 0.3 s in headless Chromium for 20,000 records).
+- A real Google Sheets round trip (Q29); a synthetic Sheets-style file is tested.
+- Safari and Firefox; screen-reader listening (live regions and labels are checked structurally); hold and animation on a touch screen.
+
+### Proposed next step (needs approval)
+Create `billvanloo/PredictionLogCollector` and push its `main`. Then Phases 8 and 9 (the Gear Train Workbench and Truss Stress Visualizer upgrades) as their own goals.
+
 ## Phase 4.0 review checkpoint
 
 ### For review
@@ -196,7 +247,7 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 - QUESTIONS Q16 to Q18, Q33 and Q34.
 
 ## Next
-- Checkpoint C2 review, then Phase 7 (PredictionLogCollector) and checkpoint C.
+- Checkpoint C review. Then Phase 8 (Gear Train Workbench) and Phase 9 (Truss Stress Visualizer), as their own goals.
 
 ## Blocked
 - None.
@@ -205,10 +256,11 @@ Create the three GitHub repos (EngineeredByTheNumbers, ShaftBeamWorkbench, Motor
 | Repo | Unit | Verify | e2e |
 |---|---|---|---|
 | EngineeredByTheNumbers (spec check) | 222/222 | n/a | n/a |
-| EngineeredByTheNumbers (ecosystem) | 300/300 | current | demo 139/139 |
+| EngineeredByTheNumbers (ecosystem) | 307/307 | current | demo 139/139 |
 | ShaftBeamWorkbench | 75/75 | 6/6 | 102/102 |
 | MotorDriveMatcher | 84/84 | 6/6 | 121/121 |
 | FrictionScrewLab | 94/94 | 5/5 | 152/152 |
 | FlywheelBrakeLab | 73/73 | 5/5 | 119/119 |
 | ConveyorDesigner | 80/80 | 5/5 | 121/121 |
 | UnitsFormulaChecker | 119/119 | 4/4 | 92/92 |
+| PredictionLogCollector | 43/43 | 4/4 | 98/98 |

@@ -17,7 +17,7 @@ The formats are in [`schemas.md`](schemas.md).
 
 | File | What it is | Vendored into |
 |---|---|---|
-| `prediction-log.js` | Record builder, percent difference, attempts, JSON and CSV read and write, dedupe (spec 07 Part A) | every tool |
+| `prediction-log.js` | Record builder, percent difference, attempts, JSON and CSV read and write, dedupe (spec 07 Part A). Version 1.2 reads a CSV saved back from Google Sheets: blank rows are skipped, Sheets' dates are turned back into ISO time, and duplicates are matched on the wall-clock time, so a re-saved copy still matches its original | every tool |
 | `schemas.js` | Readers and builders for shaft-loads, drive-request, drive-result and saved design files | every tool |
 | `beam-core.js` | Reactions, shear, moment, torque, stress, safety factor, required diameter, deflection (spec 01 §3) | Shaft and Beam Workbench, later Conveyor Designer and Truss Stress Visualizer |
 | `motor-core.js` | DC motor line, gearing, load, ratio solver, duty bands, current and efficiency (spec 02 §3) | Motor and Drive Matcher, later Conveyor Designer and Gear Train Workbench |
