@@ -2,21 +2,21 @@
 
 Curriculum materials for the Principles of Engineering unit "Engineered by the Numbers." The unit teaches students to apply the fundamental math and physics of mechanical engineering through a series of example problems. Each problem has a browser tool that lets students predict, run, check and explain.
 
-This repository holds the curriculum side of the project: the unit materials, the specifications for the tools, and the shared file formats and code that connect the tools. Each tool lives in its own repository and works on its own.
+This repository holds the curriculum side of the project: the unit materials, the specifications for the tools, and the shared file formats and code that connect the tools. Each tool lives in its own repository, works on its own, and is published with GitHub Pages: use the Open links below, or download a tool's `index.html` to use it offline.
 
 ## The tools
 
-| Tool | Repository | Unit module | Status |
-|---|---|---|---|
-| Shaft and Beam Workbench | [ShaftBeamWorkbench](https://github.com/billvanloo/ShaftBeamWorkbench) | 4, 5 | v1.0.0 built, not yet published |
-| Motor and Drive Matcher | [MotorDriveMatcher](https://github.com/billvanloo/MotorDriveMatcher) | 1, 5 | v1.0.0 built, not yet published |
-| Friction and Screw Lab | [FrictionScrewLab](https://github.com/billvanloo/FrictionScrewLab) | 2 | v1.0.0 built, not yet published |
-| Flywheel Brake Lab | [FlywheelBrakeLab](https://github.com/billvanloo/FlywheelBrakeLab) | 3 | v1.0.0 built, not yet published |
-| Conveyor Designer | [ConveyorDesigner](https://github.com/billvanloo/ConveyorDesigner) | 5 (capstone) | v1.0.0 built, not yet published |
-| Units and Formula Checker | [UnitsFormulaChecker](https://github.com/billvanloo/UnitsFormulaChecker) | All | v1.0.0 built, not yet published |
-| Prediction Log Collector | [PredictionLogCollector](https://github.com/billvanloo/PredictionLogCollector) | All (teacher tool) | v1.0.0 built, not yet published |
-| Gear Train Workbench | [GearTrainWorkbench](https://github.com/billvanloo/GearTrainWorkbench) | 1, 5 | Existing; upgrades planned |
-| Truss Stress Visualizer | [TrussStressVisualizer](https://github.com/billvanloo/TrussStressVisualizer) | 0, 2, 4, 5 | Existing; upgrades planned |
+| Tool | Open it | Repository | Unit module | Status |
+|---|---|---|---|---|
+| Shaft and Beam Workbench | [Open](https://billvanloo.github.io/ShaftBeamWorkbench/) | [ShaftBeamWorkbench](https://github.com/billvanloo/ShaftBeamWorkbench) | 4, 5 | v1.0.0 |
+| Motor and Drive Matcher | [Open](https://billvanloo.github.io/MotorDriveMatcher/) | [MotorDriveMatcher](https://github.com/billvanloo/MotorDriveMatcher) | 1, 5 | v1.0.0 |
+| Friction and Screw Lab | [Open](https://billvanloo.github.io/FrictionScrewLab/) | [FrictionScrewLab](https://github.com/billvanloo/FrictionScrewLab) | 2 | v1.0.0 |
+| Flywheel Brake Lab | [Open](https://billvanloo.github.io/FlywheelBrakeLab/) | [FlywheelBrakeLab](https://github.com/billvanloo/FlywheelBrakeLab) | 3 | v1.0.0 |
+| Conveyor Designer | [Open](https://billvanloo.github.io/ConveyorDesigner/) | [ConveyorDesigner](https://github.com/billvanloo/ConveyorDesigner) | 5 (capstone) | v1.0.0 |
+| Units and Formula Checker | [Open](https://billvanloo.github.io/UnitsFormulaChecker/) | [UnitsFormulaChecker](https://github.com/billvanloo/UnitsFormulaChecker) | All | v1.0.0 |
+| Prediction Log Collector | [Open](https://billvanloo.github.io/PredictionLogCollector/) | [PredictionLogCollector](https://github.com/billvanloo/PredictionLogCollector) | All (teacher tool) | v1.0.0 |
+| Gear Train Workbench | [Open](https://billvanloo.github.io/GearTrainWorkbench/) | [GearTrainWorkbench](https://github.com/billvanloo/GearTrainWorkbench) | 1, 5 | Existing; upgrades planned |
+| Truss Stress Visualizer | — | [TrussStressVisualizer](https://github.com/billvanloo/TrussStressVisualizer) | 0, 2, 4, 5 | Existing; upgrades planned |
 
 ## How the tools connect
 
