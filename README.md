@@ -2,6 +2,8 @@
 
 Curriculum materials for the Principles of Engineering unit "Engineered by the Numbers." The unit teaches students to apply the fundamental math and physics of mechanical engineering through a series of example problems. Each problem has a browser tool that lets students predict, run, check and explain.
 
+**[Open the unit plan](https://billvanloo.github.io/EngineeredByTheNumbers/curriculum/engineered-by-the-numbers.html)**, the basis for the whole curriculum.
+
 This repository holds the curriculum side of the project: the unit materials, the specifications for the tools, and the shared file formats and code that connect the tools. Each tool lives in its own repository, works on its own, and is published with GitHub Pages: use the Open links below, or download a tool's `index.html` to use it offline.
 
 ## The tools
@@ -30,7 +32,7 @@ The tools pass work to each other as small JSON files, so no server or accounts 
 
 | Path | What it is |
 |---|---|
-| `curriculum/` | Unit materials (in progress) |
+| [`curriculum/`](curriculum/) | Unit materials (in progress). The unit plan is [published here](https://billvanloo.github.io/EngineeredByTheNumbers/curriculum/engineered-by-the-numbers.html) |
 | `engineered-by-the-numbers-tool-specs/` | Requirements spec for every tool, with mockups |
 | `ecosystem/` | Shared file formats, and the canonical copy of code used by more than one tool |
 | `scripts/` | Spec value check, vendoring script, and a test runner across all tool repos |
