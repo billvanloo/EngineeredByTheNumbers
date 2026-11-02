@@ -32,13 +32,14 @@ The tools pass work to each other as small JSON files, so no server or accounts 
 
 | Path | What it is |
 |---|---|
-| [`curriculum/`](curriculum/) | Unit materials (in progress). The unit plan is [published here](https://billvanloo.github.io/EngineeredByTheNumbers/curriculum/engineered-by-the-numbers.html) |
-| `engineered-by-the-numbers-tool-specs/` | Requirements spec for every tool, with mockups |
-| `ecosystem/` | Shared file formats, and the canonical copy of code used by more than one tool |
-| `scripts/` | Spec value check, vendoring script, and a test runner across all tool repos |
-| `PLAN.md`, `STATUS.md` | Build plan and progress |
-| `PLAN-REMAINING-TOOLS.md` | Detailed plan for the tools that are still spec-only (03 to 06 and the Collector) |
-| `ERRATA.md`, `QUESTIONS.md` | Spec corrections and open decisions for review |
+| [Unit plan](https://billvanloo.github.io/EngineeredByTheNumbers/curriculum/engineered-by-the-numbers.html) | The unit plan for "Engineered by the Numbers", the basis for the whole curriculum ([source on GitHub](https://github.com/billvanloo/EngineeredByTheNumbers/blob/main/curriculum/engineered-by-the-numbers.html)) |
+| [`curriculum/`](curriculum/) | Unit materials (in progress) |
+| [`engineered-by-the-numbers-tool-specs/`](engineered-by-the-numbers-tool-specs/) | Requirements spec for every tool, with mockups |
+| [`ecosystem/`](ecosystem/) | Shared file formats, and the canonical copy of code used by more than one tool |
+| [`scripts/`](https://github.com/billvanloo/EngineeredByTheNumbers/tree/main/scripts) | Spec value check, vendoring script, and a test runner across all tool repos |
+| [`PLAN.md`](PLAN.md), [`STATUS.md`](STATUS.md) | Build plan and progress |
+| [`PLAN-REMAINING-TOOLS.md`](PLAN-REMAINING-TOOLS.md) | Detailed plan for tools 03 to 06 and the Collector (Phases 4 to 7) |
+| [`ERRATA.md`](ERRATA.md), [`QUESTIONS.md`](QUESTIONS.md) | Spec corrections and open decisions for review |
 
 ## Development
 
