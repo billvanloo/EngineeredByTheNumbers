@@ -124,7 +124,7 @@ Pasted by the teacher into a tool's Settings (Challenges). The same list goes to
 
 ### Problem IDs
 
-A challenge's `id` is the record's `problemId`. IDs start with the tool's prefix, the same one its spec test cases use: `SB-`, `MD-`, `FS-`, `FB-`, `CD-`, `UF-`. Sandbox work stays `sandbox-<hash>`.
+A challenge's `id` is the record's `problemId`. IDs start with the tool's prefix, the same one its spec test cases use: `SB-`, `MD-`, `FS-`, `FB-`, `CD-`, `UF-`, and `WB-` for the Gear Train Workbench (`WB-1.1` … `WB-4.1` for its version 1 challenges, `WB-C1` … `WB-C9` for tier 5). Sandbox work stays `sandbox-<hash>`.
 
 ### Prediction quantities
 
@@ -149,6 +149,17 @@ The Collector groups records by `quantity`, so each tool uses these exact names 
 | | `shaft side load R` | N |
 | | `shaft safety factor n` | |
 | Units and Formula Checker | the line's variable name, for example `T` | the line's display unit |
+| Gear Train Workbench | `output speed N_out` | rpm |
+| | `output torque T_out` | N·cm |
+| | `overall efficiency eta` | % |
+| | `power lost P_lost` | W |
+| | `motor torque T_m` | N·cm |
+| | `motor speed N_m` | rpm |
+| | `lift speed v` | m/s |
+| | `centre distance a` | mm |
+| | `tangential force F_t` | N |
+| | `radial force F_r` | N |
+| | `mesh efficiency eta` (tier 5 WB-C6) | |
 
 ### Modules
 

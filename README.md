@@ -17,7 +17,7 @@ This repository holds the curriculum side of the project: the unit materials, th
 | Conveyor Designer | [Open](https://billvanloo.github.io/ConveyorDesigner/) | [ConveyorDesigner](https://github.com/billvanloo/ConveyorDesigner) | 5 (capstone) | v1.0.0 |
 | Units and Formula Checker | [Open](https://billvanloo.github.io/UnitsFormulaChecker/) | [UnitsFormulaChecker](https://github.com/billvanloo/UnitsFormulaChecker) | All | v1.0.0 |
 | Prediction Log Collector | [Open](https://billvanloo.github.io/PredictionLogCollector/) | [PredictionLogCollector](https://github.com/billvanloo/PredictionLogCollector) | All (teacher tool) | v1.0.0 |
-| Gear Train Workbench | [Open](https://billvanloo.github.io/GearTrainWorkbench/) | [GearTrainWorkbench](https://github.com/billvanloo/GearTrainWorkbench) | 1, 5 | Existing; upgrades planned |
+| Gear Train Workbench | [Open](https://billvanloo.github.io/GearTrainWorkbench/) | [GearTrainWorkbench](https://github.com/billvanloo/GearTrainWorkbench) | 1, 5 | Version 1 published; version 2 (spec 08 upgrades) on a branch for review |
 | Truss Stress Visualizer | [Open](https://www.billvanloo.com/util/TrussVisualizer/) | [TrussStressVisualizer](https://github.com/billvanloo/TrussStressVisualizer) | 0, 2, 4, 5 | Existing; upgrades planned |
 
 ## How the tools connect

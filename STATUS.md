@@ -2,12 +2,26 @@
 
 Progress record for `PLAN.md`. A resumed session starts here.
 
-**Current goal:** `PLAN-REMAINING-TOOLS.md` Phase 7 (PredictionLogCollector).
-**Current phase:** Phase 7 done, at checkpoint C (the end of `PLAN-REMAINING-TOOLS.md`). PredictionLogCollector is on GitHub, `main` at 789fc39. UnitsFormulaChecker (`main` db61389), ConveyorDesigner (`main` d373fe2), FlywheelBrakeLab (`main` 6058a56), FrictionScrewLab (`main` 71a1217) and MotorDriveMatcher (`main` 25faf23) are on GitHub with every shared update merged. Next, after review: Phase 8 (Gear Train Workbench upgrades) and Phase 9 (Truss Stress Visualizer upgrades), as their own goals.
+**Current goal:** `PLAN-UPGRADES.md` Phase 8 (Gear Train Workbench upgrades, spec 08).
+**Current phase:** Phase 8 done, waiting for review. GearTrainWorkbench version 2 is on its `claude/festive-hawking-uxdha3` branch (b7d918f); its `main` (what students use, 677888e) is unchanged until the teacher merges. Before that: Phase 7 done, checkpoint C (the end of `PLAN-REMAINING-TOOLS.md`). PredictionLogCollector is on GitHub, `main` at 789fc39. UnitsFormulaChecker (`main` db61389), ConveyorDesigner (`main` d373fe2), FlywheelBrakeLab (`main` 6058a56), FrictionScrewLab (`main` 71a1217) and MotorDriveMatcher (`main` 25faf23) are on GitHub with every shared update merged. Next, after review: Phase 9 (Truss Stress Visualizer upgrades).
 
 **Repos:** EngineeredByTheNumbers, ShaftBeamWorkbench and MotorDriveMatcher have been on GitHub under billvanloo since 2026-10-01. The Checkpoint B notes below about local-only repos are history.
 
 ## Done
+
+### Phase 8: GearTrainWorkbench version 2 (2026-11-02), branch `claude/festive-hawking-uxdha3`, commit b7d918f
+- Plan: `PLAN-UPGRADES.md` §1. Work is on the Workbench's `claude/festive-hawking-uxdha3` branch (not `ebtn-upgrades` as `PLAN.md` said: the session's branch), because `main` is published to students.
+- **Regression baseline first.** `dev/fixtures/baseline-v1.html` is the published page. `dev/regress.js` runs 67 scenarios in it and in the new page side by side (sandbox trains and error cases, every challenge with wrong and right predictions, save, version 1 and 2 files, PNG, report, refresh, keyboard building) and compares the readout, messages, working, screen-reader text, canvas pixels, sheet size, storage and files. A one-pixel drawing change fails 53 of them, so it's sensitive. `dev/test-upgrades.js` also solves 3,000 random trains with both solvers and requires identical results.
+- **Core** (`dev/solver.js`, new `dev/mech.js`): efficiency per stage, the DC motor operating point through the shared `motor-core.js` (so it matches the Motor and Drive Matcher exactly), load torque and spool, gear module with the mismatch rule, pulleys, timing pulleys and sprockets with belts and chains, tooth forces with directions from the sheet, shaft loads per shaft, the gear plate SVG in mm, the tier 5 pass conditions and prediction kinds. `dev/sync-inline.js` keeps the inline copies verbatim; `verify-html.js` checks them and the vendored `motor-core.js`, `prediction-log.js` and `schemas.js`.
+- **Interface:** an Advanced switch (off by default) with a panel for the motor, load, efficiency, module and pressure angle, torque unit, tooth forces and the exports; readout cells for efficiency, power lost, motor load and lift speed; a motor inset with duty bands; Show the working, the report and the PNG with the new outputs; extra gear sizes; pulleys and a Belt tool; a rising mass on the spool; tier 5 (WB-C1 to WB-C9); predict first in the sandbox; the prediction log; drive-request and drive-result loading; help and keys (T, B).
+- **Bugs found and fixed while testing:** the header grew a second line at 1500 px (Predict first moved to the Motor bar, so the sheet keeps its size at 1280 to 1920 px); table headings in capitals turned η into H; the canvas palette cache lacked the red and soft-ink colours, so force arrows drew white (now unit-checked); the spool animation reset could leave the mass at the bottom.
+- **Spec findings:** no WB value disagrees. WB-4b's resultant on the driven gear points at 290° in the schema's convention (mostly tangential), noted in the test. The spec's tests use 36T, 14T, 44T, 17T and 34T gears that the palette lacked (QUESTIONS Q41). QUESTIONS Q37 to Q43.
+- **Acceptance (spec 08 §8):**
+  - [x] Every existing challenge and saved file behaves identically with default settings: `regress.js` 67/67 against version 1, and the solver comparison.
+  - [x] All WB tests pass in Node (`test-upgrades.js` 127: WB-1 to WB-6 and every tier 5 challenge) and in the interface (`e2e-upgrades.js` 80, with WB-4c imported into the real Shaft and Beam Workbench).
+  - [x] New readouts appear in Show the working, predict first (sandbox targets and tier 5 prediction fields) and the report.
+  - [x] Keyboard access: every setting is a form control in the Advanced panel; T toggles tooth forces, B joins a belt; all in the help panel's key list.
+- **Definition of done:** the Workbench's own suites unchanged and passing (solver 29, logic 62, inline 21 and 62, e2e 18), plus test-upgrades 127, e2e-upgrades 80, regress 67; `scripts/test-all.sh` now runs a repo's extra `test-*`, `verify-*`, `e2e-*` and `regress.js` suites.
 
 ### Phase 7: PredictionLogCollector (2026-11-02), commit 789fc39
 - `~/PredictionLogCollector` (a sibling of this repo): `index.html` v1.0.0, `dev/core.js`, `dev/test.js`, `dev/verify-html.js`, `dev/e2e.js`, `dev/fixtures/` (a seeded class generator and the Sheets-style CSV), README, `docs/spec.md`, `docs/conventions.md`, screenshots.
@@ -220,6 +234,11 @@ The end of `PLAN-REMAINING-TOOLS.md`: Phases 4.0 to 7 are built.
 ### Proposed next step (needs approval)
 Phases 8 and 9 (the Gear Train Workbench and Truss Stress Visualizer upgrades) as their own goals.
 
+### For review (Phase 8)
+- **GearTrainWorkbench version 2** is on `claude/festive-hawking-uxdha3`. Merging it into `main` publishes it to students; with Advanced off they should notice only the Log button, Predict first in the Motor bar, and tier 5 after tier 4.
+- QUESTIONS Q37 to Q43, especially Q38 (module per gear) and Q39 (the gear plate's colours against the Laser Ready utility).
+- Not verified: the plate cut on a real laser; touch dragging of the new parts (keyboard and mouse were checked).
+
 ## Phase 4.0 review checkpoint
 
 ### For review
@@ -265,3 +284,4 @@ Phases 8 and 9 (the Gear Train Workbench and Truss Stress Visualizer upgrades) a
 | ConveyorDesigner | 80/80 | 5/5 | 121/121 |
 | UnitsFormulaChecker | 119/119 | 4/4 | 92/92 |
 | PredictionLogCollector | 43/43 | 4/4 | 98/98 |
+| GearTrainWorkbench (v2 branch) | solver 29/29, logic 62/62, upgrades 127/127 | 21/21, logic 62/62 | 18/18, upgrades 80/80, regress 67/67 |

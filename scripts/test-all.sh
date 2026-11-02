@@ -28,7 +28,18 @@ for repo in $(node -e "const m=require('$here/ecosystem/vendor-manifest.json');c
   echo "$repo"
   run "unit tests" "$dir" node dev/test.js
   run "inline copy" "$dir" node dev/verify-html.js
+  # A repo's extra suites (the Gear Train Workbench has several): dev/test-*.js and
+  # dev/verify-*.js always, dev/e2e-*.js and dev/regress.js with --e2e.
+  for f in "$dir"/dev/test-*.js "$dir"/dev/verify-*.js; do
+    [ -f "$f" ] || continue; b="$(basename "$f")"; [ "$b" = verify-html.js ] && continue
+    run "$b" "$dir" node "dev/$b"
+  done
   [ $e2e -eq 1 ] && run "browser (e2e)" "$dir" node dev/e2e.js
+  if [ $e2e -eq 1 ]; then
+    for f in "$dir"/dev/e2e-*.js "$dir"/dev/regress.js; do
+      [ -f "$f" ] || continue; b="$(basename "$f")"; run "$b" "$dir" node "dev/$b"
+    done
+  fi
 done
 echo
 if [ $fails -eq 0 ]; then echo "All checks passed."; else echo "$fails check(s) failed."; exit 1; fi

@@ -20,7 +20,7 @@ The formats are in [`schemas.md`](schemas.md).
 | `prediction-log.js` | Record builder, percent difference, attempts, JSON and CSV read and write, dedupe (spec 07 Part A). Version 1.2 reads a CSV saved back from Google Sheets: blank rows are skipped, Sheets' dates are turned back into ISO time, and duplicates are matched on the wall-clock time, so a re-saved copy still matches its original | every tool |
 | `schemas.js` | Readers and builders for shaft-loads, drive-request, drive-result and saved design files | every tool |
 | `beam-core.js` | Reactions, shear, moment, torque, stress, safety factor, required diameter, deflection (spec 01 §3) | Shaft and Beam Workbench, later Conveyor Designer and Truss Stress Visualizer |
-| `motor-core.js` | DC motor line, gearing, load, ratio solver, duty bands, current and efficiency (spec 02 §3) | Motor and Drive Matcher, later Conveyor Designer and Gear Train Workbench |
+| `motor-core.js` | DC motor line, gearing, load, ratio solver, duty bands, current and efficiency (spec 02 §3) | Motor and Drive Matcher, Conveyor Designer, Gear Train Workbench (version 2) |
 | `stats.js` | Mean, median, quantiles, standard deviation, summary, quadratic least-squares fit with R² and residuals | Friction and Screw Lab, Flywheel Brake Lab, Prediction Log Collector |
 | `plot.js` | Nice ticks, linear scales, and SVG axes, grid, points, lines and reference lines that use the tool's palette | Friction and Screw Lab, Flywheel Brake Lab, Prediction Log Collector |
 | `anim.js` | Animation clock: simulation time from frames, slow motion, pause when hidden, reduced motion, and a manual clock for tests | shell demo, Friction and Screw Lab, Flywheel Brake Lab, Conveyor Designer |
